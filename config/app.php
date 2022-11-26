@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'STR Funiture'),
+    'name' => env('APP_NAME', 'STR Furniture'),
 
     /*
     |--------------------------------------------------------------------------

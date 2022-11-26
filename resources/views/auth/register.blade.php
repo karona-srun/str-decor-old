@@ -1,9 +1,10 @@
 @extends('layouts.auth')
+@section('title-page','Register')
 
 @section('content')
     <div class="col-md-12 col-sm-12">
         <div class="card-header text-center ">
-            <a href="{{ url('/') }}" class="h1"><b>Admin</b>LTE</a>
+            <a href="{{ url('/') }}" class="h1"><b>{{ config('app.name', 'STR Funiture') }}</b></a>
         </div>
         <div class="card-body">
             <p class="login-box-msg">Registration</p>

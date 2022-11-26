@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('title-page','Home')
+
 @section('content')
 <div class="row">
     <div class="col-lg-3 col-6">

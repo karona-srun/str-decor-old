@@ -1,0 +1,24 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+@font-face
+{
+	font-family:MyriadWebPro;
+	src:url(MyriadWebPro.woff);
+}
+@font-face { 
+    font-family:Khmviravuth;
+    src:url(Khmviravuth.woff);
+}
+@font-face
+{
+	font-family:KhmerOS_battambang;
+	src:url(KhmerOS_battambang.woff);
+}
+@font-face
+{
+	font-family:KhmerOS_muollight;
+	src:url(KhmerOS_muollight.woff);
+}
+

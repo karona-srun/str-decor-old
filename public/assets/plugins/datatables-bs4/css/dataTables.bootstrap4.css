@@ -190,7 +190,7 @@ table.dataTable > thead .sorting_asc_disabled:after,
 table.dataTable > thead .sorting_desc_disabled:before,
 table.dataTable > thead .sorting_desc_disabled:after {
   position: absolute;
-  bottom: 0.9em;
+  bottom: 0.3em;
   display: block;
   opacity: 0.3;
 }
@@ -276,7 +276,7 @@ table.dataTable.table-sm .sorting_desc:after {
 }
 
 table.table-bordered.dataTable {
-  border-right-width: 0;
+  border-right-width: 1px;
 }
 table.table-bordered.dataTable th,
 table.table-bordered.dataTable td {

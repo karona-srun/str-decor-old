@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\WorkplaceController;
+use App\Models\Workplace;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +26,5 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/positions', PositionController::class);
 Route::post('/update-positions', [App\Http\Controllers\PositionController::class, 'updatePosition']);
+Route::resource('/workplace', WorkplaceController::class);
+Route::post('/update-workplace', [App\Http\Controllers\WorkplaceController::class, 'updateWorkplace']);

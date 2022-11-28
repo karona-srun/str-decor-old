@@ -35,11 +35,14 @@
                                     <td>{{ $item->updated_at->format('d-m-Y h:i:s A') }}</td>
                                     <td>
                                         <button class="btn btn-sm btn-primary editPosition" data-toggle="modal"
-                                            data-target="#modal-default-view" data-id="{{ $item->id }}"><i class="far fa-eye"></i></button>
+                                            data-target="#modal-default-view" data-id="{{ $item->id }}"><i
+                                                class="far fa-eye"></i></button>
                                         <button class="btn btn-sm btn-warning editPosition" data-toggle="modal"
-                                            data-target="#modal-default-edit" data-id="{{ $item->id }}"><i class="far fa-edit"></i></button>
+                                            data-target="#modal-default-edit" data-id="{{ $item->id }}"><i
+                                                class="far fa-edit"></i></button>
                                         <button class="btn btn-sm btn-danger deletePosition" data-toggle="modal"
-                                            data-target="#modal-default" data-id="{{ $item->id }}"><i class="far fa-trash-alt"></i></button>
+                                            data-target="#modal-default" data-id="{{ $item->id }}"><i
+                                                class="far fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -104,7 +107,7 @@
                         </div>
                         <div class="form-group">
                             <label>{{ __('app.label_status') }}</label>
-                            <select class="form-control select2bs4" name="status" style="width: 100%;">
+                            <select class="form-control select2bs4 selectItem" name="status" style="width: 100%;">
                                 <option value="0">{{ __('app.label_status_disabled') }}</option>
                                 <option value="1">{{ __('app.label_status_visibled') }}</option>
                             </select>
@@ -131,20 +134,21 @@
                 <form class="formDelete" action="foo" method="post">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
-                <div class="modal-header">
-                    <h5 class="modal-title text-bold">ផ្ទៀងផ្ទាត់</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>{{ __('app.label_confirm_delete') }}</p>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('app.btn_close') }}</button>
-                    <button type="submit" class="btn btn-primary">{{ __('app.btn_delete') }}</button>
-                </div>
-            </form>
+                    <div class="modal-header">
+                        <h5 class="modal-title text-bold">ផ្ទៀងផ្ទាត់</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{ __('app.label_confirm_delete') }}</p>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-danger"
+                            data-dismiss="modal">{{ __('app.btn_close') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('app.btn_delete') }}</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -159,33 +163,35 @@
                 }
             });
 
-            $(".editPosition").click(function(){
+            $(".editPosition").click(function() {
                 var id = $(this).data("id");
-                $('form .formUpdate').attr('action', 'workplace/'+id);
+                $('form .formUpdate').attr('action', 'workplace/' + id);
                 $.ajax({
                     type: "get",
-                    url: "workplace/"+id,
-                    success: function(response){
-                        console.log(response);
+                    url: "workplace/" + id,
+                    success: function(response) {
                         $('.id').val(response.id)
                         $('.name').val(response.name)
                         $('.note').val(response.note)
                         $('.name').html(response.name)
                         $('.note').html(response.note)
-                        $('.status').html(response.status == 0 ? "{{ __('app.label_status_disabled') }}":"{{ __('app.label_status_visibled') }}")
+                        $('.status').html(response.status == 0 ?
+                            "{{ __('app.label_status_disabled') }}" :
+                            "{{ __('app.label_status_visibled') }}")
                         $('.creator').html(response.created_by)
                         $('.created_at').html(response.created_at)
                         $('.updator').html(response.updated_by)
                         $('.updated_at').html(response.updated_at)
+                        $("select.selectItem").val(response.status == 0 ? 0 : 1).change();
                     }
                 });
             });
 
-            $(".deletePosition").click(function(){
+            $(".deletePosition").click(function() {
                 var id = $(this).data("id");
-                $('.formDelete').attr('action', 'workplace/'+id);
+                $('.formDelete').attr('action', 'workplace/' + id);
             });
-   
+
         });
     </script>
 @endsection

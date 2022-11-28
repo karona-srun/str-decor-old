@@ -54,8 +54,8 @@ return [
     'updated_at' => 'ធ្វើបច្ចុប្បន្នភាពនៅ',
 
     'label_confirm_delete' => 'តើអ្នកប្រាកដទេ ចង់លុបទិន្នន័យនេះ?',
-    '' => '',
-    '' => '',
-    '' => '',
+    'label_status' => 'ស្ថានភាព',
+    'label_status_disabled' => 'បិទ',
+    'label_status_visibled' => 'មើលឃើញ',
 
 ];

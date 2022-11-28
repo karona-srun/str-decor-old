@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.css') }}">
     <style>
@@ -234,9 +237,9 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/mailbox/read-mail.html" class="nav-link">
+                                    <a href="{{ url('/workplace') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Place</p>
+                                        <p>Work Place</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -391,6 +394,7 @@
     <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery-validation/additional-methods.min.js') }}"></script>
 
+    <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('assets/dist/js/adminlte.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -406,7 +410,14 @@
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     @yield('js')
     <script type="text/javascript">
-        $(function () {
+        $(function() {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
             $('#datatable').DataTable({
                 "paging": true,
                 "lengthChange": true,
@@ -450,8 +461,8 @@
             let seconds = myDate.getSeconds();
 
             let currentTime = `${hours}:${minutes}:${seconds} ${amOrPm}`;
-            document.getElementById('date').innerHTML = ' '+today+' ';
-            document.getElementById('time').innerHTML = ' '+currentTime;
+            document.getElementById('date').innerHTML = ' ' + today + ' ';
+            document.getElementById('time').innerHTML = ' ' + currentTime;
         }
         setInterval(showTime, 1000);
     </script>

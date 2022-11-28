@@ -40,6 +40,7 @@ return [
     'btn_delete' => 'លុប',
     'btn_view' => 'មើល',
 
-    'label_list' => 'បញ្ជី'
+    'label_list' => 'បញ្ជីរ',
+    'label_info' => 'ព័ត៍មាន'
 
 ];

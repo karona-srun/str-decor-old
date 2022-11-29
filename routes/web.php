@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BaseSalaryController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\WorkplaceController;
 use App\Models\Workplace;
@@ -28,3 +29,5 @@ Route::resource('/positions', PositionController::class);
 Route::post('/update-positions', [App\Http\Controllers\PositionController::class, 'updatePosition']);
 Route::resource('/workplace', WorkplaceController::class);
 Route::post('/update-workplace', [App\Http\Controllers\WorkplaceController::class, 'updateWorkplace']);
+Route::resource('/base-salary', BaseSalaryController::class);
+Route::post('/update-base-salary', [App\Http\Controllers\BaseSalaryController::class, 'updateBaseSalary']);

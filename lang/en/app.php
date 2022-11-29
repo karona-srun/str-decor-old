@@ -57,5 +57,6 @@ return [
     'label_status' => 'ស្ថានភាព',
     'label_status_disabled' => 'បិទ',
     'label_status_visibled' => 'មើលឃើញ',
+    'label_amount' => 'ចំនួនទឹកប្រាក់'
 
 ];

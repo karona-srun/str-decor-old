@@ -243,7 +243,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/mailbox/read-mail.html" class="nav-link">
+                                    <a href="{{ url('base-salary') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Base Salary</p>
                                     </a>

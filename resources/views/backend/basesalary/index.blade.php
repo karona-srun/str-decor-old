@@ -66,7 +66,7 @@
                 </div>
                 <div class="modal-body">
                     <dl>
-                        <dt>{{ __('app.position') }}:</dt>
+                        <dt>{{ __('app.label_name') }}:</dt>
                         <dd class="name text-primary"></dd>
                         <dt>{{ __('app.label_amount') }}:</dt>
                         <dd class="amount text-primary"></dd>

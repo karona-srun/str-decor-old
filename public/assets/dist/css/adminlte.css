@@ -13534,6 +13534,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 
 [class*="sidebar-dark"] .nav-legacy.nav-sidebar > .nav-item > .nav-link.active {
   color: #fff;
+  font-size: 16px;
 }
 
 [class*="sidebar-dark"] .nav-legacy .nav-treeview > .nav-item > .nav-link.active, [class*="sidebar-dark"] .nav-legacy .nav-treeview > .nav-item > .nav-link:focus, [class*="sidebar-dark"] .nav-legacy .nav-treeview > .nav-item > .nav-link:hover {

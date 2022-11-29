@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BaseSalaryController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\StaffInfoController;
 use App\Http\Controllers\WorkplaceController;
 use App\Models\Workplace;
 use Illuminate\Support\Facades\Auth;
@@ -31,3 +32,4 @@ Route::resource('/workplace', WorkplaceController::class);
 Route::post('/update-workplace', [App\Http\Controllers\WorkplaceController::class, 'updateWorkplace']);
 Route::resource('/base-salary', BaseSalaryController::class);
 Route::post('/update-base-salary', [App\Http\Controllers\BaseSalaryController::class, 'updateBaseSalary']);
+Route::resource('/staff-info', StaffInfoController::class);

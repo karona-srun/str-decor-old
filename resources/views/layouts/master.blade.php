@@ -200,7 +200,7 @@
                         </li>
                         <li class="nav-header mt-2">MENU</li>
                         <li class="nav-item">
-                            <a href="pages/widgets.html" class="nav-link">
+                            <a href="pages/widgets.html" class="nav-link active">
                                 <i class="nav-icon fas fa-th-large"></i>
                                 <span>
                                     Dashboard
@@ -225,7 +225,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="pages/mailbox/mailbox.html" class="nav-link">
+                                    <a href="{{ url('/staff-info') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Staff Info</p>
                                     </a>

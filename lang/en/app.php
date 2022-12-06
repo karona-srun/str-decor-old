@@ -31,8 +31,8 @@ return [
         'user_info' => 'ព័ត៍មានអ្នកប្រើប្រាស់',
         'role_permission' => 'តួនាទី ការអនុញ្ញាត',
     'setting' => '',
-        'option_income' => 'ជម្រើសការចំណូល',
-        'option_expend' => 'ជម្រើសការចំណាយ',
+        'income_options' => 'ជម្រើសនៃប្រាក់ចំណូល',
+        'expend_options' => 'ជម្រើសនៃប្រាក់ចំណាយ',
         'time' => 'ពេលវេលា',
 
     'btn_add' => 'បន្ថែមថ្មី',

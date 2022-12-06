@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\BaseSalaryController;
+use App\Http\Controllers\IncomeOptionsController;
+use App\Http\Controllers\OptionsIncomeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\StaffInfoController;
 use App\Http\Controllers\TimeController;
 use App\Http\Controllers\WorkplaceController;
+use App\Models\OptionsIncome;
 use App\Models\Workplace;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -37,3 +40,6 @@ Route::resource('/staff-info', StaffInfoController::class);
 Route::get('attachments/download/{file}', [App\Http\Controllers\AttachmentController::class, 'download']);
 Route::resource('/times', TimeController::class);
 Route::post('/update-times', [App\Http\Controllers\TimeController::class, 'updateTime']);
+Route::resource('/income-options', IncomeOptionsController::class);
+Route::post('/update-income-options', [App\Http\Controllers\IncomeOptionsController::class, 'updateOptionsIncome']);
+

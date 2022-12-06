@@ -338,7 +338,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="pages/search/simple.html" class="nav-link">
+                                    <a href="{{ url('income-options') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Options Income</p>
                                     </a>

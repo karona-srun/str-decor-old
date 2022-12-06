@@ -39,27 +39,6 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                        <i class="fas fa-search"></i>
-                    </a>
-                    <div class="navbar-search-block">
-                        <form class="form-inline">
-                            <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                                    aria-label="Search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-navbar" type="submit">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#" role="button">
                         <i class="far fa-calendar-alt"></i><small id="date"></small>
                         <i class="far fa-clock"></i><small id="time"></small>
@@ -67,8 +46,12 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-comments"></i>
-                        <span class="badge badge-danger navbar-badge">3</span>
+                        <img src="{{ asset('assets/dist/img/user1-128x128.jpg') }}" alt="User Avatar"
+                            class="img-size-40 img-thumbnail mr-1 img-circle" width="40px !important"
+                            style="margin-top: -8px;">
+
+                        <strong>{{ Auth::user()->name }}</strong>
+                        <i class="fas fa-angle-down right"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <a href="#" class="dropdown-item">
@@ -85,72 +68,31 @@
                                 </div>
                             </div>
                         </a>
-                        <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item">
-                            <div class="media">
-                                <img src="{{ asset('assets/dist/img/user8-128x128.jpg') }}" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        John Pierce
-                                        <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">I got your message bro</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
+                            <i class="far fa-circle nav-icon"></i>
+                            Profile Info
                         </a>
-                        <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item">
-                            <div class="media">
-                                <img src="{{ asset('assets/dist/img/user3-128x128.jpg') }}" alt="User Avatar"
-                                    class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Nora Silvester
-                                        <span class="float-right text-sm text-warning"><i
-                                                class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">The subject goes here</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
+                            <i class="far fa-circle nav-icon"></i>
+                            Languages
                         </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-bell"></i>
-                        <span class="badge badge-warning navbar-badge">15</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header">15 Notifications</span>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-envelope mr-2"></i> 4 new messages
-                            <span class="float-right text-muted text-sm">3 mins</span>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            <i class="far fa-circle nav-icon"></i>
+                            {{ __('Logout') }}
                         </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-users mr-2"></i> 8 friend requests
-                            <span class="float-right text-muted text-sm">12 hours</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-file mr-2"></i> 3 new reports
-                            <span class="float-right text-muted text-sm">2 days</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                     </div>
                 </li>
             </ul>
         </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-2">
-            <a href="index3.html" class="brand-link">
-                <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+            <a href="{{ url('/home') }}" class="brand-link">
+                <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="STR Furniture"
                     class="brand-image img-circle" style="opacity: .8">
                 <span class="brand-text font-weight-light">STR Furniture</span>
             </a>
@@ -159,51 +101,14 @@
                 <nav>
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon">
-                                    <img src="{{ asset('assets/dist/img/user2-160x160.jpg') }}"
-                                        class="img-circle img-size-32" alt="User Image">
-                                </i>
-                                <p>
-                                    {{ Auth::user()->name }}
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Profile Info</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Languages</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">
-                                        @csrf
-                                    </form>
-                                </li>
-                            </ul>
+                        <li class="nav-header mt-2">
+                            <h6>{{ __('app.menu') }}</h6>
                         </li>
-                        <li class="nav-header mt-2">MENU</li>
                         <li class="nav-item">
                             <a href="pages/widgets.html" class="nav-link active">
                                 <i class="nav-icon fas fa-th-large"></i>
                                 <span>
-                                    Dashboard
+                                    {{ __('app.dashboard') }}
                                 </span>
                             </a>
                         </li>
@@ -211,7 +116,7 @@
                             <a href="pages/widgets.html" class="nav-link">
                                 <i class="nav-icon fas fa-solar-panel"></i>
                                 <p>
-                                    Sale's Dashboard
+                                    {{ __('app.sale_dashboard') }}
                                 </p>
                             </a>
                         </li>
@@ -219,7 +124,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon far fa-user"></i>
                                 <p>
-                                    Staff Management
+                                    {{ __('app.staff_management') }}
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
@@ -227,25 +132,25 @@
                                 <li class="nav-item">
                                     <a href="{{ url('/staff-info') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Staff Info</p>
+                                        <p>{{ __('app.staff_info') }}</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('positions') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Positions</p>
+                                        <p>{{ __('app.position') }}</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('/workplace') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Work Place</p>
+                                        <p>{{ __('app.work_place') }}</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('base-salary') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Base Salary</p>
+                                        <p>{{ __('app.base_salary') }}</p>
                                     </a>
                                 </li>
                             </ul>
@@ -254,7 +159,7 @@
                             <a href="pages/widgets.html" class="nav-link">
                                 <i class="nav-icon fas fa-business-time"></i>
                                 <p>
-                                    Attendances
+                                    {{ __('app.attendance') }}
                                 </p>
                             </a>
                         </li>
@@ -262,7 +167,7 @@
                             <a href="pages/widgets.html" class="nav-link">
                                 <i class="nav-icon fas fa-dollar-sign"></i>
                                 <p>
-                                    Payroll
+                                    {{ __('app.payroll') }}
                                 </p>
                             </a>
                         </li>
@@ -270,7 +175,7 @@
                             <a href="pages/widgets.html" class="nav-link">
                                 <i class="nav-icon fas fa-shopping-cart"></i>
                                 <p>
-                                    Sale
+                                    {{ __('app.sales') }}
                                 </p>
                             </a>
                         </li>
@@ -278,7 +183,7 @@
                             <a href="pages/widgets.html" class="nav-link">
                                 <i class="nav-icon fas fa-cube"></i>
                                 <p>
-                                    Stock
+                                    {{ __('app.stock') }}
                                 </p>
                             </a>
                         </li>
@@ -286,21 +191,21 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-money-check-alt"></i>
                                 <p>
-                                    Income & Expend
+                                    {{ __('app.income_expend') }}
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="pages/examples/legacy-user-menu.html" class="nav-link">
+                                    <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Income Info</p>
+                                        <p>{{ __('app.income_info') }}</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/examples/language-menu.html" class="nav-link">
+                                    <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Expend Info</p>
+                                        <p>{{ __('app.expend_info') }}</p>
                                     </a>
                                 </li>
                             </ul>
@@ -309,7 +214,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
-                                    User Management
+                                    {{ __('app.user_management') }}
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
@@ -317,13 +222,13 @@
                                 <li class="nav-item">
                                     <a href="pages/search/simple.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>User Info</p>
+                                        <p>{{ __('app.user_info') }}</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="pages/search/enhanced.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Role & Permission</p>
+                                        <p>{{ __('app.role_permission') }}</p>
                                     </a>
                                 </li>
                             </ul>
@@ -332,7 +237,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-cogs"></i>
                                 <p>
-                                    Settings
+                                    {{ __('app.settings') }}
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
@@ -340,19 +245,19 @@
                                 <li class="nav-item">
                                     <a href="{{ url('income-options') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Income Options</p>
+                                        <p>{{ __('app.income_options') }}</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('expend-options') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Expend Options</p>
+                                        <p>{{ __('app.expend_options') }}</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('times') }}" class="nav-link">
                                         <i class="far fa-clock nav-icon"></i>
-                                        <p>Times</p>
+                                        <p>{{ __('app.time') }}</p>
                                     </a>
                                 </li>
                             </ul>

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title-page','Home')
+@section('title-page','ទំព័រដើម')
 
 @section('content')
 <div class="row">

@@ -132,17 +132,13 @@ class StaffInfoController extends Controller
             {
                 $imageName = 'staff_info_'.time().rand(1,99999).'.'.$image->getClientOriginalExtension();  
                 $image->move(public_path('attachments'), $imageName);
-                $images[]['name'] = $imageName;
+                $attachment = new Attachment();
+                $attachment->name = $imageName;
+                $attachment->path = $image;
+                $attachment->type_id = $staffInfo->id;
+                $attachment->type = 'staff_info';
+                $attachment->save();
             }
-        }
-
-        $attachment = new Attachment();
-        foreach ($images as $key => $image) { 
-            $attachment->type = 'staff-info';
-            $attachment->type_id = $staffInfo->id;
-            $attachment->name = $images[$key];
-            $attachment->path = $images[$key];
-            $attachment->save();
         }
 
         return redirect('/staff-info')->with('status', 'Staff Info has been created!');

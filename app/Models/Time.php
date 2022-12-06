@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StaffInfo extends Model
+class Time extends Model
 {
     use HasFactory;
 
@@ -17,15 +17,5 @@ class StaffInfo extends Model
     public function updator()
     {
         return $this->belongsTo(User::class,'updated_by');
-    }
-
-    public function positions()
-    {
-        return $this->belongsTo(Position::class,'position');
-    }
-
-    public function workplaces()
-    {
-        return $this->belongsTo(Workplace::class,'work_place');
     }
 }

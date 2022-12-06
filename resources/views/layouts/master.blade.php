@@ -350,7 +350,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/search/enhanced.html" class="nav-link">
+                                    <a href="{{ url('times') }}" class="nav-link">
                                         <i class="far fa-clock nav-icon"></i>
                                         <p>Times</p>
                                     </a>
@@ -379,12 +379,7 @@
         </div>
         </section>
     </div>
-    <footer class="main-footer">
-        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-        All rights reserved.
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 3.2.0
-        </div>
+    <footer class="mt-3">
     </footer>
 
     </div>

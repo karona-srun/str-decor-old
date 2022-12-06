@@ -2012,6 +2012,17 @@ pre code {
 .table-responsive > .table-bordered {
   border: 0;
 }
+.form-no-border{
+  height: 35px !important;
+  border: 1px solid #FFFFFF !important;
+}
+.hide{
+  display: none;
+}
+
+.table th, .table td{
+  padding: 0.4rem 0.5rem !important;
+}
 
 .form-control {
   display: block;
@@ -44511,7 +44522,13 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
 .img-bordered {
   border: 3px solid #adb5bd;
   padding: 3px;
+  object-fit: cover;
 }
+
+.img-bordered:hover {
+  cursor: pointer;
+}
+
 
 .img-bordered-sm {
   border: 2px solid #adb5bd;

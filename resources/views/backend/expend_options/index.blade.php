@@ -1,15 +1,15 @@
 @extends('layouts.master')
 
-@section('title-page', __('app.income_options'))
+@section('title-page', __('app.expend_options'))
 
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.income_options') }}</h3>
+                    <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.expend_options') }}</h3>
                     <div class="card-tools">
-                        <a href="{{ url('income-options/create') }}" class="btn btn-primary"> <i class=" fas fa-plus"></i>
+                        <a href="{{ url('expend-options/create') }}" class="btn btn-primary"> <i class=" fas fa-plus"></i>
                             {{ __('app.btn_add') }}</a>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($incomes as $i => $item)
+                            @foreach ($expends as $i => $item)
                                 <tr>
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $item->name }}</td>
@@ -34,10 +34,10 @@
                                     <td>{{ $item->created_at->format('d-m-Y h:i:s A') }}</td>
                                     <td>{{ $item->updated_at->format('d-m-Y h:i:s A') }}</td>
                                     <td>
-                                        <button class="btn btn-sm btn-primary editIncome" data-toggle="modal"
+                                        <button class="btn btn-sm btn-primary editExpend" data-toggle="modal"
                                             data-target="#modal-default-view" data-id="{{ $item->id }}"><i
                                                 class="far fa-eye"></i></button>
-                                        <button class="btn btn-sm btn-warning editIncome" data-toggle="modal"
+                                        <button class="btn btn-sm btn-warning editExpend" data-toggle="modal"
                                             data-target="#modal-default-edit" data-id="{{ $item->id }}"><i
                                                 class="far fa-edit"></i></button>
                                         <button class="btn btn-sm btn-danger deleteIncome" data-toggle="modal"
@@ -89,12 +89,12 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ __('app.btn_edit') }}{{ __('app.income_options') }}</h5>
+                    <h5 class="modal-title">{{ __('app.btn_edit') }}{{ __('app.expend_options') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="quickForm" action="{{ url('/update-income-options') }}" method="post">
+                <form id="quickForm" action="{{ url('/update-expend-options') }}" method="post">
                     {{ csrf_field() }}
                     <div class="modal-body">
                         <input type="hidden" name="id" id="id" class="id">
@@ -154,12 +154,12 @@
                 }
             });
 
-            $(".editIncome").click(function() {
+            $(".editExpend").click(function() {
                 var id = $(this).data("id");
-                $('form .formUpdate').attr('action', 'income-options/' + id);
+                $('form .formUpdate').attr('action', 'expend-options/' + id);
                 $.ajax({
                     type: "get",
-                    url: "income-options/" + id,
+                    url: "expend-options/" + id,
                     success: function(response) {
                         console.log(response);
                         $('.id').val(response.id)
@@ -177,7 +177,7 @@
 
             $(".deleteIncome").click(function() {
                 var id = $(this).data("id");
-                $('.formDelete').attr('action', 'income-options/' + id);
+                $('.formDelete').attr('action', 'expend-options/' + id);
             });
 
         });

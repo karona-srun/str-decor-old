@@ -340,13 +340,13 @@
                                 <li class="nav-item">
                                     <a href="{{ url('income-options') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Options Income</p>
+                                        <p>Income Options</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/search/enhanced.html" class="nav-link">
+                                    <a href="{{ url('expend-options') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Options Expend</p>
+                                        <p>Expend Options</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">

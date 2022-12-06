@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BaseSalaryController;
+use App\Http\Controllers\ExpendOptionsController;
 use App\Http\Controllers\IncomeOptionsController;
 use App\Http\Controllers\OptionsIncomeController;
 use App\Http\Controllers\PositionController;
@@ -42,4 +43,7 @@ Route::resource('/times', TimeController::class);
 Route::post('/update-times', [App\Http\Controllers\TimeController::class, 'updateTime']);
 Route::resource('/income-options', IncomeOptionsController::class);
 Route::post('/update-income-options', [App\Http\Controllers\IncomeOptionsController::class, 'updateOptionsIncome']);
+Route::resource('/expend-options', ExpendOptionsController::class);
+Route::post('/update-expend-options', [App\Http\Controllers\ExpendOptionsController::class, 'updateExpendOptions']);
+
 

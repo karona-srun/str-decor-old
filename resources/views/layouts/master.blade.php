@@ -46,7 +46,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
-                        <img src="{{ asset('assets/dist/img/user1-128x128.jpg') }}" alt="User Avatar"
+                        <img src="{{ asset('images/avatar.png') }}" alt="User Avatar"
                             class="img-size-40 img-thumbnail mr-1 img-circle" width="40px !important"
                             style="margin-top: -8px;">
 
@@ -56,7 +56,7 @@
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <a href="#" class="dropdown-item">
                             <div class="media">
-                                <img src="{{ asset('assets/dist/img/user1-128x128.jpg') }}" alt="User Avatar"
+                                <img src="{{ asset('images/avatar.png') }}" alt="User Avatar"
                                     class="img-size-50 mr-3 img-circle">
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">

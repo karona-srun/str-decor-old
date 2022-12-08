@@ -23,7 +23,7 @@
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="text-center mb-2 container">
-                                        <img id="blah" src="{{ asset('assets/dist/img/user8-128x128.jpg') }}"
+                                        <img id="blah" src="{{ asset('images/avatar.png') }}"
                                             width="150px"​ height="150px" class="rounded-circle img-bordered"
                                             alt="" srcset="">
                                         <input type="file" name="photo" id="imgInp" accept="image/*"

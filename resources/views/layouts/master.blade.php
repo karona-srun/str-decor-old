@@ -99,13 +99,13 @@
 
             <div class="sidebar">
                 <nav>
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-header mt-2">
                             <h6>{{ __('app.menu') }}</h6>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/widgets.html" class="nav-link active">
+                            <a href="{{ url('home') }}" class="nav-link {{ Request::is('home') ? 'active' : null }}">
                                 <i class="nav-icon fas fa-th-large"></i>
                                 <span>
                                     {{ __('app.dashboard') }}
@@ -120,8 +120,8 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                        <li class="nav-item {{ Request::is('staff-info*') || Request::is('positions*')|| Request::is('workplace*')|| Request::is('base-salary*') ? 'menu-is-opening menu-open' : null }} ">
+                            <a href="#" class="nav-link {{ Request::is('staff-info*') || Request::is('positions*')|| Request::is('workplace*')|| Request::is('base-salary*') ? 'active' : null }} ">
                                 <i class="nav-icon far fa-user"></i>
                                 <p>
                                     {{ __('app.staff_management') }}
@@ -130,44 +130,42 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('/staff-info') }}" class="nav-link">
+                                    <a href="{{ url('/staff-info') }}" class="nav-link {{ Request::is('staff-info*') ? 'active' : null }} ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>{{ __('app.staff_info') }}</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('positions') }}" class="nav-link">
+                                    <a href="{{ url('positions') }}" class="nav-link {{ Request::is('positions*') ? 'active' : null }} ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>{{ __('app.position') }}</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('/workplace') }}" class="nav-link">
+                                    <a href="{{ url('/workplace') }}" class="nav-link {{ Request::is('workplace*') ? 'active' : null }} ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>{{ __('app.work_place') }}</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('base-salary') }}" class="nav-link">
+                                    <a href="{{ url('base-salary') }}" class="nav-link {{ Request::is('base-salary*') ? 'active' : null }} ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>{{ __('app.base_salary') }}</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('payroll') }}" class="nav-link">
+                                        <i class="fas fa-dollar-sign nav-icon"></i>
+                                        <p>{{ __('app.payroll') }}</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('attendances') }}" class="nav-link">
+                            <a href="{{ url('attendances') }}" class="nav-link {{ Request::is('attendances*') ? 'active' : null }} ">
                                 <i class="nav-icon fas fa-business-time"></i>
                                 <p>
                                     {{ __('app.attendance') }}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/widgets.html" class="nav-link">
-                                <i class="nav-icon fas fa-dollar-sign"></i>
-                                <p>
-                                    {{ __('app.payroll') }}
                                 </p>
                             </a>
                         </li>
@@ -233,8 +231,8 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                        <li class="nav-item {{ Request::is('income-options*') || Request::is('expend-options*') || Request::is('times*')  ? 'menu-is-opening menu-open' : null }} ">
+                            <a href="#" class="nav-link {{ Request::is('income-options*') || Request::is('expend-options*') || Request::is('times*')  ? 'active' : null }} ">
                                 <i class="nav-icon fas fa-cogs"></i>
                                 <p>
                                     {{ __('app.settings') }}
@@ -243,19 +241,19 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('income-options') }}" class="nav-link">
+                                    <a href="{{ url('income-options') }}" class="nav-link {{ Request::is('income-options*') ? 'active' : null }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>{{ __('app.income_options') }}</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('expend-options') }}" class="nav-link">
+                                    <a href="{{ url('expend-options') }}" class="nav-link {{ Request::is('expend-options*') ? 'active' : null }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>{{ __('app.expend_options') }}</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('times') }}" class="nav-link">
+                                    <a href="{{ url('times') }}" class="nav-link {{ Request::is('times*') ? 'active' : null }} ">
                                         <i class="far fa-clock nav-icon"></i>
                                         <p>{{ __('app.time') }}</p>
                                     </a>

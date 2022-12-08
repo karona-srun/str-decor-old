@@ -156,7 +156,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/widgets.html" class="nav-link">
+                            <a href="{{ url('attendances') }}" class="nav-link">
                                 <i class="nav-icon fas fa-business-time"></i>
                                 <p>
                                     {{ __('app.attendance') }}
@@ -312,12 +312,15 @@
     <script type="text/javascript">
         $(function() {
             //Initialize Select2 Elements
-            $('.select2').select2()
+            // $('.select2').select2({
+                
+            // })
 
             //Initialize Select2 Elements
             $('.select2bs4').select2({
                 theme: 'bootstrap4'
             })
+
             $('#datatable').DataTable({
                 "paging": true,
                 "lengthChange": true,

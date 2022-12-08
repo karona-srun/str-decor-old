@@ -4,10 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class StaffInfo extends Model
 {
     use HasFactory;
+
+    protected $appends = ['full_name','full_name_kh'];
+
+    public function getFullNameAttribute() {
+        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
+    }
+
+    public function getFullNameKhAttribute() {
+        return $this->last_name_kh.' '.$this->first_name_kh;
+    }
 
     public function creator()
     {

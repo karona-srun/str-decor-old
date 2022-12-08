@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\BaseSalaryController;
 use App\Http\Controllers\ExpendOptionsController;
 use App\Http\Controllers\IncomeOptionsController;
@@ -45,5 +46,9 @@ Route::resource('/income-options', IncomeOptionsController::class);
 Route::post('/update-income-options', [App\Http\Controllers\IncomeOptionsController::class, 'updateOptionsIncome']);
 Route::resource('/expend-options', ExpendOptionsController::class);
 Route::post('/update-expend-options', [App\Http\Controllers\ExpendOptionsController::class, 'updateExpendOptions']);
+
+Route::resource('/attendances', AttendanceController::class);
+Route::get('list-staff', [App\Http\Controllers\AttendanceController::class, 'listStaff']);
+Route::post('/update-attendance', [App\Http\Controllers\AttendanceController::class, 'updateAttendances']);
 
 

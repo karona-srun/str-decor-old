@@ -5,6 +5,7 @@ use App\Http\Controllers\BaseSalaryController;
 use App\Http\Controllers\ExpendOptionsController;
 use App\Http\Controllers\IncomeOptionsController;
 use App\Http\Controllers\OptionsIncomeController;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\StaffInfoController;
 use App\Http\Controllers\TimeController;
@@ -46,9 +47,8 @@ Route::resource('/income-options', IncomeOptionsController::class);
 Route::post('/update-income-options', [App\Http\Controllers\IncomeOptionsController::class, 'updateOptionsIncome']);
 Route::resource('/expend-options', ExpendOptionsController::class);
 Route::post('/update-expend-options', [App\Http\Controllers\ExpendOptionsController::class, 'updateExpendOptions']);
-
 Route::resource('/attendances', AttendanceController::class);
 Route::get('list-staff', [App\Http\Controllers\AttendanceController::class, 'listStaff']);
+Route::get('/filter-attendances/{id}', [App\Http\Controllers\AttendanceController::class, 'filterAttendances']);
 Route::post('/update-attendance', [App\Http\Controllers\AttendanceController::class, 'updateAttendances']);
-
-
+Route::resource('/payroll', PayrollController::class);

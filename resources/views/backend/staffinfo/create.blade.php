@@ -164,7 +164,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>{{ __('app.position') }} <small class="text-red">*</small></label>
                                                 <select class="form-control select2bs4" name="position"
@@ -180,7 +180,7 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>{{ __('app.work_place') }} <small
                                                         class="text-red">*</small></label>
@@ -197,20 +197,27 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>{{ __('app.base_salary') }} <small
                                                         class="text-red">*</small></label>
-                                                <select class="form-control select2bs4" name="base_salary"
-                                                    style="width: 100%;">
-                                                    @foreach ($baseSalary as $item)
-                                                        <option value="{{ $item->id }}" selected="selected">
-                                                            {{ $item->name }} : {{ $item->amount }}$</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="number" class="form-control" name="base_salary" placeholder="{{ __('app.label_required') }}{{ __('app.base_salary') }}">
                                                 @if ($errors->has('base_salary'))
                                                     <div class="error text-danger text-sm mt-1">
                                                         {{ $errors->first('base_salary') }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>{{ __('app.rate_per_hour') }} <small
+                                                        class="text-red">*</small></label>
+                                                <input type="number" class="form-control" name="rate_per_hour" placeholder="{{ __('app.label_required') }}{{ __('app.rate_per_hour') }}">
+                                                @if ($errors->has('rate_per_hour'))
+                                                    <div class="error text-danger text-sm mt-1">
+                                                        {{ $errors->first('rate_per_hour') }}</div>
                                                 @endif
                                             </div>
                                         </div>

@@ -30,6 +30,16 @@ class StaffInfo extends Model
         return $this->belongsTo(User::class,'updated_by');
     }
 
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class,'staff_id')->where('status', 'presence');
+    }
+
+    public function sumAttendance($id)
+    {
+        return Attendance::where('staff_id',$id)->sum('num_hour');
+    }
+
     public function positions()
     {
         return $this->belongsTo(Position::class,'position');

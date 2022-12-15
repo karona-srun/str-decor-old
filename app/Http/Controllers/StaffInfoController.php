@@ -73,6 +73,7 @@ class StaffInfoController extends Controller
             'position' =>'required',
             'work_place' =>'required',
             'base_salary' =>'required',
+            'rate_per_hour' => 'required',
             'work_time' =>'required',
             'start_work' =>'required',
         ],[
@@ -89,6 +90,7 @@ class StaffInfoController extends Controller
             'position.required' => __('app.position').' '.__('app.required'),
             'work_place.required' => __('app.work_place').' '.__('app.required'),
             'base_salary.required' => __('app.base_salary').' '.__('app.required'),
+            'rate_per_hour.required' => __('app.rate_per_hour').' '.__('app.required'),
             'work_time.required' => __('app.work_time').' '.__('app.required'),
             'start_work.required' => __('app.start_work').' '.__('app.required'),
         ]);
@@ -117,6 +119,7 @@ class StaffInfoController extends Controller
         $staffInfo->current_place = $request->current_place;
         $staffInfo->position = $request->position;
         $staffInfo->work_place = $request->work_place;
+        $staffInfo->rate_per_hour = $request->rate_per_hour;
         $staffInfo->base_salary = $request->base_salary;
         $staffInfo->work_time = $request->work_time;
         $staffInfo->start_work = $request->start_work;
@@ -202,6 +205,7 @@ class StaffInfoController extends Controller
             'position' =>'required',
             'work_place' =>'required',
             'base_salary' =>'required',
+            'rate_per_hour' => 'required',
             'start_work' =>'required',
             'work_time' =>'required',
         ],[
@@ -218,6 +222,7 @@ class StaffInfoController extends Controller
             'position.required' => __('app.position').' '.__('app.required'),
             'work_place.required' => __('app.work_place').' '.__('app.required'),
             'base_salary.required' => __('app.base_salary').' '.__('app.required'),
+            'rate_per_hour.required' => __('app.rate_per_hour').' '.__('app.required'),
             'start_work.required' => __('app.start_time').' '.__('app.required'),
             'work_time.required' => __('app.work_time').' '.__('app.required'),
         ]);
@@ -250,6 +255,7 @@ class StaffInfoController extends Controller
         $staffInfo->current_place = $request->current_place;
         $staffInfo->position = $request->position;
         $staffInfo->work_place = $request->work_place;
+        $staffInfo->rate_per_hour = $request->rate_per_hour;
         $staffInfo->base_salary = $request->base_salary;
         $staffInfo->work_time = $request->work_time;
         $staffInfo->start_work = $request->start_work;

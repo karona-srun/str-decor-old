@@ -17,12 +17,12 @@
                     <table id="datatable" class="table table-bordered table-striped" width="100%">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Name</th>
-                                <th>Note</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
-                                <th></th>
+                                <th>{{ __('app.table_no') }}</th>
+                                <th>{{ __('app.label_name') }}</th>
+                                <th>{{ __('app.label_note') }}</th>
+                                <th>{{ __('app.created_at') }}</th>
+                                <th>{{ __('app.updated_at') }}</th>
+                                <th>{{ __('app.table_action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -157,7 +157,6 @@
                     type: "get",
                     url: "positions/"+id,
                     success: function(response){
-                        console.log(response);
                         $('.id').val(response.id)
                         $('.name').val(response.name)
                         $('.note').val(response.note)

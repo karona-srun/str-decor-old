@@ -58,6 +58,8 @@ return [
     'table_checkin' => 'ម៉ោងចូល',
     'table_checkout' => 'ម៉ោងចេញ',
 
+    'label_not_yet' => 'មិនទាន់',
+    'label_paid' => 'បានបើក',
     'label_presence' => 'វត្តមាន',
     'label_adsent' => 'អវត្តមាន',
     'label_permission' => 'ច្បាប់',
@@ -90,6 +92,8 @@ return [
     'stop_work' => 'ថ្ងៃខែឆ្នាំឈប់',
     'attachments' => 'ឯកសារភ្ជាប់',
     'choose_file' => 'ជ្រើសរើសឯកសារ',
+    'rate_per_hour' => 'អត្រាក្នុងមួយម៉ោង',
+    'num_hour' => 'ចំនួនម៉ោង',
 
     'label_confirm_delete' => 'តើអ្នកប្រាកដទេ ចង់លុបទិន្នន័យនេះ?',
     'label_status' => 'ស្ថានភាព',

@@ -45,6 +45,7 @@ return [
     'btn_close' => 'បិទ',
     'btn_cancel' => 'បោះបង់',
     'btn_browser' => 'ជ្រើសរើសរូបភាព',
+    'btn_print' => 'បោះពុម្ព',
 
     'table_no' => 'ល.រ',
     'table_name' => 'Name',
@@ -68,6 +69,7 @@ return [
     'label_name' => 'ឈ្មោះ',
     'label_note' => 'ចំណាំ',
     'label_no' => 'ល.រ',
+    'label_amount' => 'ចំនួនទឹកប្រាក់',
     'label_start_time' => 'ពេលវេលាចាប់ផ្តើម',
     'label_end_time' => 'ពេល​វេលា​បញ្ចប់',
     'label_required' => 'បំពេញ',

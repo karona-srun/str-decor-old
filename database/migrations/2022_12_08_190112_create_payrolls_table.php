@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('staff_id');
             $table->string('payroll_status');
             $table->decimal('rate_salary',8,2);
-            $table->decimal('total_hour');
+            $table->tinyInteger('total_hour');
             $table->decimal('total_salary',8,2);
             $table->date('date');
             $table->string('note')->nullable();

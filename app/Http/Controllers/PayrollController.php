@@ -28,11 +28,13 @@ class PayrollController extends Controller
      */
     public function index()
     {
-        $staffs = StaffInfo::with('attendances')->get();
+        // $staffs = StaffInfo::with('attendances')->get();
 
         // dd($staffs);
 
-        return view('backend.payroll.index', compact('staffs'));
+        $payroll = Payroll::orderBy('id','desc')->with('staff')->get();
+
+        return view('backend.payroll.index', compact('payroll'));
     }
 
     /**
@@ -57,8 +59,6 @@ class PayrollController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
         $payroll = new Payroll();
         $payroll->staff_id = $request->staff;
         $payroll->payroll_status = $request->payroll_status;;
@@ -80,9 +80,24 @@ class PayrollController extends Controller
      * @param  \App\Models\Payroll  $payroll
      * @return \Illuminate\Http\Response
      */
-    public function show(Payroll $payroll)
+    public function show($id)
     {
-        //
+        $payroll = Payroll::find($id);
+        $staff = StaffInfo::find($payroll->staff_id);
+
+        $data = Attendance::orderBy('date', 'desc')->where('staff_id',$payroll->staff_id)->get();
+       
+        foreach ($data as $i => $value) {
+            $data[$i]['staff_id'] = $value->staff->full_name_kh;
+            $data[$i]['check_in'] = $value->check_in ?? '';
+            $data[$i]['check_out'] = $value->check_out ?? '';
+            $data[$i]['num_hour'] = $value->num_hour ?? '';
+            $data[$i]['note'] = $value->note ?? '';
+            $data[$i]['total_num_hour'] = (int) $value->sumAttendance($value->staff->id);
+            $data[$i]['total_salary'] = bcadd($value->sumAttendance($value->staff->id) * $staff->rate_per_hour,'0',2);
+        }
+
+        return view('backend.payroll.show', compact('data','staff','payroll'));
     }
 
     /**
@@ -91,9 +106,9 @@ class PayrollController extends Controller
      * @param  \App\Models\Payroll  $payroll
      * @return \Illuminate\Http\Response
      */
-    public function edit(Payroll $payroll)
+    public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -114,8 +129,11 @@ class PayrollController extends Controller
      * @param  \App\Models\Payroll  $payroll
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Payroll $payroll)
+    public function destroy($id)
     {
-        //
+        $payroll = Payroll::find($id);
+        $payroll->delete();
+
+        return redirect('/payroll')->with('status', 'Payroll has been deleted!');
     }
 }

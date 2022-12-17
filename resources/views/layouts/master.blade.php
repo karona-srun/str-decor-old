@@ -26,6 +26,7 @@
             font-family: "Hanuman";
         }
     </style>
+     @yield('css')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -327,6 +328,30 @@
                 "info": true,
                 "autoWidth": true,
                 "responsive": true,
+                "language":{
+                    "sProcessing":     "ដំណើរការ...",
+                    "sLengthMenu":     "បង្ហាញ _MENU_ ទិន្នន័យ",
+                    "sZeroRecords":    "មិនមានទិន្នន័យទេ",
+                    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                    "sInfo":           "បង្ហាញ _START_ ទៅ _END_ នៃ _TOTAL_ ទិន្នន័យ",
+                    "sInfoEmpty":      "បង្ហាញកំណត់ត្រាពី 0 ដល់ 0 ក្នុងចំណោមកំណត់ត្រាសរុប 0",
+                    "sInfoFiltered":   "(ការត្រងចេញពីកំណត់ត្រាសរុប _MAX_)",
+                    "sInfoPostFix":    "",
+                    "sSearch":         "ស្វែងរកទិន្នន័យ:",
+                    "sUrl":            "",
+                    "sInfoThousands":  ",",
+                    "sLoadingRecords": "ដំណើរការ...",
+                    "oPaginate": {
+                        "sFirst":    "ដំបូង",
+                        "sLast":     "ចុងក្រោយ",
+                        "sNext":     "បន្ត",
+                        "sPrevious": "ថយក្រោយ"
+                    },
+                    "oAria": {
+                        "sSortAscending":  ": ធ្វើឱ្យសកម្មដើម្បីតម្រៀបជួរឈរតាមលំដាប់ឡើង",
+                        "sSortDescending": ": ធ្វើឱ្យសកម្មដើម្បីតម្រៀបជួរឈរតាមលំដាប់ចុះ"
+                    }
+                },
             });
         });
 

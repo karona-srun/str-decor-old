@@ -45,6 +45,7 @@ return [
     'btn_close' => 'បិទ',
     'btn_cancel' => 'បោះបង់',
     'btn_browser' => 'ជ្រើសរើសរូបភាព',
+    'btn_print' => 'បោះពុម្ព',
 
     'table_no' => 'ល.រ',
     'table_name' => 'Name',
@@ -58,6 +59,8 @@ return [
     'table_checkin' => 'ម៉ោងចូល',
     'table_checkout' => 'ម៉ោងចេញ',
 
+    'label_not_yet' => 'មិនទាន់',
+    'label_paid' => 'បានបើក',
     'label_presence' => 'វត្តមាន',
     'label_adsent' => 'អវត្តមាន',
     'label_permission' => 'ច្បាប់',
@@ -66,6 +69,7 @@ return [
     'label_name' => 'ឈ្មោះ',
     'label_note' => 'ចំណាំ',
     'label_no' => 'ល.រ',
+    'label_amount' => 'ចំនួនទឹកប្រាក់',
     'label_start_time' => 'ពេលវេលាចាប់ផ្តើម',
     'label_end_time' => 'ពេល​វេលា​បញ្ចប់',
     'label_required' => 'បំពេញ',
@@ -90,6 +94,8 @@ return [
     'stop_work' => 'ថ្ងៃខែឆ្នាំឈប់',
     'attachments' => 'ឯកសារភ្ជាប់',
     'choose_file' => 'ជ្រើសរើសឯកសារ',
+    'rate_per_hour' => 'អត្រាក្នុងមួយម៉ោង',
+    'num_hour' => 'ចំនួនម៉ោង',
 
     'label_confirm_delete' => 'តើអ្នកប្រាកដទេ ចង់លុបទិន្នន័យនេះ?',
     'label_status' => 'ស្ថានភាព',

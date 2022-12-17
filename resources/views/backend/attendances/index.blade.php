@@ -24,6 +24,7 @@
                                 <th>{{ __('app.table_status') }}</th>
                                 <th>{{ __('app.table_checkin') }}</th>
                                 <th>{{ __('app.table_checkout') }}</th>
+                                <th>{{ __('app.num_hour') }}</th>
                                 <th>{{ __('app.label_note') }}</th>
                                 <th>{{ __('app.table_action') }}</th>
                             </tr>
@@ -46,6 +47,7 @@
                                     </td>
                                     <td>{{ $item->check_in }}</td>
                                     <td>{{ $item->check_out }}</td>
+                                    <td>{{ $item->num_hour }}</td>
                                     <td>{{ $item->note }}</td>
                                     <td>
                                         <button class="btn btn-sm btn-warning editAttendance" data-toggle="modal"
@@ -119,7 +121,7 @@
                             </div>
                         </div>
                         <div class="row div-check">
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>{{ __('app.table_checkin') }} <small class="text-red">*</small></label>
                                     <input type="time" name="checkin" value="{{ old('first_name') }}"
@@ -131,7 +133,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>{{ __('app.table_checkout') }} <small class="text-red">*</small></label>
                                     <input type="time" name="checkout" value="{{ old('last_name') }}"
@@ -140,6 +142,18 @@
                                     @if ($errors->has('checkout'))
                                         <div class="error text-danger text-sm mt-1">
                                             {{ $errors->first('checkout') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>{{ __('app.num_hour') }} <small class="text-red">*</small></label>
+                                    <input type="number" name="num_hour" value="{{ old('num_hour') }}"
+                                        class="form-control"
+                                        placeholder="{{ __('app.label_required') }}{{ __('app.num_hour') }}">
+                                    @if ($errors->has('num_hour'))
+                                        <div class="error text-danger text-sm mt-1">
+                                            {{ $errors->first('num_hour') }}</div>
                                     @endif
                                 </div>
                             </div>
@@ -210,7 +224,7 @@
                             </div>
                         </div>
                         <div class="row div-check">
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>{{ __('app.table_checkin') }} <small class="text-red">*</small></label>
                                     <input type="time" name="checkin" value="{{ old('first_name') }}"
@@ -222,7 +236,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>{{ __('app.table_checkout') }} <small class="text-red">*</small></label>
                                     <input type="time" name="checkout" value="{{ old('last_name') }}"
@@ -231,6 +245,18 @@
                                     @if ($errors->has('checkout'))
                                         <div class="error text-danger text-sm mt-1">
                                             {{ $errors->first('checkout') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>{{ __('app.num_hour') }} <small class="text-red">*</small></label>
+                                    <input type="number" name="num_hour" value="{{ old('num_hour') }}"
+                                        class="form-control num_hour"
+                                        placeholder="{{ __('app.label_required') }}{{ __('app.num_hour') }}">
+                                    @if ($errors->has('num_hour'))
+                                        <div class="error text-danger text-sm mt-1">
+                                            {{ $errors->first('num_hour') }}</div>
                                     @endif
                                 </div>
                             </div>
@@ -330,13 +356,17 @@
                         $('.date').val(response.date)
                         $('.checkin').val(response.check_in)
                         $('.checkout').val(response.check_out)
+                        $('.num_hour').val(response.num_hour)
                         $('.note').val(response.note)
                         if(response.status == 'presence'){
                             $('.status_presence').prop( "checked", true );
+                            $(".div-check").show();
                         } else if(response.status == 'adsent'){
                             $('.status_adsent').prop( "checked", true );
+                            $(".div-check").hide();
                         } else if(response.status == 'permission'){
                             $('.status_permission').prop( "checked", true );
+                            $(".div-check").hide();
                         }
                     }
                 });

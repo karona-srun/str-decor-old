@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attendances', function (Blueprint $table) {
+        Schema::create('payrolls', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('staff_id');
+            $table->string('payroll_status');
+            $table->decimal('rate_salary',8,2);
+            $table->tinyInteger('total_hour');
+            $table->decimal('total_salary',8,2);
             $table->date('date');
-            $table->time('check_in')->nullable();
-            $table->time('check_out')->nullable();
-            $table->string('status');
-            $table->tinyInteger('num_hour')->nullable();
             $table->string('note')->nullable();
             $table->bigInteger('created_by');
             $table->bigInteger('updated_by');
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attendances');
+        Schema::dropIfExists('payrolls');
     }
 };

@@ -29,7 +29,8 @@ return new class extends Migration
             $table->longText('current_place');
             $table->bigInteger('position');
             $table->bigInteger('work_place');
-            $table->bigInteger('base_salary');
+            $table->decimal('rate_per_hour',8,2);
+            $table->decimal('base_salary',8,2)->comment("It's just for information purpose.");
             $table->bigInteger('work_time')->nullable();
             $table->dateTime('start_work');
             $table->dateTime('stop_work')->nullable();

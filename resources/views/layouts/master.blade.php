@@ -196,7 +196,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ url('incomes') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>{{ __('app.income_info') }}</p>
                                     </a>
@@ -311,13 +311,12 @@
     <script type="text/javascript">
         $(function() {
             //Initialize Select2 Elements
-            // $('.select2').select2({
-                
-            // })
+            $('.select2').select2({
+            })
 
             //Initialize Select2 Elements
             $('.select2bs4').select2({
-                theme: 'bootstrap4'
+                theme: 'bootstrap4',
             })
 
             $('#datatable').DataTable({
@@ -331,8 +330,8 @@
                 "language":{
                     "sProcessing":     "ដំណើរការ...",
                     "sLengthMenu":     "បង្ហាញ _MENU_ ទិន្នន័យ",
-                    "sZeroRecords":    "មិនមានទិន្នន័យទេ",
-                    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                    "sZeroRecords":    "មិនមានទិន្នន័យនៅក្នុងតារាងនេះទេ។",
+                    "sEmptyTable":     "មិនមានទិន្នន័យនៅក្នុងតារាងនេះទេ។",
                     "sInfo":           "បង្ហាញ _START_ ទៅ _END_ នៃ _TOTAL_ ទិន្នន័យ",
                     "sInfoEmpty":      "បង្ហាញកំណត់ត្រាពី 0 ដល់ 0 ក្នុងចំណោមកំណត់ត្រាសរុប 0",
                     "sInfoFiltered":   "(ការត្រងចេញពីកំណត់ត្រាសរុប _MAX_)",

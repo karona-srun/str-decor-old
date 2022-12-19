@@ -77,6 +77,8 @@ return [
     'created_at' => 'បានបង្កើតនៅ',
     'updated_by' => 'ធ្វើបច្ចុប្បន្នភាពដោយ',
     'updated_at' => 'ធ្វើបច្ចុប្បន្នភាពនៅ',
+    'label_creator' => 'អ្នកបានបង្កើត',
+    'label_updator' => 'អ្នកធ្វើបច្ចុប្បន្នភាព',
 
     'code' => 'កូដ',
     'first_name' => 'First Name',
@@ -102,6 +104,8 @@ return [
     'label_status_disabled' => 'បិទ',
     'label_status_visibled' => 'មើលឃើញ',
     'label_amount' => 'ចំនួនទឹកប្រាក់',
+    'label_payment_date' => 'កាលបរិច្ឆេទបង់ប្រាក់',
+    'label_type' => 'ប្រភេទ',
 
     'required' => 'តម្រូវអោយបំពេញ',
     

@@ -63,7 +63,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>{{ __('app.label_amount') }} <small class="text-red">*</small></label>
-                                        <input type="number" name="amount" class="form-control" value="{{ $income->amount }}"
+                                        <input type="number" name="amount" step="any" class="form-control" value="{{ $income->amount }}"
                                             placeholder="{{ __('app.label_required') }}{{ __('app.label_amount') }}">
                                         @if ($errors->has('amount'))
                                             <div class="error text-danger text-sm mt-1">

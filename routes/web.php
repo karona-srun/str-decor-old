@@ -3,15 +3,13 @@
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\BaseSalaryController;
 use App\Http\Controllers\ExpendOptionsController;
+use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\IncomeOptionsController;
-use App\Http\Controllers\OptionsIncomeController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\StaffInfoController;
 use App\Http\Controllers\TimeController;
 use App\Http\Controllers\WorkplaceController;
-use App\Models\OptionsIncome;
-use App\Models\Workplace;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -52,3 +50,4 @@ Route::get('list-staff', [App\Http\Controllers\AttendanceController::class, 'lis
 Route::get('/filter-attendances/{id}', [App\Http\Controllers\AttendanceController::class, 'filterAttendances']);
 Route::post('/update-attendance', [App\Http\Controllers\AttendanceController::class, 'updateAttendances']);
 Route::resource('/payroll', PayrollController::class);
+Route::resource('/incomes', IncomeController::class);

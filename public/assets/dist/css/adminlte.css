@@ -44820,9 +44820,10 @@ pre {
 
 blockquote {
   background-color: #fff;
-  border-left: 0.7rem solid #007bff;
-  margin: 1.5em .7rem;
+  border-left: 0.2rem solid #007bff;
+  margin: 0.5em .7rem;
   padding: .5em .7rem;
+  border-radius: 2px;
 }
 
 .box blockquote {

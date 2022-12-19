@@ -25,6 +25,23 @@
         html body {
             font-family: "Hanuman";
         }
+        @page {
+            size: A4;
+            margin: 10mm 0mm;
+        }
+
+        @media print {
+            .page {
+                margin: 0;
+                border: initial;
+                border-radius: initial;
+                width: initial;
+                min-height: initial;
+                box-shadow: initial;
+                background: initial;
+                page-break-after: always;
+            }
+        }
     </style>
      @yield('css')
 </head>
@@ -186,8 +203,8 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                        <li class="nav-item {{ Request::is('incomes*') || Request::is('expends*') ? 'menu-is-opening menu-open' : null }} ">
+                            <a href="#" class="nav-link {{ Request::is('incomes*') || Request::is('expends*') ? 'active' : null }} ">
                                 <i class="nav-icon fas fa-money-check-alt"></i>
                                 <p>
                                     {{ __('app.income_expend') }}
@@ -196,13 +213,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('incomes') }}" class="nav-link">
+                                    <a href="{{ url('incomes') }}" class="nav-link {{ Request::is('incomes*') ? 'active' : null }} ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>{{ __('app.income_info') }}</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('expends') }}" class="nav-link">
+                                    <a href="{{ url('expends') }}" class="nav-link {{ Request::is('expends*') ? 'active' : null }} ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>{{ __('app.expend_info') }}</p>
                                     </a>

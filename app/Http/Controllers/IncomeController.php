@@ -78,7 +78,6 @@ class IncomeController extends Controller
         $income->updated_by = Auth::user()->id;
         $income->save();
 
-
         return redirect('/incomes')->with('status', 'Income has been created!');
     }
 

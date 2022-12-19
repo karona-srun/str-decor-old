@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\BaseSalaryController;
+use App\Http\Controllers\ExpendController;
 use App\Http\Controllers\ExpendOptionsController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\IncomeOptionsController;
@@ -51,3 +52,4 @@ Route::get('/filter-attendances/{id}', [App\Http\Controllers\AttendanceControlle
 Route::post('/update-attendance', [App\Http\Controllers\AttendanceController::class, 'updateAttendances']);
 Route::resource('/payroll', PayrollController::class);
 Route::resource('/incomes', IncomeController::class);
+Route::resource('/expends', ExpendController::class);

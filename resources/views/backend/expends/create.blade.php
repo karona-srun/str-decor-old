@@ -1,13 +1,13 @@
 @extends('layouts.master')
 
-@section('title-page', __('app.income_info'))
+@section('title-page', __('app.expend_info'))
 
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">{{ __('app.income_info') }}</h3>
+                    <h3 class="card-title">{{ __('app.expend_info') }}</h3>
                     <div class="card-tools">
                         <a href="{{ url('/incomes') }}" class="btn btn-primary"> <i class=" fas fa-list"></i>
                             {{ __('app.label_list') }} </a>
@@ -15,30 +15,30 @@
                 </div>
 
                 <div class="card-body">
-                    <form id="quickForm" action="{{ url('incomes') }}" method="post">
+                    <form id="quickForm" action="{{ url('expends') }}" method="post">
                         @csrf
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>{{ __('app.income_options') }} <small class="text-red">*</small></label>
-                                        <select class="form-control select2" name="income_option" style="width: 100%;">
+                                        <select class="form-control select2" name="expend_option" style="width: 100%;">
                                             <option value="" >{{ __('app.table_choose') }}</option>
-                                            @foreach ($income_options as $item)
+                                            @foreach ($expend_options as $item)
                                                 <option value="{{ $item->id }}">
                                                     {{ $item->name }}</option>
                                             @endforeach
                                         </select>
-                                        @if ($errors->has('income_option'))
+                                        @if ($errors->has('expend_option'))
                                             <div class="error text-danger text-sm mt-1">
-                                                {{ $errors->first('income_option') }}</div>
+                                                {{ $errors->first('expend_option') }}</div>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>{{ __('app.label_name') }} <small class="text-red">*</small></label>
-                                        <input type="text" name="name" class="form-control"
+                                        <input type="text" name="name" class="form-control" value="{{ old('name') }}"
                                             placeholder="{{ __('app.label_required') }}{{ __('app.label_name') }}">
                                         @if ($errors->has('name'))
                                             <div class="error text-danger text-sm mt-1">
@@ -51,7 +51,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>{{ __('app.label_payment_date') }} <small class="text-red">*</small></label>
-                                        <input type="date" name="date" id="date" class="form-control"
+                                        <input type="date" name="date" id="date" class="form-control" value="{{ old('date') }}"
                                             placeholder="{{ __('app.table_date') }}">
                                         @if ($errors->has('date'))
                                             <div class="error text-danger text-sm mt-1">
@@ -62,7 +62,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>{{ __('app.label_amount') }} <small class="text-red">*</small></label>
-                                        <input type="number" name="amount" step="any" class="form-control"
+                                        <input type="number" name="amount" step="any" class="form-control" value="{{ old('amount') }}"
                                             placeholder="{{ __('app.label_required') }}{{ __('app.label_amount') }}">
                                         @if ($errors->has('amount'))
                                             <div class="error text-danger text-sm mt-1">

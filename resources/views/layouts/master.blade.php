@@ -202,7 +202,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ url('expends') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>{{ __('app.expend_info') }}</p>
                                     </a>

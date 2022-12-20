@@ -66,7 +66,7 @@ return [
     'label_presence' => 'វត្តមាន',
     'label_adsent' => 'អវត្តមាន',
     'label_permission' => 'ច្បាប់',
-    'label_list' => 'បញ្ជីរ',
+    'label_list' => 'តារាងបញ្ជីរ',
     'label_info' => 'ព័ត៍មាន',
     'label_name' => 'ឈ្មោះ',
     'label_note' => 'ចំណាំ',

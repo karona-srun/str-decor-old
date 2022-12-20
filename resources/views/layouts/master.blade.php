@@ -78,7 +78,7 @@
                                     class="img-size-50 mr-3 img-circle">
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
-                                        Brad Diesel
+                                        {{ Auth::user()->name }}
                                         <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
                                     </h3>
                                     <p class="text-sm">Call me whenever you can...</p>
@@ -90,10 +90,10 @@
                             <i class="far fa-circle nav-icon"></i>
                             Profile Info
                         </a>
-                        <a href="#" class="dropdown-item">
+                        {{-- <a href="#" class="dropdown-item">
                             <i class="far fa-circle nav-icon"></i>
                             Languages
-                        </a>
+                        </a> --}}
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -195,8 +195,8 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                        <li class="nav-item {{ Request::is('product-category*')  ? 'menu-is-opening menu-open' : null }} ">
+                            <a href="#" class="nav-link {{ Request::is('product-category*')  ? 'active' : null }} ">
                                 <i class="nav-icon fas fa-cube"></i>
                                 <p>
                                     {{ __('app.stock') }}
@@ -205,7 +205,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('product-category') }}" class="nav-link">
+                                    <a href="{{ url('product-category') }}" class="nav-link {{ Request::is('product-category*')  ? 'active' : null }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>{{ __('app.product_category') }}</p>
                                     </a>

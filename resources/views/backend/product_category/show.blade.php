@@ -18,6 +18,8 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <blockquote>
+                                <p class="text-black">{{ __('app.code') }}{{ __('app.product_category') }}</p>
+                                <label>{{ $product_category->code }}</label>
                                 <p class="text-black">{{ __('app.label_name') }}{{ __('app.product_category') }}</p>
                                 <label>{{ $product_category->name }}</label>
                             </blockquote>

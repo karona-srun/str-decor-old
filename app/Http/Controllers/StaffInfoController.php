@@ -102,6 +102,7 @@ class StaffInfoController extends Controller
         $imageName= '';
         if($request->hasFile('photo')){
             $imageName = 'staff_info_'.time().rand(1,99999).'.'.$request->photo->getClientOriginalExtension();
+            $imageName = str_replace(' ','_',$imageName);
             $request->photo->move(public_path('photos'), $imageName);
         }
 
@@ -134,6 +135,7 @@ class StaffInfoController extends Controller
             foreach($request->filenames as $key => $image)
             {
                 $imageName = 'staff_info_'.time().rand(1,99999).'.'.$image->getClientOriginalExtension();  
+                $imageName = str_replace(' ','_',$imageName);
                 $image->move(public_path('attachments'), $imageName);
                 $attachment = new Attachment();
                 $attachment->name = $imageName;
@@ -239,6 +241,7 @@ class StaffInfoController extends Controller
         if($request->hasFile('photo')){
             File::delete('photos/'.$staffInfo->photo);
             $imageName = 'staff_info_'.time().rand(1,99999).'.'.$request->photo->getClientOriginalExtension();
+            $imageName = str_replace(' ','_',$imageName);
             $request->photo->move(public_path('photos'), $imageName);
             $staffInfo->photo = $imageName;
         }
@@ -270,6 +273,7 @@ class StaffInfoController extends Controller
             {
                 File::delete('attachments/'.$staffInfo->photo);
                 $imageName = 'staff_info_'.time().rand(1,99999).'.'.$image->getClientOriginalExtension();  
+                $imageName = str_replace(' ','_',$imageName);
                 $image->move(public_path('attachments'), $imageName);
 
                 $attachment = new Attachment();

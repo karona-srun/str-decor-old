@@ -16,6 +16,11 @@
 
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.css') }}">
+    <link
+			rel="stylesheet"
+			type="text/css"
+			href="{{ asset('assets/plugins/fancybox/dist/jquery.fancybox.css') }}"
+		/>
     <style>
         @font-face {
             font-family: "Hanuman";
@@ -195,8 +200,8 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item {{ Request::is('product-category*')  ? 'menu-is-opening menu-open' : null }} ">
-                            <a href="#" class="nav-link {{ Request::is('product-category*')  ? 'active' : null }} ">
+                        <li class="nav-item {{ Request::is('product-category*') || Request::is('products*')  ? 'menu-is-opening menu-open' : null }} ">
+                            <a href="#" class="nav-link {{ Request::is('product-category*') || Request::is('products*') ? 'active' : null }} ">
                                 <i class="nav-icon fas fa-cube"></i>
                                 <p>
                                     {{ __('app.stock') }}
@@ -211,7 +216,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ url('/productes') }}" class="nav-link {{ Request::is('products*')  ? 'active' : null }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>{{ __('app.product') }}</p>
                                     </a>
@@ -339,6 +344,7 @@
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/fancybox/dist/jquery.fancybox.js') }}"></script>
     @yield('js')
     <script type="text/javascript">
         $(function() {

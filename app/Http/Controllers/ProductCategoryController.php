@@ -49,8 +49,10 @@ class ProductCategoryController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
+            'code' =>'required',
             'name' =>'required',
         ],[
+            'code.required' => __('app.code').__('app.product_category').__('app.required'),
             'name.required' => __('app.label_name').__('app.product_category').__('app.required'),
         ]);
 
@@ -59,6 +61,7 @@ class ProductCategoryController extends Controller
         }
 
         $productCategory = new ProductCategory();
+        $productCategory->code = $request->code;
         $productCategory->name = $request->name;
         $productCategory->note = $request->note;
         $productCategory->created_by = Auth::user()->id;
@@ -112,6 +115,7 @@ class ProductCategoryController extends Controller
         }
 
         $productCategory = ProductCategory::find($id);
+        $productCategory->code = $request->code;
         $productCategory->name = $request->name;
         $productCategory->note = $request->note;
         $productCategory->updated_by = Auth::user()->id;

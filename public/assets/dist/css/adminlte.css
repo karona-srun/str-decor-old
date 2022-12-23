@@ -44549,6 +44549,10 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
   height: auto;
 }
 
+.img-size-150{
+  width: 150px !important;
+}
+
 .img-size-64 {
   width: 64px;
 }

@@ -48,6 +48,8 @@ return [
     'btn_cancel' => 'បោះបង់',
     'btn_browser' => 'ជ្រើសរើសរូបភាព',
     'btn_print' => 'បោះពុម្ព',
+    'btn_accepted' => 'យល់ព្រម',
+    
 
     'table_no' => 'ល.រ',
     'table_name' => 'Name',
@@ -61,6 +63,9 @@ return [
     'table_checkin' => 'ម៉ោងចូល',
     'table_checkout' => 'ម៉ោងចេញ',
 
+    'label_confirm' => 'ផ្ទៀង​ផ្ទាត់',
+    'label_confirm_delete' => 'តើអ្នកប្រាកដក្នុងការលុបរូបភាពដែលបានជ្រើសរើសមែនទេ?',
+    'label_edit' => 'កែសម្រួល',
     'label_not_yet' => 'មិនទាន់',
     'label_paid' => 'បានបើក',
     'label_presence' => 'វត្តមាន',
@@ -81,6 +86,12 @@ return [
     'updated_at' => 'ធ្វើបច្ចុប្បន្នភាពនៅ',
     'label_creator' => 'អ្នកបានបង្កើត',
     'label_updator' => 'អ្នកធ្វើបច្ចុប្បន្នភាព',
+    'label_qty' => 'ចំនួន',
+    'label_description' => 'ការពិពណ៌នា',
+    'label_buying_price' => 'តម្លៃទិញចូល',
+    'label_salling_price' => 'តម្លៃលក់ចេញ',
+    'label_buying_date' => 'កាលបរិច្ឆេទទិញចូល',
+    'label_product_qty' => 'ចំនួនផលិតផល',
 
     'code' => 'កូដ',
     'first_name' => 'First Name',

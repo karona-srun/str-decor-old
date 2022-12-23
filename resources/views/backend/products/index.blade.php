@@ -1,15 +1,15 @@
 @extends('layouts.master')
 
-@section('title-page', __('app.product_category'))
+@section('title-page', __('app.product'))
 
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.product_category') }}</h3>
+                    <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.product') }}</h3>
                     <div class="card-tools">
-                        <a href="{{ url('product-category/create') }}" class="btn btn-primary"> <i class=" fas fa-plus"></i>
+                        <a href="{{ url('productes/create') }}" class="btn btn-primary"> <i class=" fas fa-plus"></i>
                             {{ __('app.btn_add') }}</a>
                     </div>
                 </div>
@@ -18,25 +18,35 @@
                         <thead>
                             <tr>
                                 <th>{{ __('app.table_no') }}</th>
+                                <th>{{ __('app.table_photo') }}</th>
                                 <th>{{ __('app.code') }}</th>
-                                <th>{{ __('app.label_name') }}</th>
+                                <th>{{ __('app.label_name') }}{{ __('app.product') }}</th>
+                                <th>{{ __('app.label_salling_price') }}</th>
+                                <th>{{ __('app.label_buying_price') }}</th>
+                                <th>{{ __('app.label_buying_date') }}</th>
+                                <th>{{ __('app.label_qty') }}</th>
                                 <th>{{ __('app.table_action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($product_category as $i => $item)
+                            @foreach ($products as $i => $item)
                                 <tr>
                                     <td>{{ ++$i }}</td>
-                                    <td>{{ $item->code }}</td>
-                                    <td>{{ $item->name }}</td>
+                                    <td style="width:70px !important"><img src="{{ 'products/'.$item->photo }}" class="img-size-50 img-thumbnail" srcset=""/></td>
+                                    <td>{{ $item->product_code }}</td>
+                                    <td>{{ $item->product_name }}</td>
+                                    <td>{{ $item->salling_price }}</td>
+                                    <td>{{ $item->buying_price }}</td>
+                                    <td>{{ $item->buying_date }}</td>
+                                    <td>{{ $item->product_quantity }}</td>
                                     <td>
-                                        <a href="{{ route('product-category.show',$item->id) }}" class="btn btn-sm btn-primary"><i
+                                        <a href="{{ route('productes.show',$item->id) }}" class="btn btn-sm btn-primary"><i
                                                 class="far fa-eye"></i></a>
-                                        <a href="{{ route('product-category.edit',$item->id) }}"  class="btn btn-sm btn-warning"><i
+                                        <a href="{{ route('productes.edit',$item->id) }}"  class="btn btn-sm btn-warning"><i
                                                 class="far fa-edit"></i></a>
-                                        {{-- <button class="btn btn-sm btn-danger deleteProductCategory" data-toggle="modal"
+                                        <button class="btn btn-sm btn-danger deleteProduct" data-toggle="modal"
                                             data-target="#modal-default" data-id="{{ $item->id }}"><i
-                                                class="far fa-trash-alt"></i></button> --}}
+                                                class="far fa-trash-alt"></i></button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -82,9 +92,9 @@
                 }
             });
 
-            $(".deleteProductCategory").click(function() {
+            $(".deleteProduct").click(function() {
                 var id = $(this).data("id");
-                $('.formDelete').attr('action', 'product-category/' + id);
+                $('.formDelete').attr('action', 'productes/' + id);
             });
 
         });

@@ -16,6 +16,11 @@
 
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.css') }}">
+    <link
+			rel="stylesheet"
+			type="text/css"
+			href="{{ asset('assets/plugins/fancybox/dist/jquery.fancybox.css') }}"
+		/>
     <style>
         @font-face {
             font-family: "Hanuman";
@@ -78,7 +83,7 @@
                                     class="img-size-50 mr-3 img-circle">
                                 <div class="media-body">
                                     <h3 class="dropdown-item-title">
-                                        Brad Diesel
+                                        {{ Auth::user()->name }}
                                         <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
                                     </h3>
                                     <p class="text-sm">Call me whenever you can...</p>
@@ -90,10 +95,10 @@
                             <i class="far fa-circle nav-icon"></i>
                             Profile Info
                         </a>
-                        <a href="#" class="dropdown-item">
+                        {{-- <a href="#" class="dropdown-item">
                             <i class="far fa-circle nav-icon"></i>
                             Languages
-                        </a>
+                        </a> --}}
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -195,13 +200,28 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="pages/widgets.html" class="nav-link">
+                        <li class="nav-item {{ Request::is('product-category*') || Request::is('products*')  ? 'menu-is-opening menu-open' : null }} ">
+                            <a href="#" class="nav-link {{ Request::is('product-category*') || Request::is('products*') ? 'active' : null }} ">
                                 <i class="nav-icon fas fa-cube"></i>
                                 <p>
                                     {{ __('app.stock') }}
+                                    <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ url('product-category') }}" class="nav-link {{ Request::is('product-category*')  ? 'active' : null }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>{{ __('app.product_category') }}</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('/productes') }}" class="nav-link {{ Request::is('products*')  ? 'active' : null }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>{{ __('app.product') }}</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item {{ Request::is('incomes*') || Request::is('expends*') ? 'menu-is-opening menu-open' : null }} ">
                             <a href="#" class="nav-link {{ Request::is('incomes*') || Request::is('expends*') ? 'active' : null }} ">
@@ -324,6 +344,7 @@
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/fancybox/dist/jquery.fancybox.js') }}"></script>
     @yield('js')
     <script type="text/javascript">
         $(function() {

@@ -23,9 +23,9 @@
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="text-center mb-2 container">
-                                        <img id="blah" src="{{ asset('images/avatar.png') }}"
-                                            width="150px"​ height="150px" class="rounded-circle img-bordered"
-                                            alt="" srcset="">
+                                        <img id="blah" src="{{ asset('images/avatar.png') }}" width="150px"​
+                                            height="150px" class="rounded-circle img-bordered" alt=""
+                                            srcset="">
                                         <input type="file" name="photo" id="imgInp" accept="image/*"
                                             class="btn btn-file mt-2 imgInp" style="display: none">
                                         <button type="button"
@@ -38,7 +38,8 @@
                                             <div class="form-group">
                                                 <label>{{ __('app.first_name') }}<small class="text-red">*</small></label>
                                                 <input type="text" name="first_name" value="{{ old('first_name') }}"
-                                                    class="form-control" placeholder="{{ __('app.label_required') }} {{ __('app.first_name') }}">
+                                                    class="form-control"
+                                                    placeholder="{{ __('app.label_required') }} {{ __('app.first_name') }}">
                                                 @if ($errors->has('first_name'))
                                                     <div class="error text-danger text-sm mt-1">
                                                         {{ $errors->first('first_name') }}</div>
@@ -203,7 +204,8 @@
                                             <div class="form-group">
                                                 <label>{{ __('app.base_salary') }} <small
                                                         class="text-red">*</small></label>
-                                                <input type="number" class="form-control" name="base_salary" placeholder="{{ __('app.label_required') }}{{ __('app.base_salary') }}">
+                                                <input type="number" class="form-control" name="base_salary"
+                                                    placeholder="{{ __('app.label_required') }}{{ __('app.base_salary') }}">
                                                 @if ($errors->has('base_salary'))
                                                     <div class="error text-danger text-sm mt-1">
                                                         {{ $errors->first('base_salary') }}</div>
@@ -214,7 +216,8 @@
                                             <div class="form-group">
                                                 <label>{{ __('app.rate_per_hour') }} <small
                                                         class="text-red">*</small></label>
-                                                <input type="number" class="form-control" name="rate_per_hour" placeholder="{{ __('app.label_required') }}{{ __('app.rate_per_hour') }}">
+                                                <input type="number" class="form-control" name="rate_per_hour"
+                                                    placeholder="{{ __('app.label_required') }}{{ __('app.rate_per_hour') }}">
                                                 @if ($errors->has('rate_per_hour'))
                                                     <div class="error text-danger text-sm mt-1">
                                                         {{ $errors->first('rate_per_hour') }}</div>
@@ -225,12 +228,11 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label>{{ __('app.work_time') }} <small
-                                                        class="text-red">*</small></label>
+                                                <label>{{ __('app.work_time') }} <small class="text-red">*</small></label>
                                                 <select class="form-control select2bs4" name="work_time"
                                                     style="width: 100%;">
                                                     @foreach ($times as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                     @endforeach
                                                 </select>
                                                 @if ($errors->has('work_time'))
@@ -298,7 +300,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>

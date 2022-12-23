@@ -8,6 +8,8 @@ use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\IncomeOptionsController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StaffInfoController;
 use App\Http\Controllers\TimeController;
 use App\Http\Controllers\WorkplaceController;
@@ -53,3 +55,7 @@ Route::post('/update-attendance', [App\Http\Controllers\AttendanceController::cl
 Route::resource('/payroll', PayrollController::class);
 Route::resource('/incomes', IncomeController::class);
 Route::resource('/expends', ExpendController::class);
+Route::resource('/product-category', ProductCategoryController::class);
+Route::resource('/productes', ProductController::class);
+Route::delete('/productes/delete-photo/{id}',[App\Http\Controllers\ProductController::class, 'deletePhoto']);
+

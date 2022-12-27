@@ -24,7 +24,8 @@
                                 <th>{{ __('app.label_salling_price') }}</th>
                                 <th>{{ __('app.label_buying_price') }}</th>
                                 <th>{{ __('app.label_buying_date') }}</th>
-                                <th>{{ __('app.label_qty') }}</th>
+                                <th>{{ __('app.label_store_stock') }}</th>
+                                <th>{{ __('app.label_warehouse') }}</th>
                                 <th>{{ __('app.table_action') }}</th>
                             </tr>
                         </thead>
@@ -38,7 +39,8 @@
                                     <td>{{ $item->salling_price }}</td>
                                     <td>{{ $item->buying_price }}</td>
                                     <td>{{ $item->buying_date }}</td>
-                                    <td>{{ $item->product_quantity }}</td>
+                                    <td>{{ $item->store_stock }}</td>
+                                    <td>{{ $item->warehouse }}</td>
                                     <td>
                                         <a href="{{ route('productes.show',$item->id) }}" class="btn btn-sm btn-primary"><i
                                                 class="far fa-eye"></i></a>

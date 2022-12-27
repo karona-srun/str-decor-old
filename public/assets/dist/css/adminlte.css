@@ -6359,6 +6359,12 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   border-radius: 0.25rem;
 }
 
+.product-list-image{
+  width: 120px !important;
+  height: 120px !important;
+  transform: scale(1);
+}
+
 .popover {
   position: absolute;
   top: 0;
@@ -46386,6 +46392,18 @@ blockquote.quote-gray-dark h6 {
   background-color: #1d2124 !important;
   border-color: #171a1d;
   color: #fff;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 @media print {

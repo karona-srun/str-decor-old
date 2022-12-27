@@ -44,7 +44,7 @@
                                                     style="width: 100%;">
                                                     <option value="">{{ __('app.table_choose') }}</option>
                                                     @foreach ($product_category as $item)
-                                                        <option value="{{ $item->id }}">
+                                                        <option value="{{ $item->id }}" {{ old('product_category') == $item->id ? "selected" : "" }}>
                                                             {{ $item->name }}</option>
                                                     @endforeach
                                                 </select>
@@ -69,7 +69,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label>{{ __('app.label_name') }}{{ __('app.product') }} <small
                                                         class="text-red">*</small></label>
@@ -82,35 +82,62 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label>{{ __('app.label_buying_price') }}<small
+                                                <label>{{ __('app.label_scale') }} <small
                                                         class="text-red">*</small></label>
-                                                <input type="number" name="buying_price" class="form-control"
+                                                <input type="text" name="scale" class="form-control"
+                                                    placeholder="{{ __('app.label_required') }}{{ __('app.label_scale') }}"
+                                                    value="{{ old('scale') }}" />
+                                                @if ($errors->has('scale'))
+                                                    <div class="error text-danger text-sm mt-1">
+                                                        {{ $errors->first('scale') }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>{{ __('app.label_buying_price') }} <small
+                                                        class="text-red">*</small></label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">$</span>
+                                                            </div>
+                                                            <input type="number" name="buying_price" class="form-control"
                                                     value="{{ old('buying_price') }}"
                                                     placeholder="{{ __('app.label_required') }}{{ __('app.label_buying_price') }}">
+                                                        </div>
+                                                
                                                 @if ($errors->has('buying_price'))
                                                     <div class="error text-danger text-sm mt-1">
                                                         {{ $errors->first('buying_price') }}</div>
                                                 @endif
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>{{ __('app.label_salling_price') }} <small
                                                         class="text-red">*</small></label>
-                                                <input type="number" name="salling_price" step="any"
-                                                    class="form-control"
-                                                    placeholder="{{ __('app.label_required') }}{{ __('app.label_salling_price') }}"
-                                                    value="{{ old('salling_price') }}" />
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">$</span>
+                                                    </div>
+                                                    <input type="text" name="salling_price" step="any"
+                                                        class="form-control"
+                                                        placeholder="{{ __('app.label_required') }}{{ __('app.label_salling_price') }}"
+                                                        value="{{ old('salling_price') }}" />
+                                                </div>
+
                                                 @if ($errors->has('salling_price'))
                                                     <div class="error text-danger text-sm mt-1">
                                                         {{ $errors->first('salling_price') }}</div>
                                                 @endif
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>{{ __('app.label_buying_date') }} <small
@@ -126,14 +153,27 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label>{{ __('app.label_product_qty') }} <small
+                                                <label>{{ __('app.label_qty') }}{{ __('app.label_store_stock') }} <small
                                                         class="text-red">*</small></label>
-                                                <input type="number" name="product_qty" class="form-control"
-                                                    placeholder="{{ __('app.label_required') }}{{ __('app.label_product_qty') }}"
-                                                    value="{{ old('product_qty') }}" />
-                                                @if ($errors->has('product_qty'))
+                                                <input type="number" name="store_stock" class="form-control"
+                                                    placeholder="{{ __('app.label_required') }}{{ __('app.label_qty') }}{{ __('app.label_store_stock') }}"
+                                                    value="{{ old('store_stock') }}" />
+                                                @if ($errors->has('store_stock'))
                                                     <div class="error text-danger text-sm mt-1">
-                                                        {{ $errors->first('product_qty') }}</div>
+                                                        {{ $errors->first('store_stock') }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>{{ __('app.label_qty') }}{{ __('app.label_warehouse') }} <small
+                                                        class="text-red">*</small></label>
+                                                <input type="number" name="warehouse" class="form-control"
+                                                    placeholder="{{ __('app.label_required') }}{{ __('app.label_qty') }}{{ __('app.label_warehouse') }}"
+                                                    value="{{ old('warehouse') }}" />
+                                                @if ($errors->has('warehouse'))
+                                                    <div class="error text-danger text-sm mt-1">
+                                                        {{ $errors->first('warehouse') }}</div>
                                                 @endif
                                             </div>
                                         </div>

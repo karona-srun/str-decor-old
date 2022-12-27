@@ -92,6 +92,11 @@ return [
     'label_salling_price' => 'តម្លៃលក់ចេញ',
     'label_buying_date' => 'កាលបរិច្ឆេទទិញចូល',
     'label_product_qty' => 'ចំនួនផលិតផល',
+    'label_qty' => 'ចំនួន',
+    'label_scale' => 'ខ្នាត',
+    'label_store_stock' => 'ស្តុកនៅហាង',
+    'label_warehouse' => 'ស្តុកនៅឃ្លាំង',
+    'label_sold_out' => 'លក់ចេញ',
 
     'code' => 'កូដ',
     'first_name' => 'First Name',

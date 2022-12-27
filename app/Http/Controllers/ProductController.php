@@ -56,19 +56,23 @@ class ProductController extends Controller
             'product_category' =>'required',
             'code' =>'required',
             'name' => 'required',
+            'scale' => 'required',
             'buying_price' => 'required',
             'salling_price' => 'required',
             'buying_date' => 'required',
-            'product_qty' => 'required',
+            'store_stock' => 'required',
+            'warehouse' => 'required',
             'photo' => 'required',
         ],[
             'product_category.required' => __('app.product_category').__('app.required'),
             'code.required' => __('app.code').__('app.product_category').__('app.required'),
             'name.required' => __('app.label_name').__('app.product_category').__('app.required'),
+            'scale.required' => __('app.label_scale').__('app.required'),
             'buying_price.required' => __('app.label_buying_price').__('app.required'),
             'salling_price.required' => __('app.label_salling_price').__('app.required'),
             'buying_date.required' => __('app.label_buying_date').__('app.required'),
-            'product_qty.required' => __('app.label_product_qty').__('app.required'),
+            'store_stock.required' => __('app.label_store_stock').__('app.required'),
+            'warehouse.required' => __('app.label_warehouse').__('app.required'),
             'photo.required' => __('app.btn_browser').__('app.required'),
         ]);
 
@@ -87,10 +91,12 @@ class ProductController extends Controller
         $product->product_category_id = $request->product_category;
         $product->product_code = $request->code;
         $product->product_name = $request->name;
+        $product->scale = $request->scale;
         $product->buying_price = $request->buying_price;
         $product->salling_price = $request->salling_price;
         $product->buying_date = $request->buying_date;
-        $product->product_quantity = $request->product_qty;
+        $product->store_stock = $request->store_stock;
+        $product->warehouse = $request->warehouse;
         $product->photo = $imageName;
         $product->description = $request->description;
         $product->note = $request->note;
@@ -157,18 +163,22 @@ class ProductController extends Controller
             'product_category' =>'required',
             'code' =>'required',
             'name' => 'required',
+            'scale' => 'required',
             'buying_price' => 'required',
             'salling_price' => 'required',
             'buying_date' => 'required',
-            'product_qty' => 'required',
+            'store_stock' => 'required',
+            'warehouse' => 'required',
         ],[
             'product_category.required' => __('app.product_category').__('app.required'),
             'code.required' => __('app.code').__('app.product_category').__('app.required'),
             'name.required' => __('app.label_name').__('app.product_category').__('app.required'),
+            'scale.required' => __('app.label_scale').__('app.required'),
             'buying_price.required' => __('app.label_buying_price').__('app.required'),
             'salling_price.required' => __('app.label_salling_price').__('app.required'),
             'buying_date.required' => __('app.label_buying_date').__('app.required'),
-            'product_qty.required' => __('app.label_product_qty').__('app.required'),
+            'store_stock.required' => __('app.label_store_stock').__('app.required'),
+            'warehouse.required' => __('app.label_warehouse').__('app.required'),
         ]);
 
         if($validator->fails()) {
@@ -188,11 +198,12 @@ class ProductController extends Controller
 
         $product->product_category_id = $request->product_category;
         $product->product_code = $request->code;
-        $product->product_name = $request->name;
+        $product->scale = $request->scale;
         $product->buying_price = $request->buying_price;
         $product->salling_price = $request->salling_price;
         $product->buying_date = $request->buying_date;
-        $product->product_quantity = $request->product_qty;
+        $product->store_stock = $request->store_stock;
+        $product->warehouse = $request->warehouse;
         $product->description = $request->description;
         $product->note = $request->note;
         $product->updated_by = Auth::user()->id;

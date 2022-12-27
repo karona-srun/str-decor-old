@@ -32,11 +32,13 @@
                                     <img src="{{ url('products/', $product->photo) }}" class="img-rounded img-thumbnail"
                                         alt="" srcset="">
                                 </a>
-                                <p class="mt-3 ">{{ __('app.table_photo') }}</p>
+                                @if(sizeof($attachments))
+                                    <p class="mt-3 ">{{ __('app.table_photo') }}</p>
+                                @endif
                                 @foreach ($attachments as $item)
                                     <a href="{{ url('attachments/', $item->name) }}" data-fancybox="images">
                                         <img src="{{ url('attachments/', $item->name) }}"
-                                            class="mb-2 mr-2 img-rounded img-thumbnail attachments" />
+                                            class="mb-2 mr-2 img-rounded img-thumbnail attachments product-list-image" />
                                     </a>
                                 @endforeach
                             </div>
@@ -56,6 +58,10 @@
                                     <td class=" text-break">: {{ $product->product_name }}</td>
                                 </tr>
                                 <tr>
+                                    <th>{{ __('app.label_scale') }}{{ __('app.product') }}</th>
+                                    <td class=" text-break">: {{ $product->scale }}</td>
+                                </tr>
+                                <tr>
                                     <th>{{ __('app.label_buying_price') }}</th>
                                     <td class=" text-break">: ${{ $product->buying_price }}</td>
                                 </tr>
@@ -68,8 +74,16 @@
                                     <td class=" text-break">: {{ $product->buying_date }}</td>
                                 </tr>
                                 <tr>
-                                    <th>{{ __('app.label_product_qty') }}</th>
-                                    <td class=" text-break">: {{ $product->product_quantity }}</td>
+                                    <th>{{ __('app.label_product_qty') }}{{ __('app.label_store_stock') }}</th>
+                                    <td class=" text-break">: {{ $product->store_stock }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ __('app.label_product_qty') }}{{ __('app.label_warehouse') }}</th>
+                                    <td class=" text-break">: {{ $product->warehouse }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ __('app.label_product_qty') }}{{ __('app.label_sold_out') }}</th>
+                                    <td class=" text-break">: {{ $product->sold_out ?? 0 }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{ __('app.label_description') }}</th>

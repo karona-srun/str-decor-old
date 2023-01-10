@@ -2022,6 +2022,7 @@ pre code {
 
 .table th, .table td{
   padding: 0.4rem 0.5rem !important;
+  vertical-align: middle !important;
 }
 
 .form-control {
@@ -4931,7 +4932,7 @@ input[type="button"].btn-block {
   right: 0;
   bottom: 0;
   left: 0;
-  padding: 1.25rem;
+  padding: 0rem 0.5rem;
   border-radius: calc(0.25rem - 0);
 }
 
@@ -12499,7 +12500,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 }
 
 [class*="sidebar-light"] .brand-link {
-  border-bottom: 1px solid #dee2e6;
+  /* border-bottom: 1px solid #dee2e6; */
 }
 
 [class*="sidebar-light"] .brand-link,
@@ -15075,8 +15076,8 @@ html.control-sidebar-animate {
 .control-sidebar, .control-sidebar::before {
   bottom: calc(3.5rem + 1px);
   display: none;
-  right: -250px;
-  width: 250px;
+  right: -6250px;
+  width: 625px;
   transition: right 0.3s ease-in-out, display 0.3s ease-in-out;
 }
 
@@ -28613,9 +28614,30 @@ body.text-sm .input-group-text {
 }
 
 .card {
-  /* box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2); */
-  border: 1px solid #495057;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
+  border: 0px solid #495057;
   margin-bottom: 1rem;
+}
+
+.badge-price {
+  margin-top: 6px;
+  position: absolute;
+  right: 0;
+  margin-right: 6px;
+  border-radius: 2px;
+}
+
+.card-body-cutom {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: .2rem .5rem;
+}
+
+@media (min-width: 1200px){
+  .col-xl-1-2 {
+    flex: 0 0 16.666667%;
+    max-width: 12.5%;
+  }
 }
 
 .card.bg-dark .card-header {
@@ -31208,6 +31230,10 @@ html.maximized-card {
   border-left-color: #343a40;
 }
 
+.height-content {
+  min-height: 100vh;
+}
+
 .modal-dialog .overlay {
   display: -ms-flexbox;
   display: flex;
@@ -33427,6 +33453,28 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   .small-box p {
     font-size: 12px;
   }
+}
+
+.black-box{
+  box-shadow: 0 0 1px rgb(0 0 0), 0 1px 3px rgb(0 0 0 / 20%);
+  border-radius: 0.1rem;
+  background-color: #fff;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 1rem;
+  min-height: 80px;
+  padding: 1rem 5rem 0rem 0rem;
+  position: relative;
+  width: 100%;
+
+}
+
+.label-box{
+  position: absolute;
+  margin-top: -27px;
+  margin-left: 6px;
+  background: #fff;
+  padding: 0px 5px;
 }
 
 .info-box {
@@ -45612,6 +45660,30 @@ blockquote.quote-gray-dark h6 {
   background-color: #343a40;
   border-color: #6c757d;
 }
+@media (min-width: 300px) {
+  .main-header {
+    padding-bottom: 35px;
+  }
+}
+
+@media (min-width: 400px) {
+  .main-header {
+    padding-bottom: 35px;
+  }
+  .control-sidebar{
+    width: 100% !important;
+  }
+}
+
+@media (min-width: 760px) {
+  .main-header {
+    padding-bottom: 10px;
+  }
+  .control-sidebar{
+    width: 50% !important;
+  }
+}
+
 
 @media print {
   .no-print, .main-sidebar,

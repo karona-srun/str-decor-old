@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AddCartController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\BaseSalaryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExpendController;
 use App\Http\Controllers\ExpendOptionsController;
 use App\Http\Controllers\IncomeController;
@@ -10,6 +12,7 @@ use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\StaffInfoController;
 use App\Http\Controllers\TimeController;
 use App\Http\Controllers\WorkplaceController;
@@ -41,6 +44,9 @@ Route::post('/update-workplace', [App\Http\Controllers\WorkplaceController::clas
 Route::resource('/base-salary', BaseSalaryController::class);
 Route::post('/update-base-salary', [App\Http\Controllers\BaseSalaryController::class, 'updateBaseSalary']);
 Route::resource('/staff-info', StaffInfoController::class);
+Route::resource('/customers', CustomerController::class);
+Route::post('/new-customer', [App\Http\Controllers\CustomerController::class, 'newCustomer']);
+
 Route::get('attachments/download/{file}', [App\Http\Controllers\AttachmentController::class, 'download']);
 Route::resource('/times', TimeController::class);
 Route::post('/update-times', [App\Http\Controllers\TimeController::class, 'updateTime']);
@@ -58,4 +64,9 @@ Route::resource('/expends', ExpendController::class);
 Route::resource('/product-category', ProductCategoryController::class);
 Route::resource('/productes', ProductController::class);
 Route::delete('/productes/delete-photo/{id}',[App\Http\Controllers\ProductController::class, 'deletePhoto']);
+Route::get('/get-product/{id}',[App\Http\Controllers\ProductController::class, 'getProduct']);
+Route::resource('/sales', SaleController::class);
+Route::get('/sales-cart-list', [App\Http\Controllers\SaleController::class, 'cartList']);
+Route::resource('/add-cart', AddCartController::class);
+Route::get('/print-add-cart/{id}', [App\Http\Controllers\AddCartController::class, 'print']);
 

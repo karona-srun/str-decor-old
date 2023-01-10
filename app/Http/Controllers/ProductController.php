@@ -136,6 +136,12 @@ class ProductController extends Controller
         return view('backend.products.show', compact('product','attachments'));
     }
 
+    public function getProduct($id)
+    {
+        $product = Product::find($id);
+        return response()->json($product);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -160,7 +166,6 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(),[
-            'product_category' =>'required',
             'code' =>'required',
             'name' => 'required',
             'scale' => 'required',
@@ -170,7 +175,6 @@ class ProductController extends Controller
             'store_stock' => 'required',
             'warehouse' => 'required',
         ],[
-            'product_category.required' => __('app.product_category').__('app.required'),
             'code.required' => __('app.code').__('app.product_category').__('app.required'),
             'name.required' => __('app.label_name').__('app.product_category').__('app.required'),
             'scale.required' => __('app.label_scale').__('app.required'),
@@ -185,6 +189,8 @@ class ProductController extends Controller
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
+
+      
         $product = Product::find($id);
         $imageName = '';
 
@@ -196,8 +202,10 @@ class ProductController extends Controller
             $product->photo = $imageName;
         }
 
+
         $product->product_category_id = $request->product_category;
         $product->product_code = $request->code;
+        $product->product_name = $request->name;
         $product->scale = $request->scale;
         $product->buying_price = $request->buying_price;
         $product->salling_price = $request->salling_price;

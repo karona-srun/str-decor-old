@@ -5,19 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sale extends Model
+class Customer extends Model
 {
     use HasFactory;
-
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class,'customer_id');
-    }
-
-    public function saleDetail()
-    {
-        return $this->hasMany(SaleDetail::class,'sales_id','id');
-    }
 
     public function creator()
     {

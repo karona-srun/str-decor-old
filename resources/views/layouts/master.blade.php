@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'STR Funiture') }} | @yield('title-page')</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" id="csrf" content="{{ csrf_token() }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
@@ -113,10 +113,10 @@
                 </li>
             </ul>
         </nav>
-        <aside class="main-sidebar sidebar-dark-primary elevation-2">
+        <aside class="main-sidebar sidebar-light-primary elevation-2">
             <a href="{{ url('/home') }}" class="brand-link">
                 <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="STR Furniture"
-                    class="brand-image img-circle" style="opacity: .8">
+                    class="brand-image img-circle" style="opacity: .7">
                 <span class="brand-text font-weight-light">STR Furniture</span>
             </a>
 
@@ -130,9 +130,9 @@
                         <li class="nav-item">
                             <a href="{{ url('home') }}" class="nav-link {{ Request::is('home') ? 'active' : null }}">
                                 <i class="nav-icon fas fa-th-large"></i>
-                                <span>
+                                <p>
                                     {{ __('app.dashboard') }}
-                                </span>
+                                </p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -140,6 +140,14 @@
                                 <i class="nav-icon fas fa-solar-panel"></i>
                                 <p>
                                     {{ __('app.sale_dashboard') }}
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('customers') }}" class="nav-link">
+                                <i class="nav-icon fas fa-user-friends"></i>
+                                <p>
+                                    {{ __('app.customer_management') }}
                                 </p>
                             </a>
                         </li>
@@ -193,7 +201,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/widgets.html" class="nav-link">
+                            <a href="{{ route('sales.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-shopping-cart"></i>
                                 <p>
                                     {{ __('app.sales') }}

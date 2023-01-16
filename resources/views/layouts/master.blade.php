@@ -13,14 +13,11 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
-
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.css') }}">
-    <link
-			rel="stylesheet"
-			type="text/css"
-			href="{{ asset('assets/plugins/fancybox/dist/jquery.fancybox.css') }}"
-		/>
+    <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/fancybox/dist/jquery.fancybox.css') }}" />
     <style>
         @font-face {
             font-family: "Hanuman";
@@ -30,6 +27,7 @@
         html body {
             font-family: "Hanuman";
         }
+
         @page {
             size: A4;
             margin: 10mm 0mm;
@@ -48,7 +46,7 @@
             }
         }
     </style>
-     @yield('css')
+    @yield('css')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -82,18 +80,18 @@
                                 <img src="{{ asset('images/avatar.png') }}" alt="User Avatar"
                                     class="img-size-50 mr-3 img-circle">
                                 <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        {{ Auth::user()->name }}
+                                    <h3 class="dropdown-item-title mt-1">
+                                        សួស្តី {{ Auth::user()->name }}
                                         <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
                                     </h3>
-                                    <p class="text-sm">Call me whenever you can...</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                    <p class="text-sm text-muted mt-1"><i class="far fa-clock mr-1"></i>
+                                        {{ Auth::user()->uptime }}</p>
                                 </div>
                             </div>
                         </a>
-                        <a href="#" class="dropdown-item">
+                        <a href="{{ url('users/profile', Auth::user()->id) }}" class="dropdown-item">
                             <i class="far fa-circle nav-icon"></i>
-                            Profile Info
+                            {{ __('app.label_profile') }}
                         </a>
                         {{-- <a href="#" class="dropdown-item">
                             <i class="far fa-circle nav-icon"></i>
@@ -103,7 +101,7 @@
                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                             <i class="far fa-circle nav-icon"></i>
-                            {{ __('Logout') }}
+                            {{ __('app.label_logout') }}
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -122,190 +120,259 @@
 
             <div class="sidebar">
                 <nav>
-                    <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent mb-5" data-widget="treeview" role="menu"
-                        data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent mb-5" data-widget="treeview"
+                        role="menu" data-accordion="false">
                         <li class="nav-header mt-2">
                             <h6>{{ __('app.menu') }}</h6>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ url('home') }}" class="nav-link {{ Request::is('home') ? 'active' : null }}">
-                                <i class="nav-icon fas fa-th-large"></i>
-                                <p>
-                                    {{ __('app.dashboard') }}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/widgets.html" class="nav-link">
-                                <i class="nav-icon fas fa-solar-panel"></i>
-                                <p>
-                                    {{ __('app.sale_dashboard') }}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('customers') }}" class="nav-link">
-                                <i class="nav-icon fas fa-user-friends"></i>
-                                <p>
-                                    {{ __('app.customer_management') }}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item {{ Request::is('staff-info*') || Request::is('positions*')|| Request::is('workplace*') || Request::is('base-salary*') || Request::is('payroll*') ? 'menu-is-opening menu-open' : null }} ">
-                            <a href="#" class="nav-link {{ Request::is('staff-info*') || Request::is('positions*')|| Request::is('workplace*')|| Request::is('base-salary*') || Request::is('payroll*') ? 'active' : null }} ">
-                                <i class="nav-icon far fa-user"></i>
-                                <p>
-                                    {{ __('app.staff_management') }}
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ url('/staff-info') }}" class="nav-link {{ Request::is('staff-info*') ? 'active' : null }} ">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>{{ __('app.staff_info') }}</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('positions') }}" class="nav-link {{ Request::is('positions*') ? 'active' : null }} ">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>{{ __('app.position') }}</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('/workplace') }}" class="nav-link {{ Request::is('workplace*') ? 'active' : null }} ">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>{{ __('app.work_place') }}</p>
-                                    </a>
-                                </li>
-                                {{-- <li class="nav-item">
+                        @can('Dashboard')
+                            <li class="nav-item">
+                                <a href="{{ url('home') }}"
+                                    class="nav-link {{ Request::is('home') ? 'active' : null }}">
+                                    <i class="nav-icon fas fa-th-large"></i>
+                                    <p>
+                                        {{ __('app.dashboard') }}
+                                    </p>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('Dashboard Sale')
+                            <li class="nav-item">
+                                <a href="{{ url('dashboard-sale') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-solar-panel"></i>
+                                    <p>
+                                        {{ __('app.sale_dashboard') }}
+                                    </p>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('Customer List')
+                            <li class="nav-item">
+                                <a href="{{ url('customers') }}"
+                                    class="nav-link  {{ Request::is('customers*') ? 'active' : null }} ">
+                                    <i class="nav-icon fas fa-user-friends"></i>
+                                    <p>
+                                        {{ __('app.customer_management') }}
+                                    </p>
+                                </a>
+                            </li>
+                        @endcan
+                        @if (Auth::user()->can('Staff List') ||
+                            Auth::user()->can('Position List') ||
+                            Auth::user()->can('WorkPlace List') ||
+                            Auth::user()->can('Payroll List'))
+                            <li
+                                class="nav-item {{ Request::is('staff-info*') || Request::is('positions*') || Request::is('workplace*') || Request::is('base-salary*') || Request::is('payroll*') ? 'menu-is-opening menu-open' : null }} ">
+                                <a href="#"
+                                    class="nav-link {{ Request::is('staff-info*') || Request::is('positions*') || Request::is('workplace*') || Request::is('base-salary*') || Request::is('payroll*') ? 'active' : null }} ">
+                                    <i class="nav-icon far fa-user"></i>
+                                    <p>
+                                        {{ __('app.staff_management') }}
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ url('/staff-info') }}"
+                                            class="nav-link {{ Request::is('staff-info*') ? 'active' : null }} ">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>{{ __('app.staff_info') }}</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('positions') }}"
+                                            class="nav-link {{ Request::is('positions*') ? 'active' : null }} ">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>{{ __('app.position') }}</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('/workplace') }}"
+                                            class="nav-link {{ Request::is('workplace*') ? 'active' : null }} ">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>{{ __('app.work_place') }}</p>
+                                        </a>
+                                    </li>
+                                    {{-- <li class="nav-item">
                                     <a href="{{ url('base-salary') }}" class="nav-link {{ Request::is('base-salary*') ? 'active' : null }} ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>{{ __('app.base_salary') }}</p>
                                     </a>
                                 </li> --}}
-                                <li class="nav-item">
-                                    <a href="{{ url('payroll') }}" class="nav-link {{ Request::is('payroll*') ? 'active' : null }} ">
-                                        <i class="fas fa-dollar-sign nav-icon"></i>
-                                        <p>{{ __('app.payroll') }}</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('attendances') }}" class="nav-link {{ Request::is('attendances*') ? 'active' : null }} ">
-                                <i class="nav-icon fas fa-business-time"></i>
-                                <p>
-                                    {{ __('app.attendance') }}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('sales.index') }}" class="nav-link">
-                                <i class="nav-icon fas fa-shopping-cart"></i>
-                                <p>
-                                    {{ __('app.sales') }}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item {{ Request::is('product-category*') || Request::is('products*')  ? 'menu-is-opening menu-open' : null }} ">
-                            <a href="#" class="nav-link {{ Request::is('product-category*') || Request::is('products*') ? 'active' : null }} ">
-                                <i class="nav-icon fas fa-cube"></i>
-                                <p>
-                                    {{ __('app.stock') }}
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ url('product-category') }}" class="nav-link {{ Request::is('product-category*')  ? 'active' : null }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>{{ __('app.product_category') }}</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('/productes') }}" class="nav-link {{ Request::is('products*')  ? 'active' : null }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>{{ __('app.product') }}</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item {{ Request::is('incomes*') || Request::is('expends*') ? 'menu-is-opening menu-open' : null }} ">
-                            <a href="#" class="nav-link {{ Request::is('incomes*') || Request::is('expends*') ? 'active' : null }} ">
-                                <i class="nav-icon fas fa-money-check-alt"></i>
-                                <p>
-                                    {{ __('app.income_expend') }}
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ url('incomes') }}" class="nav-link {{ Request::is('incomes*') ? 'active' : null }} ">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>{{ __('app.income_info') }}</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('expends') }}" class="nav-link {{ Request::is('expends*') ? 'active' : null }} ">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>{{ __('app.expend_info') }}</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-user"></i>
-                                <p>
-                                    {{ __('app.user_management') }}
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="pages/search/simple.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>{{ __('app.user_info') }}</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/search/enhanced.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>{{ __('app.role_permission') }}</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item {{ Request::is('income-options*') || Request::is('expend-options*') || Request::is('times*')  ? 'menu-is-opening menu-open' : null }} ">
-                            <a href="#" class="nav-link {{ Request::is('income-options*') || Request::is('expend-options*') || Request::is('times*')  ? 'active' : null }} ">
-                                <i class="nav-icon fas fa-cogs"></i>
-                                <p>
-                                    {{ __('app.settings') }}
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ url('income-options') }}" class="nav-link {{ Request::is('income-options*') ? 'active' : null }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>{{ __('app.income_options') }}</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('expend-options') }}" class="nav-link {{ Request::is('expend-options*') ? 'active' : null }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>{{ __('app.expend_options') }}</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('times') }}" class="nav-link {{ Request::is('times*') ? 'active' : null }} ">
-                                        <i class="far fa-clock nav-icon"></i>
-                                        <p>{{ __('app.time') }}</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('payroll') }}"
+                                            class="nav-link {{ Request::is('payroll*') ? 'active' : null }} ">
+                                            <i class="fas fa-dollar-sign nav-icon"></i>
+                                            <p>{{ __('app.payroll') }}</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
+                        @can('Attandance List')
+                            <li class="nav-item">
+                                <a href="{{ url('attendances') }}"
+                                    class="nav-link {{ Request::is('attendances*') ? 'active' : null }} ">
+                                    <i class="nav-icon fas fa-business-time"></i>
+                                    <p>
+                                        {{ __('app.attendance') }}
+                                    </p>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('Sale List')
+                            <li class="nav-item">
+                                <a href="{{ route('sales.index') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-shopping-cart"></i>
+                                    <p>
+                                        {{ __('app.sales') }}
+                                    </p>
+                                </a>
+                            </li>
+                        @endcan
+                        @if (Auth::user()->can('Product Category List') || Auth::user()->can('Product List'))
+                            <li
+                                class="nav-item {{ Request::is('product-category*') || Request::is('products*') ? 'menu-is-opening menu-open' : null }} ">
+                                <a href="#"
+                                    class="nav-link {{ Request::is('product-category*') || Request::is('products*') ? 'active' : null }} ">
+                                    <i class="nav-icon fas fa-cube"></i>
+                                    <p>
+                                        {{ __('app.stock') }}
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('Product Category List')
+                                        <li class="nav-item">
+                                            <a href="{{ url('product-category') }}"
+                                                class="nav-link {{ Request::is('product-category*') ? 'active' : null }}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>{{ __('app.product_category') }}</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('Product List')
+                                        <li class="nav-item">
+                                            <a href="{{ url('/productes') }}"
+                                                class="nav-link {{ Request::is('products*') ? 'active' : null }}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>{{ __('app.product') }}</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </li>
+                        @endif
+                        @if (Auth::user()->can('Income List') || Auth::user()->can('Expend List'))
+                            <li
+                                class="nav-item {{ Request::is('incomes*') || Request::is('expends*') ? 'menu-is-opening menu-open' : null }} ">
+                                <a href="#"
+                                    class="nav-link {{ Request::is('incomes*') || Request::is('expends*') ? 'active' : null }} ">
+                                    <i class="nav-icon fas fa-money-check-alt"></i>
+                                    <p>
+                                        {{ __('app.income_expend') }}
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('Income List')
+                                        <li class="nav-item">
+                                            <a href="{{ url('incomes') }}"
+                                                class="nav-link {{ Request::is('incomes*') ? 'active' : null }} ">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>{{ __('app.income_info') }}</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('Expend List')
+                                        <li class="nav-item">
+                                            <a href="{{ url('expends') }}"
+                                                class="nav-link {{ Request::is('expends*') ? 'active' : null }} ">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>{{ __('app.expend_info') }}</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </li>
+                        @endif
+                        @if (Auth::user()->can('User List') || Auth::user()->can('Role List'))
+                            <li
+                                class="nav-item {{ Request::is('users*') || Request::is('roles*') ? 'menu-is-opening menu-open' : null }} ">
+                                <a href="#"
+                                    class="nav-link {{ Request::is('users*') || Request::is('roles*') ? 'active' : null }} ">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>
+                                        {{ __('app.user_management') }}
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('User List')
+                                        <li class="nav-item">
+                                            <a href="{{ route('users.index') }}"
+                                                class="nav-link {{ Request::is('users*') ? 'active' : null }}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>{{ __('app.user_info') }}</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('Role List')
+                                        <li class="nav-item">
+                                            <a href="{{ route('roles.index') }}"
+                                                class="nav-link {{ Request::is('roles*') ? 'active' : null }}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>{{ __('app.role_permission') }}</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </li>
+                        @endif
+                        @if (Auth::user()->can('Option Income List') ||
+                            Auth::user()->can('Option Expend List') ||
+                            Auth::user()->can('Time List'))
+                            <li
+                                class="nav-item {{ Request::is('income-options*') || Request::is('expend-options*') || Request::is('times*') ? 'menu-is-opening menu-open' : null }} ">
+                                <a href="#"
+                                    class="nav-link {{ Request::is('income-options*') || Request::is('expend-options*') || Request::is('times*') ? 'active' : null }} ">
+                                    <i class="nav-icon fas fa-cogs"></i>
+                                    <p>
+                                        {{ __('app.settings') }}
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('Option Income List')
+                                        <li class="nav-item">
+                                            <a href="{{ url('income-options') }}"
+                                                class="nav-link {{ Request::is('income-options*') ? 'active' : null }}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>{{ __('app.income_options') }}</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('Option Expend List')
+                                        <li class="nav-item">
+                                            <a href="{{ url('expend-options') }}"
+                                                class="nav-link {{ Request::is('expend-options*') ? 'active' : null }}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>{{ __('app.expend_options') }}</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('Time List')
+                                        <li class="nav-item">
+                                            <a href="{{ url('times') }}"
+                                                class="nav-link {{ Request::is('times*') ? 'active' : null }} ">
+                                                <i class="far fa-clock nav-icon"></i>
+                                                <p>{{ __('app.time') }}</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </li>
+                        @endif
                     </ul>
                 </nav>
             </div>
@@ -323,6 +390,7 @@
 
             <section class="content">
                 <div class="container-fluid">
+                    @include('flash_message')
                     @yield('content')
                 </div>
         </div>
@@ -353,12 +421,14 @@
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/fancybox/dist/jquery.fancybox.js') }}"></script>
+    <script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
+
     @yield('js')
     <script type="text/javascript">
         $(function() {
+            $('#toastsContainerTopRight').delay(5000).fadeOut('slow');
             //Initialize Select2 Elements
-            $('.select2').select2({
-            })
+            $('.select2').select2({})
 
             //Initialize Select2 Elements
             $('.select2bs4').select2({
@@ -373,27 +443,27 @@
                 "info": true,
                 "autoWidth": true,
                 "responsive": true,
-                "language":{
-                    "sProcessing":     "ដំណើរការ...",
-                    "sLengthMenu":     "បង្ហាញ _MENU_ ទិន្នន័យ",
-                    "sZeroRecords":    "មិនមានទិន្នន័យនៅក្នុងតារាងនេះទេ។",
-                    "sEmptyTable":     "មិនមានទិន្នន័យនៅក្នុងតារាងនេះទេ។",
-                    "sInfo":           "បង្ហាញ _START_ ទៅ _END_ នៃ _TOTAL_ ទិន្នន័យ",
-                    "sInfoEmpty":      "បង្ហាញកំណត់ត្រាពី 0 ដល់ 0 ក្នុងចំណោមកំណត់ត្រាសរុប 0",
-                    "sInfoFiltered":   "(ការត្រងចេញពីកំណត់ត្រាសរុប _MAX_)",
-                    "sInfoPostFix":    "",
-                    "sSearch":         "ស្វែងរកទិន្នន័យ:",
-                    "sUrl":            "",
-                    "sInfoThousands":  ",",
+                "language": {
+                    "sProcessing": "ដំណើរការ...",
+                    "sLengthMenu": "បង្ហាញ _MENU_ ទិន្នន័យ",
+                    "sZeroRecords": "មិនមានទិន្នន័យនៅក្នុងតារាងនេះទេ។",
+                    "sEmptyTable": "មិនមានទិន្នន័យនៅក្នុងតារាងនេះទេ។",
+                    "sInfo": "បង្ហាញ _START_ ទៅ _END_ នៃ _TOTAL_ ទិន្នន័យ",
+                    "sInfoEmpty": "បង្ហាញកំណត់ត្រាពី 0 ដល់ 0 ក្នុងចំណោមកំណត់ត្រាសរុប 0",
+                    "sInfoFiltered": "(ការត្រងចេញពីកំណត់ត្រាសរុប _MAX_)",
+                    "sInfoPostFix": "",
+                    "sSearch": "ស្វែងរកទិន្នន័យ:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
                     "sLoadingRecords": "ដំណើរការ...",
                     "oPaginate": {
-                        "sFirst":    "ដំបូង",
-                        "sLast":     "ចុងក្រោយ",
-                        "sNext":     "បន្ត",
+                        "sFirst": "ដំបូង",
+                        "sLast": "ចុងក្រោយ",
+                        "sNext": "បន្ត",
                         "sPrevious": "ថយក្រោយ"
                     },
                     "oAria": {
-                        "sSortAscending":  ": ធ្វើឱ្យសកម្មដើម្បីតម្រៀបជួរឈរតាមលំដាប់ឡើង",
+                        "sSortAscending": ": ធ្វើឱ្យសកម្មដើម្បីតម្រៀបជួរឈរតាមលំដាប់ឡើង",
                         "sSortDescending": ": ធ្វើឱ្យសកម្មដើម្បីតម្រៀបជួរឈរតាមលំដាប់ចុះ"
                     }
                 },

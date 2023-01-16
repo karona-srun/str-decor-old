@@ -15034,7 +15034,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 
 .nav-sidebar .nav-item > .nav-link {
   position: relative;
-  line-height: 0.3;
+  line-height: 18px;
 }
 
 .nav-sidebar .nav-item > .nav-link > .float-right {

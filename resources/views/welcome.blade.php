@@ -311,7 +311,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="card">
+                            <div class="card card-outline card-primary">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
 
@@ -342,7 +342,7 @@
                         </div>
                         
                         <div class="col-lg-6">
-                            <div class="card">
+                            <div class="card card-outline card-primary">
                                 <div class="card-header">
                                     <h5 class="card-title m-0">Featured</h5>
                                 </div>

@@ -57,7 +57,7 @@
                                 <div class="row">
                                     @foreach ($productes as $i => $item)
                                         <div class="col-md-2 col-lg-3 col-xl-1-2">
-                                            <div class="card">
+                                            <div class="card card-outline card-primary">
                                                 <img src="{{ 'products/' . $item->photo }}" class="card-img-top"
                                                     alt="...">
                                                 <p class="badge badge-primary badge-price">
@@ -362,7 +362,7 @@
     <div class="row p-3">
         <div class="col-sm-12" id="printarea">
             <h4 class="mb-3">{{ __('app.label_cart') }}</h4>
-            <div class="card">
+            <div class="card card-outline card-primary">
                 <form action="{{ url('sales') }}" class="formCartList" method="post">
                     @csrf
                     <div class="card-body">

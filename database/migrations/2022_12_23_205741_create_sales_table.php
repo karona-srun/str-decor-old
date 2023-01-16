@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
+            $table->string('sale_no')->nullable();
             $table->bigInteger('customer_id')->nullable();
             $table->tinyInteger('total_qty');
             $table->decimal('total_price',8,2);

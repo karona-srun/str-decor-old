@@ -2,13 +2,29 @@
 
 STR Furniture is a web application for management such as:
 
+- Dashboard
+- Dashboard Salling
+- Customer
 - Staff Management
+    - Staff
+    - Position
+    - Workplace
+    - Payroll
 - Attandance
-- Payroll
 - Sales
 - Stock
+    - Product Category
+    - Product
 - Income & Expend
+    - Income
+    - Expend
 - User Management
+    - User 
+    - Role & Permission
+- Settings
+    - Option Income 
+    - Option Expend
+    - Time
 
 ## Learning The STR Furniture
 

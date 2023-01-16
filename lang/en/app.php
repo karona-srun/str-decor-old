@@ -54,6 +54,7 @@ return [
     'btn_yes' => 'បាទ/ចាស',
     'btn_no' => 'ទេ',
     'btn_back' => 'ត្រឡប់ក្រោយ',
+    'btn_send_password_reset_link' => 'ផ្ញើតំណកំណត់ពាក្យសម្ងាត់ឡើងវិញ',
 
     'table_no' => 'ល.រ',
     'table_name' => 'Name',
@@ -132,6 +133,8 @@ return [
     'label_logout' => 'ចាកចេញ',
     'label_login' => 'ចូលប្រើប្រាស់',
     'label_forgot_password' => 'ភ្លេចពាក្យសម្ងាត់',
+    'label_remember_me' => 'ចងចាំខ្ញុំ',
+    'label_reset_password' => 'កំណត់ពាក្យសម្ងាត់ឡើងវិញ',
 
     'code' => 'កូដ',
     'first_name' => 'First Name',

@@ -140,7 +140,7 @@
 
                 <!-- Right navbar links -->
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                    <li class="nav-item dropdown">
+                    {{-- <li class="nav-item dropdown">
                         <a class="nav-link" data-toggle="dropdown" href="#">
                             <i class="far fa-bell"></i>
                             <span class="badge badge-warning navbar-badge">15</span>
@@ -156,17 +156,19 @@
                                 <i class="fas fa-file mr-2"></i> English
                             </a>
                         </div>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a class="btn btn-primary" href="{{ route('login') }}" role="button">
-                            <i class="fas fa-sign-in-alt"></i> LogIn
+                            <i class="fas fa-sign-in-alt"></i> {{ __('app.label_login')}}
                         </a>
                     </li>
+                    @if (Route::has('register'))
                     <li class="nav-item ml-2">
                         <a class="btn btn-outline-primary" href="{{ route('register') }}" role="button">
                             <i class="fas fa-sign-out-alt"></i> Register
                         </a>
                     </li>
+                    @endif
                 </ul>
             </div>
         </nav>

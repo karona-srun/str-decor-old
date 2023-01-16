@@ -206,7 +206,12 @@
                                             <div class="form-group">
                                                 <label>{{ __('app.base_salary') }} <small
                                                         class="text-red">*</small></label>
-                                                <input type="number" class="form-control" name="base_salary" value="{{ $staffInfo->base_salary }}" placeholder="{{ __('app.label_required') }}{{ __('app.base_salary') }}">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">$</span>
+                                                    </div>
+                                                    <input type="number" class="form-control" name="base_salary" value="{{ $staffInfo->base_salary }}" placeholder="{{ __('app.label_required') }}{{ __('app.base_salary') }}">
+                                                </div>
                                                 @if ($errors->has('base_salary'))
                                                     <div class="error text-danger text-sm mt-1">
                                                         {{ $errors->first('base_salary') }}</div>
@@ -217,7 +222,13 @@
                                             <div class="form-group">
                                                 <label>{{ __('app.rate_per_hour') }} <small
                                                         class="text-red">*</small></label>
-                                                <input type="number" class="form-control" name="rate_per_hour" value="{{ $staffInfo->rate_per_hour }}" placeholder="{{ __('app.label_required') }}{{ __('app.rate_per_hour') }}">
+                                                
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">$</span>
+                                                    </div>
+                                                    <input type="number" class="form-control" name="rate_per_hour" value="{{ $staffInfo->rate_per_hour }}" placeholder="{{ __('app.label_required') }}{{ __('app.rate_per_hour') }}">
+                                                </div>
                                                 @if ($errors->has('rate_per_hour'))
                                                     <div class="error text-danger text-sm mt-1">
                                                         {{ $errors->first('rate_per_hour') }}</div>

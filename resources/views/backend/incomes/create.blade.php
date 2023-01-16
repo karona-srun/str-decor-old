@@ -23,7 +23,7 @@
                                     <div class="form-group">
                                         <label>{{ __('app.income_options') }} <small class="text-red">*</small></label>
                                         <select class="form-control select2" name="income_option" style="width: 100%;">
-                                            <option value="" >{{ __('app.table_choose') }}</option>
+                                            <option value="">{{ __('app.table_choose') }}</option>
                                             @foreach ($income_options as $item)
                                                 <option value="{{ $item->id }}">
                                                     {{ $item->name }}</option>
@@ -62,8 +62,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>{{ __('app.label_amount') }} <small class="text-red">*</small></label>
-                                        <input type="number" name="amount" step="any" class="form-control"
-                                            placeholder="{{ __('app.label_required') }}{{ __('app.label_amount') }}">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                            <input type="number" name="amount" step="any" class="form-control"
+                                                placeholder="{{ __('app.label_required') }}{{ __('app.label_amount') }}">
+                                        </div>
                                         @if ($errors->has('amount'))
                                             <div class="error text-danger text-sm mt-1">
                                                 {{ $errors->first('amount') }}</div>

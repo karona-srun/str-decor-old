@@ -16,10 +16,10 @@
 <body class="hold-transition">
     <div class="login--box">
         <div class="row">
-            <div class="col-md-6 col-sm-12 justify-content-center align-content-center">
+            <div class="col-md-5 col-sm-12 justify-content-center align-content-center">
                 <img src="{{ asset('images/undraw_remotely_2j6y.svg') }}" width="80%" alt="" srcset="">
             </div>
-            <div class="col-md-6 col-sm-12 justify-content-center">
+            <div class="col-md-7 col-sm-12 justify-content-center">
                 @yield('content')
             </div>
         </div>

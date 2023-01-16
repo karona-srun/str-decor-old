@@ -12,9 +12,11 @@ use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\StaffInfoController;
 use App\Http\Controllers\TimeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkplaceController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +39,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard-sale', [App\Http\Controllers\DashboardSaleController::class, 'index'])->name('dashboard-sale');
 Route::resource('/positions', PositionController::class);
 Route::post('/update-positions', [App\Http\Controllers\PositionController::class, 'updatePosition']);
 Route::resource('/workplace', WorkplaceController::class);
@@ -70,3 +73,12 @@ Route::get('/sales-cart-list', [App\Http\Controllers\SaleController::class, 'car
 Route::resource('/add-cart', AddCartController::class);
 Route::get('/print-add-cart/{id}', [App\Http\Controllers\AddCartController::class, 'print']);
 
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('users', UserController::class);
+    Route::get('/users/reset-password/{id}', [App\Http\Controllers\UserController::class, 'resetPassword']);
+    Route::post('/users/update-password', [App\Http\Controllers\UserController::class, 'updatePassword']);
+    Route::get('users/toggle-blocked/{id}/{blocked}', [App\Http\Controllers\UserController::class, 'toggleBlocked']);
+    Route::get('/users/profile/{id}', [App\Http\Controllers\UserController::class, 'profile']);
+    Route::resource('roles', RolesController::class);
+});

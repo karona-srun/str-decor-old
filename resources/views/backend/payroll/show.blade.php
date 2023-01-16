@@ -24,7 +24,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card card-outline card-primary">
                     <div class="card-header">
                         <h2 class="text-center title hide">{{ __('app.label_info') }}{{ __('app.payroll') }}</h2>
                         <h3 class="card-title">{{ __('app.label_info') }}{{ __('app.payroll') }}</h3>

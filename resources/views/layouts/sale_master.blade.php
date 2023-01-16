@@ -40,7 +40,7 @@
                 </a>
                 @if (Request::path() != "sales-cart-list")
                 <a href="{{ url('/home') }}" class="nav-link">
-                    <p class=" text-muted"> <i class="nav-icon fas fa-th-large"></i> {{ __('app.dashboard') }}</p>
+                    <p class=" text-muted"> <i class="nav-icon fas fa-arrow-left"></i> {{ __('app.dashboard') }}</p>
                 </a>
                 @else
                 <a href="{{ url('/sales') }}" class="nav-link">

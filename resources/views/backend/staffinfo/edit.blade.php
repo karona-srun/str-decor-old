@@ -5,7 +5,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card card-outline card-primary">
                 <form action="{{ url('/staff-info') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">

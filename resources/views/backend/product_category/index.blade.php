@@ -1,4 +1,4 @@
-@extends('layouts.master')
+                                                                                                                                                                                                    @extends('layouts.master')
 
 @section('title-page', __('app.product_category'))
 
@@ -9,8 +9,10 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.product_category') }}</h3>
                     <div class="card-tools">
+                        @can('Product Category Create')
                         <a href="{{ url('product-category/create') }}" class="btn btn-primary"> <i class=" fas fa-plus"></i>
                             {{ __('app.btn_add') }}</a>
+                            @endcan
                     </div>
                 </div>
                 <div class="card-body">

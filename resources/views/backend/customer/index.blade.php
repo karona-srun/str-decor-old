@@ -9,8 +9,10 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.customer_management') }}</h3>
                     <div class="card-tools">
+                        @can('Customer Create')
                         <a href="{{ route('customers.create') }}" class="btn btn-outline-primary"> <i class=" fas fa-plus"></i>
                             {{ __('app.btn_add') }}</a>
+                        @endcan
                     </div>
                 </div>
                 <div class="card-body">

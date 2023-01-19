@@ -9,8 +9,10 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.payroll') }}</h3>
                     <div class="card-tools">
+                        @can('Payroll Create')
                         <a href="{{ url('payroll/create') }}" class="btn btn-outline-primary"> <i class=" fas fa-plus"></i>
                             {{ __('app.btn_add') }}</a>
+                            @endcan
                     </div>
                 </div>
                 <div class="card-body">
@@ -41,9 +43,11 @@
                                     <td>{{ $item->payroll_status == 'paid' ? 'បានបើក':'មិនទាន់' }}</td>
                                     <td>
                                         <a href="{{ url('payroll', $item->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-file-invoice text-white"></i></a>
+                                        @can('Payroll Delete')
                                         <button class="btn btn-sm btn-danger deletePayroll" data-toggle="modal"
                                             data-target="#modal-default" data-id="{{ $item->id }}"><i
                                                 class="far fa-trash-alt"></i></button>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

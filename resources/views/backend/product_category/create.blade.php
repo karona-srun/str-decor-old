@@ -9,8 +9,10 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.product_category') }}</h3>
                     <div class="card-tools">
+                        @can('Product Category List')
                         <a href="{{ url('/product-category') }}" class="btn btn-primary"> <i class=" fas fa-list"></i>
                             {{ __('app.label_list') }} </a>
+                        @endcan
                     </div>
                 </div>
 

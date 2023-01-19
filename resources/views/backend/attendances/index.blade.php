@@ -9,9 +9,11 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.attendance') }}</h3>
                     <div class="card-tools">
+                        @can('Attandance Create')
                         <button type="button" class="btn btn-outline-primary createAttendance" data-toggle="modal"
                             data-target="#modal-default-create"> <i class=" fas fa-plus"></i>
                             {{ __('app.btn_add') }}</button>
+                        @endcan
                     </div>
                 </div>
                 <div class="card-body">
@@ -50,12 +52,16 @@
                                     <td>{{ $item->num_hour }}</td>
                                     <td>{{ $item->note }}</td>
                                     <td>
+                                        @can('Attandance Edit')
                                         <button class="btn btn-sm btn-warning editAttendance" data-toggle="modal"
                                             data-target="#modal-default-edit" data-id="{{ $item->id }}"><i
                                                 class="far fa-edit"></i></button>
+                                        @endcan
+                                        @can('Attandance Delete')
                                         <button class="btn btn-sm btn-danger deleteAttendance" data-toggle="modal"
                                             data-target="#modal-default" data-id="{{ $item->id }}"><i
                                                 class="far fa-trash-alt"></i></button>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

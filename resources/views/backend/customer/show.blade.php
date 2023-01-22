@@ -9,10 +9,12 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.customer_management') }}</h3>
                     <div class="card-tools">
+                        @can('Customer Edit')
                         <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-warning"> <i
                                 class=" fas fa-edit"></i>
                             {{ __('app.btn_edit') }}</a>
-
+                        @endcan
+                        @can('Customer Delete')
                         <a href="#" class="btn btn-danger deleteCustomer"
                             onclick="event.preventDefault(); document.getElementById('delete-form').submit();"
                                                      data-toggle="modal"
@@ -20,16 +22,17 @@
                             <i class="far fa-trash-alt"></i>
                             {{ __('app.btn_delete') }}
                         </a>
-
+                        @endcan
                         {{-- <form id="delete-form" action="{{ route('customers.destroy', $customer->id) }}" method="POST"
                             class="d-none">
                             @csrf
                             @method('DELETE')
                         </form> --}}
-
+                        @can('Customer List')
                         <a href="{{ route('customers.index') }}" class="btn btn-outline-primary"> <i
                                 class=" fas fa-list"></i>
                             {{ __('app.label_list') }}{{ __('app.customer') }}</a>
+                        @endcan
                     </div>
                 </div>
                 <div class="card-body">

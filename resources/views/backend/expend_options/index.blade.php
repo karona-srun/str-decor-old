@@ -9,8 +9,10 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.expend_options') }}</h3>
                     <div class="card-tools">
+                        @can('Option Expend Create')
                         <a href="{{ url('expend-options/create') }}" class="btn btn-primary"> <i class=" fas fa-plus"></i>
                             {{ __('app.btn_add') }}</a>
+                        @endcan
                     </div>
                 </div>
                 <div class="card-body">
@@ -34,15 +36,21 @@
                                     <td>{{ $item->created_at->format('d-m-Y h:i:s A') }}</td>
                                     <td>{{ $item->updated_at->format('d-m-Y h:i:s A') }}</td>
                                     <td>
+                                        @can('Option Expend Edit')
                                         <button class="btn btn-sm btn-primary editExpend" data-toggle="modal"
                                             data-target="#modal-default-view" data-id="{{ $item->id }}"><i
                                                 class="far fa-eye"></i></button>
+                                        @endcan
+                                        @can('Option Expend Edit')
                                         <button class="btn btn-sm btn-warning editExpend" data-toggle="modal"
                                             data-target="#modal-default-edit" data-id="{{ $item->id }}"><i
                                                 class="far fa-edit"></i></button>
+                                        @endcan
+                                        @can('Option Expend Delete')
                                         <button class="btn btn-sm btn-danger deleteIncome" data-toggle="modal"
                                             data-target="#modal-default" data-id="{{ $item->id }}"><i
                                                 class="far fa-trash-alt"></i></button>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

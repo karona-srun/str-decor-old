@@ -8,9 +8,11 @@
             <div class="card card-outline card-primary">
                 <div class="card-header">
                     <h3 class="card-title">{{__('app.label_info')}}{{ __('app.time') }}</h3>
+                    @can('Time List')
                     <div class="card-tools">
                         <a href="{{ url('times') }}" class="btn btn-primary"> <i class=" fas fa-list"></i> {{ __('app.label_list') }} </a>
                     </div>
+                    @endcan
                 </div>
 
                 <div class="card-body">

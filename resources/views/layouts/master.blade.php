@@ -229,6 +229,14 @@
                                     </p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ url('sale-report') }}" class="nav-link">
+                                    <i class="nav-icon fas fa-shopping-cart"></i>
+                                    <p>
+                                        {{ __('app.label_sale_report') }}
+                                    </p>
+                                </a>
+                            </li>
                         @endcan
                         @if (Auth::user()->can('Product Category List') || Auth::user()->can('Product List'))
                             <li

@@ -49,6 +49,7 @@ Route::post('/update-base-salary', [App\Http\Controllers\BaseSalaryController::c
 Route::resource('/staff-info', StaffInfoController::class);
 Route::resource('/customers', CustomerController::class);
 Route::post('/new-customer', [App\Http\Controllers\CustomerController::class, 'newCustomer']);
+Route::get('/customers-exportexcel', [App\Http\Controllers\CustomerController::class, 'customerExport']);
 
 Route::get('attachments/download/{file}', [App\Http\Controllers\AttachmentController::class, 'download']);
 Route::resource('/times', TimeController::class);
@@ -70,6 +71,7 @@ Route::delete('/productes/delete-photo/{id}',[App\Http\Controllers\ProductContro
 Route::get('/get-product/{id}',[App\Http\Controllers\ProductController::class, 'getProduct']);
 Route::resource('/sales', SaleController::class);
 Route::get('/sales-cart-list', [App\Http\Controllers\SaleController::class, 'cartList']);
+Route::get('/sale-report', [App\Http\Controllers\SaleController::class, 'Report']);
 Route::resource('/add-cart', AddCartController::class);
 Route::get('/print-add-cart/{id}', [App\Http\Controllers\AddCartController::class, 'print']);
 

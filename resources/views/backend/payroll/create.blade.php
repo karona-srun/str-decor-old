@@ -14,8 +14,10 @@
                             <button type="submit" class="btn btn-outline-primary btn-payroll"> <i
                                     class=" fas fa-dollar-sign"></i>
                                 {{ __('app.payroll') }} </button>
+                            @can('Payroll List')
                             <a href="{{ url('payroll') }}" class="btn btn-primary"> <i class=" fas fa-list"></i>
                                 {{ __('app.label_list') }} </a>
+                            @endcan
                         </div>
                     </div>
 

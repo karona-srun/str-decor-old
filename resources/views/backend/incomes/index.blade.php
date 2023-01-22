@@ -9,8 +9,10 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.income_info') }}</h3>
                     <div class="card-tools">
+                        @can('Income List')
                         <a href="{{ url('incomes/create') }}" class="btn btn-primary"> <i class=" fas fa-plus"></i>
                             {{ __('app.btn_add') }}</a>
+                        @endcan
                     </div>
                 </div>
                 <div class="card-body">
@@ -34,13 +36,19 @@
                                     <td>{{ $item->date }}</td>
                                     <td>${{ $item->amount }}</td>
                                     <td>
+                                        @can('Income List')
                                         <a href="{{ route('incomes.show',$item->id) }}" class="btn btn-sm btn-primary"><i
                                                 class="far fa-eye"></i></a>
+                                        @endcan
+                                        @can('Income Edit')
                                         <a href="{{ route('incomes.edit',$item->id) }}"  class="btn btn-sm btn-warning"><i
                                                 class="far fa-edit"></i></a>
+                                        @endcan
+                                        @can('Income Delete')
                                         <button class="btn btn-sm btn-danger deleteIncome" data-toggle="modal"
                                             data-target="#modal-default" data-id="{{ $item->id }}"><i
                                                 class="far fa-trash-alt"></i></button>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

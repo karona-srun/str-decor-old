@@ -55,6 +55,7 @@ return [
     'btn_no' => 'ទេ',
     'btn_back' => 'ត្រឡប់ក្រោយ',
     'btn_send_password_reset_link' => 'ផ្ញើតំណកំណត់ពាក្យសម្ងាត់ឡើងវិញ',
+    'btn_download' => 'ទាញយក',
 
     'table_no' => 'ល.រ',
     'table_name' => 'Name',
@@ -135,6 +136,9 @@ return [
     'label_forgot_password' => 'ភ្លេចពាក្យសម្ងាត់',
     'label_remember_me' => 'ចងចាំខ្ញុំ',
     'label_reset_password' => 'កំណត់ពាក្យសម្ងាត់ឡើងវិញ',
+    'label_sale_daily' => 'ការលក់ប្រចាំថ្ងៃ',
+    'label_sale_monthly' => 'ការលក់ប្រចាំខែ',
+    'label_sale_report' => 'របាយការណ៍ការលក់',
 
     'code' => 'កូដ',
     'first_name' => 'First Name',

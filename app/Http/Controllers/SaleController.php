@@ -61,6 +61,11 @@ class SaleController extends Controller
         return view('backend.sales.cart_list', compact('sales'));
     }
 
+    public function Report()
+    {
+        return view('backend.sales.report');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

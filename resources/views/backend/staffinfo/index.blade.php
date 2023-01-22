@@ -9,8 +9,10 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.staff_info') }}</h3>
                     <div class="card-tools">
+                        @can('Staff List')
                         <a href="{{ url('staff-info/create') }}" class="btn btn-primary"> <i class=" fas fa-plus"></i>
                             {{ __('app.btn_add') }}</a>
+                        @endcan
                     </div>
                 </div>
                 <div class="card-body">
@@ -44,11 +46,15 @@
                                     <td>{{ $item->created_at }}</td>
                                     <td>{{ $item->updated_at }}</td>
                                     <td>
+                                        @can('Staff Edit')
                                         <a href="{{ url('staff-info',$item->id) }}" class="btn btn-sm btn-primary"><i
                                                 class="far fa-eye"></i></a>
+                                        @endcan
+                                        @can('Staff Delete')
                                         <button class="btn btn-sm btn-danger deleteStaff" data-toggle="modal"
                                         data-target="#modal-default" data-id="{{ $item->id }}"><i
                                                 class="far fa-trash-alt"></i></button>
+                                        @endcan
                                     </td>
                                 </tr>
                                 @endforeach

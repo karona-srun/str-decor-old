@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CustomerExport;
+use App\Exports\ExportFiles;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
@@ -132,6 +135,40 @@ class CustomerController extends Controller
         return redirect('/customers')->with('status', 'Customer has been updated!');
     }
 
+    public function customerExport() 
+    {
+        $file_name = 'customers_'.date('d_m_y_H_i_s').'.xlsx';
+
+        $datas = Customer::all();
+
+        $customers = $datas->map(function ($data) {
+            return [
+                'id' => $data->id,
+                'name' => $data->customer_name,
+                'phone' => $data->customer_phone,
+                'address' => $data->customer_address,
+                'note' => $data->note,
+                'created_by' => $data->creator->name,
+                'updated_by' => $data->updator->name,
+                'created_at' => $data->created_at->format('d-m-Y h:i:s A'),
+                'updated_at' => $data->updated_at->format('d-m-Y h:i:s A')
+            ];
+        });
+
+        $heading = [
+            __('app.table_no'),
+            __('app.label_name').__('app.customer'),
+            __('app.phone'),
+            __('app.current_place'),
+            __('app.label_note'),
+            __('app.created_by'),
+            __('app.updated_by'),
+            __('app.created_at'),
+            __('app.updated_at')
+        ];
+        
+        return Excel::download(new ExportFiles($customers,$heading,$file_name),$file_name);
+    }
     /**
      * Remove the specified resource from storage.
      *

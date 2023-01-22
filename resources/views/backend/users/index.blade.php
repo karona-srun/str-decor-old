@@ -9,6 +9,8 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.user_info') }}</h3>
                     <div class="card-tools">
+                        <a href="{{ route('users.exportexcel') }}" class="btn btn-outline-primary"> <i class=" fas fa-download"></i>
+                            {{ __('app.btn_download') }}</a>
                         @can('User Create')
                             <a href="{{ route('users.create') }}" class="btn btn-primary"> <i class=" fas fa-plus"></i>
                                 {{ __('app.btn_add') }}</a>

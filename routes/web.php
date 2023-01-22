@@ -49,6 +49,7 @@ Route::post('/update-base-salary', [App\Http\Controllers\BaseSalaryController::c
 Route::resource('/staff-info', StaffInfoController::class);
 Route::resource('/customers', CustomerController::class);
 Route::post('/new-customer', [App\Http\Controllers\CustomerController::class, 'newCustomer']);
+Route::get('/customers-exportexcel', [App\Http\Controllers\CustomerController::class, 'customerExport']);
 
 Route::get('attachments/download/{file}', [App\Http\Controllers\AttachmentController::class, 'download']);
 Route::resource('/times', TimeController::class);

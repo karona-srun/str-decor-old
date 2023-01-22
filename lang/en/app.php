@@ -55,6 +55,7 @@ return [
     'btn_no' => 'ទេ',
     'btn_back' => 'ត្រឡប់ក្រោយ',
     'btn_send_password_reset_link' => 'ផ្ញើតំណកំណត់ពាក្យសម្ងាត់ឡើងវិញ',
+    'btn_download' => 'ទាញយក',
 
     'table_no' => 'ល.រ',
     'table_name' => 'Name',

@@ -240,9 +240,9 @@
                         @endcan
                         @if (Auth::user()->can('Product Category List') || Auth::user()->can('Product List'))
                             <li
-                                class="nav-item {{ Request::is('product-category*') || Request::is('products*') ? 'menu-is-opening menu-open' : null }} ">
+                                class="nav-item {{ Request::is('product-category*') || Request::is('productes*') ? 'menu-is-opening menu-open' : null }} ">
                                 <a href="#"
-                                    class="nav-link {{ Request::is('product-category*') || Request::is('products*') ? 'active' : null }} ">
+                                    class="nav-link {{ Request::is('product-category*') || Request::is('productes*') ? 'active' : null }} ">
                                     <i class="nav-icon fas fa-cube"></i>
                                     <p>
                                         {{ __('app.stock') }}
@@ -262,7 +262,7 @@
                                     @can('Product List')
                                         <li class="nav-item">
                                             <a href="{{ url('/productes') }}"
-                                                class="nav-link {{ Request::is('products*') ? 'active' : null }}">
+                                                class="nav-link {{ Request::is('productes*') ? 'active' : null }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>{{ __('app.product') }}</p>
                                             </a>
@@ -435,10 +435,8 @@
     <script type="text/javascript">
         $(function() {
             $('#toastsContainerTopRight').delay(5000).fadeOut('slow');
-            //Initialize Select2 Elements
-            $('.select2').select2({})
 
-            //Initialize Select2 Elements
+            // //Initialize Select2 Elements
             $('.select2bs4').select2({
                 theme: 'bootstrap4',
             })

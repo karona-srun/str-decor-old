@@ -10,12 +10,12 @@
                     <h3 class="card-title">{{ __('app.user_info') }}</h3>
                     <div class="card-tools">
                         @can('User Edit')
-                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-outline-warning"> <i
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-outline-warning"> <i
                                     class=" fas fa-edit"></i>
                                 {{ __('app.btn_edit') }}</a>
                         @endcan
                         @can('User List')
-                            <a href="{{ route('users.index') }}" class="btn btn-primary"> <i class=" fas fa-list"></i>
+                            <a href="{{ route('users.index') }}" class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i>
                                 {{ __('app.label_list') }}</a>
                         @endcan
                     </div>

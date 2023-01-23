@@ -11,9 +11,9 @@
                     <div class="card-header">
                         <h3 class="card-title">{{ __('app.label_info') }}{{ __('app.staff_info') }}</h3>
                         <div class="card-tools">
-                            <button type="submit" class="btn btn-outline-primary"> <i class="fas fa-save"></i>
+                            <button type="submit" class="btn btn-sm btn-outline-primary"> <i class="fas fa-save"></i>
                                 {{ __('app.btn_save') }}</button>
-                            <a href="{{ url('staff-info') }}" class="btn btn-primary"> <i class=" fas fa-list"></i>
+                            <a href="{{ url('staff-info') }}" class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i>
                                 {{ __('app.label_list') }} </a>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                                         <input type="file" name="photo" id="imgInp" accept="image/*"
                                             class="btn btn-file mt-2 imgInp" style="display: none">
                                         <button type="button"
-                                            class="btn btn-outline-primary mt-2 blah">{{ __('app.btn_browser') }}</button>
+                                            class="btn btn-outline-primary btn-sm mt-2 blah">{{ __('app.btn_browser') }}</button>
                                     </div>
                                 </div>
                                 <div class="col-sm-9">

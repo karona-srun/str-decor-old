@@ -9,10 +9,10 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.customer_management') }}</h3>
                     <div class="card-tools">
-                        <a href="{{ url('/customers-exportexcel') }}" class="btn btn-outline-primary"> <i class=" fas fa-download"></i>
+                        <a href="{{ url('/customers-exportexcel') }}" class="btn btn-sm btn-outline-primary"> <i class=" fas fa-download"></i>
                             {{ __('app.btn_download') }}</a>
                         @can('Customer Create')
-                        <a href="{{ route('customers.create') }}" class="btn btn-primary"> <i class=" fas fa-plus"></i>
+                        <a href="{{ route('customers.create') }}" class="btn btn-sm btn-primary"> <i class=" fas fa-plus"></i>
                             {{ __('app.btn_add') }}</a>
                         @endcan
                     </div>

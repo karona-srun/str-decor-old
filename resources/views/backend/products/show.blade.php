@@ -17,12 +17,12 @@
                     <h3 class="card-title">{{ __('app.product') }}</h3>
                     <div class="card-tools">
                         @can('Product Edit')
-                        <a href="{{ route('productes.edit', $product->id) }}" class="btn btn-outline-warning"> <i
+                        <a href="{{ route('productes.edit', $product->id) }}" class="btn btn-sm btn-outline-warning"> <i
                                 class=" fas fa-edit"></i>
                             {{ __('app.btn_edit') }} </a>
                         @endcan
                         @can('Product List')
-                        <a href="{{ url('/productes') }}" class="btn btn-primary"> <i class=" fas fa-list"></i>
+                        <a href="{{ url('/productes') }}" class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i>
                             {{ __('app.label_list') }} </a>
                         @endcan
                     </div>

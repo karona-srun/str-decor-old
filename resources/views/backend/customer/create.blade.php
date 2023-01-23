@@ -10,7 +10,7 @@
                     <h3 class="card-title">{{ __('app.customer_management') }}</h3>
                     <div class="card-tools">
                         @can('Customer List')
-                        <a href="{{ route('customers.index') }}" class="btn btn-outline-primary"> <i class=" fas fa-list"></i>
+                        <a href="{{ route('customers.index') }}" class="btn btn-sm btn-outline-primary"> <i class=" fas fa-list"></i>
                             {{ __('app.label_list') }}{{ __('app.customer') }}</a>
                         @endcan
                     </div>
@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn pl-3 pr-3 btn-primary"> <i class="fas fa-save"></i>
+                        <button type="submit" class="btn pl-3 pr-3 btn-primary btn-sm"> <i class="fas fa-save"></i>
                             {{ __('app.btn_save') }}</button>
 
                     </form>

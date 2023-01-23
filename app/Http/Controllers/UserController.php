@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportFiles;
 use App\Exports\UsersExport;
 use App\Models\StaffInfo;
 use App\Models\User;
@@ -198,6 +199,43 @@ class UserController extends Controller
     {
         $user = User::find($id);
         return view('backend.users.profile', compact('user'));
+    }
+
+    public function exportExcel()
+    {
+        $file_name = 'Users_'.date('j_m_Y_H_i_s').'.xlsx';
+
+        $datas = User::all();
+
+        $users = $datas->map(function ($data) {
+            return [
+                'id' => $data->id,
+                'name' => $data->name,
+                'staff' => $data->staff->full_name_kh ?? '',
+                'roles' => $data->roles->pluck('name'),
+                'email' => $data->email,
+                'authenticated_at' => $data->authenticated_at->format('d-m-Y h:i:s A'),
+                'created_by' => $data->creator->name ?? '',
+                'updated_by' => $data->updator->name ?? '',
+                'created_at' => $data->created_at->format('d-m-Y h:i:s A'),
+                'updated_at' => $data->updated_at->format('d-m-Y h:i:s A')
+            ];
+        });
+
+        $heading = [
+            __('app.table_no'),
+            __('app.label_name'),
+            __('app.table_staff_name'),
+            __('app.role_permission'),
+            __('app.email'),
+            __('app.label_last_logging_at'),
+            __('app.created_by'),
+            __('app.updated_by'),
+            __('app.created_at'),
+            __('app.updated_at')
+        ];
+        
+        return Excel::download(new ExportFiles($users,$heading,$file_name),$file_name);
     }
 
     /**

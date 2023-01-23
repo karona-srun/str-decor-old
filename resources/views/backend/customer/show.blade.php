@@ -10,12 +10,12 @@
                     <h3 class="card-title">{{ __('app.customer_management') }}</h3>
                     <div class="card-tools">
                         @can('Customer Edit')
-                        <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-warning"> <i
+                        <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-sm btn-warning"> <i
                                 class=" fas fa-edit"></i>
                             {{ __('app.btn_edit') }}</a>
                         @endcan
                         @can('Customer Delete')
-                        <a href="#" class="btn btn-danger deleteCustomer"
+                        <a href="#" class="btn btn-danger btn-sm deleteCustomer"
                             onclick="event.preventDefault(); document.getElementById('delete-form').submit();"
                                                      data-toggle="modal"
                                                      data-target="#modal-default" data-id="{{ $customer->id }}">
@@ -29,7 +29,7 @@
                             @method('DELETE')
                         </form> --}}
                         @can('Customer List')
-                        <a href="{{ route('customers.index') }}" class="btn btn-outline-primary"> <i
+                        <a href="{{ route('customers.index') }}" class="btn btn-sm btn-outline-primary"> <i
                                 class=" fas fa-list"></i>
                             {{ __('app.label_list') }}{{ __('app.customer') }}</a>
                         @endcan
@@ -121,9 +121,9 @@
                         <p>{{ __('app.label_confirm_delete') }}</p>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-danger"
+                        <button type="button" class="btn btn-sm btn-danger"
                             data-dismiss="modal">{{ __('app.btn_close') }}</button>
-                        <button class="btn btn-primary deleteCustomer">{{ __('app.btn_delete') }}</button>
+                        <button class="btn btn-primary btn-sm deleteCustomer">{{ __('app.btn_delete') }}</button>
                     </div>
                 </form>
             </div>

@@ -10,7 +10,7 @@
                     <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.attendance') }}</h3>
                     <div class="card-tools">
                         @can('Attandance Create')
-                        <button type="button" class="btn btn-outline-primary createAttendance" data-toggle="modal"
+                        <button type="button" class="btn btn-sm btn-outline-primary createAttendance" data-toggle="modal"
                             data-target="#modal-default-create"> <i class=" fas fa-plus"></i>
                             {{ __('app.btn_add') }}</button>
                         @endcan
@@ -130,7 +130,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>{{ __('app.table_checkin') }} <small class="text-red">*</small></label>
-                                    <input type="time" name="checkin" value="{{ old('first_name') }}"
+                                    <input type="time" name="checkin" required value="{{ old('first_name') }}"
                                         class="form-control"
                                         placeholder="{{ __('app.label_required') }} {{ __('app.table_checkin') }}">
                                     @if ($errors->has('checkin'))
@@ -172,7 +172,7 @@
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn pl-3 pr-3 btn-danger"
+                        <button type="button" class="btn btn-sm pl-3 pr-3 btn-danger"
                             data-dismiss="modal">{{ __('app.btn_close') }}</button>
                         <button type="submit"
                             class="btn pl-3 pr-3 btn-outline-primary">{{ __('app.btn_save') }}</button>
@@ -198,7 +198,7 @@
                         <input type="hidden" name="id" id="id" class="form-control id">
                         <div class="form-group">
                             <label>{{ __('app.table_date') }} <small class="text-red">*</small></label>
-                            <input type="date" name="date" id="date" required class="form-control date" placeholder="{{ __('app.label_required') }} {{ __('app.table_date') }}">
+                            <input type="date" name="date" id="date" required class="form-control date" required placeholder="{{ __('app.label_required') }} {{ __('app.table_date') }}">
                         </div>
                         <div class="form-group">
                             <label>{{ __('app.table_choose') }} <small class="text-red">*</small></label>
@@ -233,7 +233,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>{{ __('app.table_checkin') }} <small class="text-red">*</small></label>
-                                    <input type="time" name="checkin" value="{{ old('first_name') }}"
+                                    <input type="time" name="checkin" required value="{{ old('first_name') }}"
                                         class="form-control checkin"
                                         placeholder="{{ __('app.label_required') }} {{ __('app.table_checkin') }}">
                                     @if ($errors->has('checkin'))
@@ -275,10 +275,10 @@
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn pl-3 pr-3 btn-danger"
+                        <button type="button" class="btn btn-sm pl-3 pr-3 btn-danger"
                             data-dismiss="modal">{{ __('app.btn_close') }}</button>
                         <button type="submit"
-                            class="btn pl-3 pr-3 btn-outline-primary">{{ __('app.btn_save') }}</button>
+                            class="btn pl-3 pr-3 btn-sm btn-outline-primary">{{ __('app.btn_save') }}</button>
                     </div>
                 </form>
             </div>
@@ -301,9 +301,9 @@
                         <p>{{ __('app.label_confirm_delete') }}</p>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-danger"
+                        <button type="button" class="btn btn-sm btn-danger"
                             data-dismiss="modal">{{ __('app.btn_close') }}</button>
-                        <button type="submit" class="btn btn-primary">{{ __('app.btn_delete') }}</button>
+                        <button type="submit" class="btn btn-sm btn-primary">{{ __('app.btn_delete') }}</button>
                     </div>
                 </form>
             </div>

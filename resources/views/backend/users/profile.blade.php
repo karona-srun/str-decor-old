@@ -10,7 +10,7 @@
                     <h3 class="card-title">{{ __('app.user_info') }}</h3>
                     <div class="card-tools">
                         @can('User List')
-                            <a href="{{ route('users.index') }}" class="btn btn-outline-primary"><i
+                            <a href="{{ route('users.index') }}" class="btn btn-sm btn-outline-primary"><i
                                     class="has-icon fas fa-arrow-left"></i>
                                 {{ __('app.btn_back') }}</a>
                         @endcan

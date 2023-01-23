@@ -21,7 +21,7 @@
                                             {{ __('app.table_date') }}: {{ $item->created_at->format('d.m.Y h:i:s A') }}
                                         </a>
                                         <a href="{{ url('/print-add-cart', $item->id) }}" target="_blink"
-                                            class="btn btn-outline-primary"><i class="fas fa-print"></i>
+                                            class="btn btn-sm btn-outline-primary"><i class="fas fa-print"></i>
                                             {{ __('app.btn_print') }}</a>
                                     </h4>
                                 </div>

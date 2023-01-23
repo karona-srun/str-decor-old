@@ -9,7 +9,7 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.customer_management') }}</h3>
                     <div class="card-tools">
-                        <a href="{{ route('customers.show', $customer->id) }}" class="btn btn-outline-primary"> <i class="fas fa-arrow-left"></i>
+                        <a href="{{ route('customers.show', $customer->id) }}" class="btn btn-outline-primary btn-sm"> <i class="fas fa-arrow-left"></i>
                             {{ __('app.btn_back') }}</a>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn pl-3 pr-3 btn-primary"> <i class="fas fa-save"></i>
+                        <button type="submit" class="btn pl-3 pr-3 btn-sm btn-primary"> <i class="fas fa-save"></i>
                             {{ __('app.btn_save') }}</button>
 
                     </form>

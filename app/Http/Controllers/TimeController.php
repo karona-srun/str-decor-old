@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportFiles;
 use App\Models\Time;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TimeController extends Controller
 {
@@ -125,6 +127,38 @@ class TimeController extends Controller
         $time->save();
 
         return redirect('/times')->with('status', 'Time has been updated!');
+    }
+
+
+    public function timeExport() 
+    {
+        $file_name = 'time_'.date('d_m_y_H_i_s').'.xlsx';
+
+        $datas = Time::all();
+
+        $time = $datas->map(function ($data) {
+            return [
+                'id' => $data->id,
+                'name' => $data->name,
+                'note' => $data->note,
+                'created_by' => $data->creator->name,
+                'updated_by' => $data->updator->name,
+                'created_at' => $data->created_at->format('d-m-Y h:i:s A'),
+                'updated_at' => $data->updated_at->format('d-m-Y h:i:s A')
+            ];
+        });
+
+        $heading = [
+            __('app.table_no'),
+            __('app.label_name'),
+            __('app.label_note'),
+            __('app.created_by'),
+            __('app.updated_by'),
+            __('app.created_at'),
+            __('app.updated_at')
+        ];
+        
+        return Excel::download(new ExportFiles($time,$heading,$file_name),$file_name);
     }
 
     /**

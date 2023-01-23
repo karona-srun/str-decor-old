@@ -43,9 +43,9 @@
                     <h2 class="text-center title hide">{{ __('app.label_info') }}{{ __('app.payroll') }}</h2>
                     <h3 class="card-title">{{ __('app.label_info') }}{{ __('app.payroll') }}</h3>
                     <div class="card-tools">
-                        <button type="button" class="btn btn-outline-primary btn-print"> <i class="fas fa-print"></i>
+                        <button type="button" class="btn btn-sm btn-outline-primary btn-print"> <i class="fas fa-print"></i>
                             {{ __('app.btn_print') }} </button>
-                        <a href="{{ url('payroll') }}" class="btn btn-primary"> <i class=" fas fa-list"></i>
+                        <a href="{{ url('payroll') }}" class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i>
                             {{ __('app.label_list') }} </a>
                     </div>
                 </div>

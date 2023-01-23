@@ -435,10 +435,8 @@
     <script type="text/javascript">
         $(function() {
             $('#toastsContainerTopRight').delay(5000).fadeOut('slow');
-            //Initialize Select2 Elements
-            $('.select2').select2({})
 
-            //Initialize Select2 Elements
+            // //Initialize Select2 Elements
             $('.select2bs4').select2({
                 theme: 'bootstrap4',
             })

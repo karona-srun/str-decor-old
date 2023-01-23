@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\StaffResource;
 use App\Models\Attendance;
 use App\Models\StaffInfo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +27,7 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $attendances = Attendance::orderBy('id', 'desc')->get();
+        $attendances = Attendance::orderBy('id', 'desc')->whereDate('date','=', Carbon::today()->toDateString())->get();
         return view('backend.attendances.index', compact('attendances'));
     }
 
@@ -38,7 +39,7 @@ class AttendanceController extends Controller
      */
     public function listStaff()
     {
-        $data = StaffResource::collection($staffInfo = StaffInfo::orderBy('id', 'desc')->get());
+        $data = StaffResource::collection(StaffInfo::orderBy('id', 'desc')->get());
         return response()->json($data);
     }
 

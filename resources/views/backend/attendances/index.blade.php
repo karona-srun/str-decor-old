@@ -130,7 +130,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>{{ __('app.table_checkin') }} <small class="text-red">*</small></label>
-                                    <input type="time" name="checkin" value="{{ old('first_name') }}"
+                                    <input type="time" name="checkin" required value="{{ old('first_name') }}"
                                         class="form-control"
                                         placeholder="{{ __('app.label_required') }} {{ __('app.table_checkin') }}">
                                     @if ($errors->has('checkin'))
@@ -198,7 +198,7 @@
                         <input type="hidden" name="id" id="id" class="form-control id">
                         <div class="form-group">
                             <label>{{ __('app.table_date') }} <small class="text-red">*</small></label>
-                            <input type="date" name="date" id="date" required class="form-control date" placeholder="{{ __('app.label_required') }} {{ __('app.table_date') }}">
+                            <input type="date" name="date" id="date" required class="form-control date" required placeholder="{{ __('app.label_required') }} {{ __('app.table_date') }}">
                         </div>
                         <div class="form-group">
                             <label>{{ __('app.table_choose') }} <small class="text-red">*</small></label>
@@ -233,7 +233,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>{{ __('app.table_checkin') }} <small class="text-red">*</small></label>
-                                    <input type="time" name="checkin" value="{{ old('first_name') }}"
+                                    <input type="time" name="checkin" required value="{{ old('first_name') }}"
                                         class="form-control checkin"
                                         placeholder="{{ __('app.label_required') }} {{ __('app.table_checkin') }}">
                                     @if ($errors->has('checkin'))

@@ -27,13 +27,13 @@
                                             height="150px" class="rounded-circle img-bordered" alt=""
                                             srcset="">
                                         <input type="file" name="photo" id="imgInp" accept="image/*"
-                                            class="btn btn-file mt-2 imgInp" style="display: none">
+                                            class="btn btn-sm btn-file mt-2 imgInp" style="display: none">
                                         @if ($errors->has('photo'))
                                             <div class="error text-danger text-sm mt-1">
                                                 {{ $errors->first('photo') }}</div>
                                         @endif
                                         <button type="button"
-                                            class="btn btn-outline-primary mt-2 blah">{{ __('app.btn_browser') }}</button>
+                                            class="btn btn-sm btn-outline-primary mt-2 blah">{{ __('app.btn_browser') }}</button>
                                     </div>
                                 </div>
                                 <div class="col-sm-9">
@@ -228,7 +228,7 @@
                             </div>
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">{{ __('app.btn_save') }}</button>
+                                <button type="submit" class="btn btn-sm btn-primary">{{ __('app.btn_save') }}</button>
                             </div>
                         </div>
                     </form>

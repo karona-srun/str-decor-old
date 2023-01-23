@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportFiles;
 use App\Models\Attachment;
 use App\Models\BaseSalary;
 use App\Models\Position;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StaffInfoController extends Controller
 {
@@ -286,6 +288,71 @@ class StaffInfoController extends Controller
         }
 
         return redirect('/staff-info')->with('status', 'Staff Info has been updated!');
+    }
+
+    public function staffExport() 
+    {
+        $file_name = 'staff_'.date('d_m_y_H_i_s').'.xlsx';
+
+        $datas = StaffInfo::all();
+
+        $staff = $datas->map(function ($data) {
+            return [
+                'id' => $data->id,
+                'code' => $data->code,
+                'first_name' => $data->first_name,
+                'last_name' => $data->last_name,
+                'first_name_kh' => $data->first_name_kh,
+                'last_name_kh' => $data->last_name_kh,
+                'gender' => $data->gender == 'male' ? 'ប្រុស' : 'ស្រី',
+                'phone' => $data->phone,
+                'email' => $data->email,
+                'birth_of_date' => $data->birth_of_date,
+                'birth_of_place' => $data->birth_of_place,
+                'current_place' => $data->current_place,
+                'position' => $data->positions->name,
+                'work_place' => $data->workplaces->name,
+                'rate_per_hour' => '$'.$data->rate_per_hour,
+                'base_salary' => '$'.$data->base_salary,
+                'worktime' => $data->worktime->name,
+                'start_work' => $data->start_work,
+                'stop_work' => $data->stop_work,
+                'note' => $data->note,
+                'created_by' => $data->creator->name,
+                'updated_by' => $data->updator->name,
+                'created_at' => $data->created_at->format('d-m-Y h:i:s A'),
+                'updated_at' => $data->updated_at->format('d-m-Y h:i:s A')
+            ];
+        });
+
+        $heading = [
+            __('app.table_no'),
+            __('app.code'),
+            __('app.first_name'),
+            __('app.last_name'),
+            __('app.first_name_kh'),
+            __('app.last_name_kh'),
+            __('app.gender'),
+            __('app.phone'),
+            __('app.email'),
+            __('app.birth_of_date'),
+            __('app.birth_of_place'),
+            __('app.current_place'),
+            __('app.position'),
+            __('app.work_place'),
+            __('app.rate_per_hour'),
+            __('app.base_salary'),
+            __('app.work_time'),
+            __('app.start_work'),
+            __('app.stop_work'),
+            __('app.label_note'),
+            __('app.created_by'),
+            __('app.updated_by'),
+            __('app.created_at'),
+            __('app.updated_at')
+        ];
+        
+        return Excel::download(new ExportFiles($staff,$heading,$file_name),$file_name);
     }
 
     /**

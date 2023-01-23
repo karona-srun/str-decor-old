@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportFiles;
 use App\Models\Attachment;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -235,6 +237,57 @@ class ProductController extends Controller
         }
 
         return redirect('/productes')->with('status', 'Products has been updated!');
+    }
+
+    public function exportExcel()
+    {
+        $file_name = 'Productes_'.date('d_m_y_H_i_s').'.xlsx';
+
+        $datas = Product::all();
+
+        $product = $datas->map(function ($data) {
+            return [
+                'id' => $data->id,
+                'product_category' => $data->productCategory->name,
+                'code' => $data->product_code,
+                'name' => $data->product_name,
+                'scale' => $data->scale,
+                'buying' => '$'.$data->buying_price,
+                'salling' => '$'.$data->salling_price,
+                'buying_date' => $data->buying_date,
+                'store_stock' => $data->store_stock,
+                'warehouse' => $data->warehourse,
+                'sold_out' => $data->sold_out,
+                'description' => $data->description,
+                'note' => $data->note,
+                'created_by' => $data->creator->name,
+                'updated_by' => $data->updator->name,
+                'created_at' => $data->created_at->format('d-m-Y h:i:s A'),
+                'updated_at' => $data->updated_at->format('d-m-Y h:i:s A')
+            ];
+        });
+
+        $heading = [
+            __('app.table_no'),
+            __('app.product_category'),
+            __('app.code'),
+            __('app.label_name'),
+            __('app.label_scale'),
+            __('app.label_buying_price'),
+            __('app.label_salling_price'),
+            __('app.label_buying_date'),
+            __('app.label_store_stock'),
+            __('app.label_warehouse'),
+            __('app.label_sold_out'),
+            __('app.label_description'),
+            __('app.label_note'),
+            __('app.created_by'),
+            __('app.updated_by'),
+            __('app.created_at'),
+            __('app.updated_at')
+        ];
+        
+        return Excel::download(new ExportFiles($product,$heading,$file_name),$file_name);
     }
 
     public function deletePhoto($id)

@@ -10,7 +10,7 @@
                     <h3 class="card-title">{{ __('app.user_info') }}</h3>
                     <div class="card-tools">
                         @can('User List')
-                        <a href="{{ route('users.index') }}" class="btn btn-outline-primary"><i class="has-icon fas fa-arrow-left"></i>
+                        <a href="{{ route('users.index') }}" class="btn btn-sm btn-outline-primary"><i class="has-icon fas fa-arrow-left"></i>
                             {{ __('app.btn_back') }}</a>
                         @endcan
                     </div>
@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn pl-3 pr-3 btn-primary"> <i class="fas fa-save"></i>
+                        <button type="submit" class="btn btn-sm pl-3 pr-3 btn-primary"> <i class="fas fa-save"></i>
                             {{ __('app.btn_save') }}</button>
 
                     </form>

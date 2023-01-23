@@ -341,10 +341,10 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger"
+                                            <button type="button" class="btn btn-sm btn-danger"
                                                 data-dismiss="modal">{{ __('app.btn_close') }}</button>
                                             <button type="submit"
-                                                class="btn btn-primary btn-submit">{{ __('app.btn_accepted') }}</button>
+                                                class="btn btn-sm btn-primary btn-submit">{{ __('app.btn_accepted') }}</button>
                                         </div>
                                     </form>
                                 </div>
@@ -368,10 +368,10 @@
                                             <p>{{ __('app.label_confirm_delete') }}</p>
                                         </div>
                                         <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-danger"
+                                            <button type="button" class="btn btn-sm btn-danger"
                                                 data-dismiss="modal">{{ __('app.btn_close') }}</button>
                                             <button type="submit"
-                                                class="btn btn-primary">{{ __('app.btn_delete') }}</button>
+                                                class="btn btn-sm btn-primary">{{ __('app.btn_delete') }}</button>
                                         </div>
                                     </form>
                                 </div>
@@ -452,10 +452,10 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger"
+                                            <button type="button" class="btn btn-sm btn-danger"
                                                 data-dismiss="modal">{{ __('app.btn_close') }}</button>
                                             <button type="submit"
-                                                class="btn btn-primary btn-submit">{{ __('app.btn_accepted') }}</button>
+                                                class="btn btn-primary btn-sm btn-submit">{{ __('app.btn_accepted') }}</button>
                                         </div>
                                     </form>
                                 </div>

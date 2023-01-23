@@ -10,7 +10,7 @@
                     <h3 class="card-title">{{ __('app.product_category') }}</h3>
                     <div class="card-tools">
                         @can('Product Category List')
-                        <a href="{{ url('/product-category') }}" class="btn btn-primary"> <i class=" fas fa-list"></i>
+                        <a href="{{ url('/product-category') }}" class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i>
                             {{ __('app.label_list') }} </a>
                         @endcan
                     </div>
@@ -52,7 +52,7 @@
                                     placeholder="{{ __('app.label_required') }}{{ __('app.label_note') }}">{{ old('note') }}</textarea>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">{{ __('app.btn_save') }}</button>
+                                <button type="submit" class="btn btn-sm btn-primary">{{ __('app.btn_save') }}</button>
                             </div>
                         </div>
                     </form>

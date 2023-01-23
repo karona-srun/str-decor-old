@@ -9,7 +9,7 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.payroll') }}</h3>
                     <div class="card-tools">
-                        <a href="{{ url('payroll/create') }}" class="btn btn-outline-primary"> <i class=" fas fa-plus"></i>
+                        <a href="{{ url('payroll/create') }}" class="btn btn-sm btn-outline-primary"> <i class=" fas fa-plus"></i>
                             {{ __('app.btn_add') }}</a>
                     </div>
                 </div>

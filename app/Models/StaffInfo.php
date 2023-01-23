@@ -45,6 +45,11 @@ class StaffInfo extends Model
         return $this->belongsTo(Position::class,'position');
     }
 
+    public function worktime()
+    {
+        return $this->belongsTo(Time::class,'work_time');
+    }
+
     public function workplaces()
     {
         return $this->belongsTo(Workplace::class,'work_place');

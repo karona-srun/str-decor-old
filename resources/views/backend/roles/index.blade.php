@@ -10,7 +10,7 @@
                     <h3 class="card-title">{{ __('app.role_permission') }}</h3>
                     <div class="card-tools">
                         @can('Role Create')
-                        <a href="{{ route('roles.create') }}" class="btn btn-primary"> <i class=" fas fa-plus"></i>
+                        <a href="{{ route('roles.create') }}" class="btn btn-sm btn-primary"> <i class=" fas fa-plus"></i>
                             {{ __('app.btn_add') }}</a>
                         @endcan
                     </div>

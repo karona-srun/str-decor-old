@@ -9,8 +9,10 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.position') }}</h3>
                     <div class="card-tools">
+                        <a href="{{ url('/position-exportexcel') }}" class="btn btn-sm btn-outline-primary"> <i class=" fas fa-download"></i>
+                            {{ __('app.btn_download') }}</a>
                         @can('Position Create')
-                        <a href="{{ url('positions/create') }}" class="btn btn-primary"> <i class=" fas fa-plus"></i>
+                        <a href="{{ url('positions/create') }}" class="btn btn-sm btn-primary"> <i class=" fas fa-plus"></i>
                             {{ __('app.btn_add') }}</a>
                         @endcan
                     </div>
@@ -84,7 +86,7 @@
                     </dl>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('app.btn_close') }}</button>
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">{{ __('app.btn_close') }}</button>
                 </div>
             </div>
         </div>
@@ -117,7 +119,7 @@
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-danger"
                             data-dismiss="modal">{{ __('app.btn_close') }}</button>
-                        <button type="submit" class="btn btn-primary updatePosition">{{ __('app.btn_save') }}</button>
+                        <button type="submit" class="btn btn-sm btn-primary updatePosition">{{ __('app.btn_save') }}</button>
                     </div>
                 </form>
             </div>
@@ -140,8 +142,8 @@
                     <p>{{ __('app.label_confirm_delete') }}</p>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('app.btn_close') }}</button>
-                    <button type="submit" class="btn btn-primary">{{ __('app.btn_delete') }}</button>
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">{{ __('app.btn_close') }}</button>
+                    <button type="submit" class="btn btn-sm btn-primary">{{ __('app.btn_delete') }}</button>
                 </div>
             </form>
             </div>

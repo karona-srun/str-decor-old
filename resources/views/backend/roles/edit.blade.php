@@ -10,7 +10,7 @@
                     <h3 class="card-title">{{ __('app.role_permission') }}</h3>
                     <div class="card-tools">
                         @can('Role List')
-                        <a href="{{ route('roles.index') }}" class="btn btn-primary"> <i class="fas fa-arrow-left"></i>
+                        <a href="{{ route('roles.index') }}" class="btn btn-sm btn-primary"> <i class="fas fa-arrow-left"></i>
                             {{ __('app.btn_add') }}</a>
                         @endcan
                     </div>
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn pl-3 pr-3 btn-primary"> <i class="fas fa-save"></i>
+                        <button type="submit" class="btn btn-sm pl-3 pr-3 btn-primary"> <i class="fas fa-save"></i>
                             {{ __('app.btn_save') }}</button>
 
                     </form>

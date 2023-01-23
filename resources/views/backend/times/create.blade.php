@@ -10,7 +10,7 @@
                     <h3 class="card-title">{{__('app.label_info')}}{{ __('app.time') }}</h3>
                     @can('Time List')
                     <div class="card-tools">
-                        <a href="{{ url('times') }}" class="btn btn-primary"> <i class=" fas fa-list"></i> {{ __('app.label_list') }} </a>
+                        <a href="{{ url('times') }}" class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i> {{ __('app.label_list') }} </a>
                     </div>
                     @endcan
                 </div>
@@ -61,7 +61,7 @@
                                     placeholder="{{ __('app.label_required')}}{{__('app.label_note')}}">
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">{{ __('app.btn_save') }}</button>
+                                <button type="submit" class="btn btn-sm btn-primary">{{ __('app.btn_save') }}</button>
                             </div>
                     </form>
                 </div>

@@ -11,9 +11,9 @@
                     <div class="card-header">
                         <h3 class="card-title">{{ __('app.label_info') }}{{ __('app.staff_info') }}</h3>
                         <div class="card-tools">
-                            <button type="submit" class="btn btn-outline-primary"> <i class="fas fa-save"></i>
+                            <button type="submit" class="btn btn-sm btn-outline-primary btn-sm"> <i class="fas fa-save"></i>
                                 {{ __('app.btn_save') }}</button>
-                            <a href="{{ url('staff-info') }}" class="btn btn-primary"> <i class=" fas fa-list"></i>
+                            <a href="{{ url('staff-info') }}" class="btn btn-sm btn-primary btn-sm"> <i class=" fas fa-list"></i>
                                 {{ __('app.label_list') }} </a>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                                         <input type="file" name="photo" id="imgInp" accept="image/*"
                                             class="btn btn-file mt-2 imgInp" style="display: none">
                                         <button type="button"
-                                            class="btn btn-outline-primary mt-2 blah">{{ __('app.btn_browser') }}</button>
+                                            class="btn btn-outline-primary btn-sm mt-2 blah">{{ __('app.btn_browser') }}</button>
                                     </div>
                                 </div>
                                 <div class="col-sm-9">
@@ -208,7 +208,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">$</span>
                                                     </div>
-                                                    <input type="number" class="form-control" name="base_salary"
+                                                    <input type="number" class="form-control" step="any" name="base_salary"
                                                     placeholder="{{ __('app.label_required') }}{{ __('app.base_salary') }}">
                                                 </div>
                                                 @if ($errors->has('base_salary'))
@@ -225,7 +225,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">$</span>
                                                     </div>
-                                                    <input type="number" class="form-control" name="rate_per_hour"
+                                                    <input type="number" class="form-control" step="any" name="rate_per_hour"
                                                     placeholder="{{ __('app.label_required') }}{{ __('app.rate_per_hour') }}">
                                                 </div>
                                                 @if ($errors->has('rate_per_hour'))

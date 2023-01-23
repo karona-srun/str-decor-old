@@ -175,14 +175,14 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger btn-modal-close"
+                            <button type="button" class="btn btn-sm btn-danger btn-modal-close"
                                 data-dismiss="modal">{{ __('app.btn_close') }}</button>
-                            <button type="button" class="btn btn-link btn-alert" style="display: none"
+                            <button type="button" class="btn btn-sm btn-link btn-alert" style="display: none"
                                 data-toggle="modal" data-target="#myModalAlert"></button>
-                            <button type="button" class="btn btn-link btn-alert-price" style="display: none"
+                            <button type="button" class="btn btn-sm btn-link btn-alert-price" style="display: none"
                                 data-toggle="modal" data-target="#myModalAlertPrice"></button>
                             <button type="submit"
-                                class="btn btn-primary btn-submit">{{ __('app.btn_accepted') }}</button>
+                                class="btn btn-sm btn-primary btn-submit">{{ __('app.btn_accepted') }}</button>
                         </div>
                     </form>
                 </div>
@@ -252,10 +252,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger"
+                    <button type="button" class="btn btn-sm btn-danger"
                         data-dismiss="modal">{{ __('app.btn_close') }}</button>
                     <button type="submit"
-                        class="btn btn-primary btn-submit">{{ __('app.btn_accepted') }}</button>
+                        class="btn btn-sm btn-primary btn-submit">{{ __('app.btn_accepted') }}</button>
                 </div>
             </form>
         </div>
@@ -278,7 +278,7 @@
                             class="span-qty"></span> </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger"
+                    <button type="button" class="btn btn-sm btn-danger"
                         data-dismiss="modal">{{ __('app.btn_close') }}</button>
                 </div>
             </div>
@@ -300,7 +300,7 @@
                             class="maxPirce"></span></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger"
+                    <button type="button" class="btn btn-sm btn-danger"
                         data-dismiss="modal">{{ __('app.btn_close') }}</button>
                 </div>
             </div>
@@ -323,9 +323,9 @@
                         <p>{{ __('app.label_confirm_delete') }}</p>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-danger"
+                        <button type="button" class="btn btn-sm btn-danger"
                             data-dismiss="modal">{{ __('app.btn_close') }}</button>
-                        <button type="submit" class="btn btn-primary">{{ __('app.btn_delete') }}</button>
+                        <button type="submit" class="btn btn-sm btn-primary">{{ __('app.btn_delete') }}</button>
                     </div>
                 </form>
             </div>
@@ -346,9 +346,9 @@
                     <p>{{ __('app.label_confirm_pay') }} <br><span class="text-danger">{{__('app.label_confirm_pay_1')}}</span> </p>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger"
+                    <button type="button" class="btn btn-sm btn-danger"
                         data-dismiss="modal">{{ __('app.btn_no') }}</button>
-                    <button type="submit" class="btn btn-primary btn-accepted">{{ __('app.btn_yes') }}</button>
+                    <button type="submit" class="btn btn-sm btn-primary btn-accepted">{{ __('app.btn_yes') }}</button>
                 </div>
             </div>
         </div>
@@ -379,7 +379,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-6">
-                                <a href="#" class="btn btn-outline-info" data-toggle="modal" data-target="#modalNewCustomer" data-backdrop="static" >{{__('app.label_new_customer')}}</a>
+                                <a href="#" class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#modalNewCustomer" data-backdrop="static" >{{__('app.label_new_customer')}}</a>
                             </div>
                         </div>
                     </div>
@@ -434,8 +434,8 @@
                         </table>
                     </div>
                     <div class="card-footer">
-                        {{-- <a href="{{ url('/print-add-cart') }}" target="_blink" class="btn btn-outline-primary" {{ $addCart->isEmpty() ? 'disabled' : '' }}><i class="fas fa-print"></i> {{ __('app.btn_print') }}</a> --}}
-                        <button type="button" class="btn btn-primary btn-pay" data-toggle="modal" data-target="#modalSubmitCart" {{ $addCart->isEmpty() ? 'disabled' : '' }}><i class="fas fa-save"></i> {{ __('app.btn_accepted') }}</button>
+                        {{-- <a href="{{ url('/print-add-cart') }}" target="_blink" class="btn btn-sm btn-outline-primary" {{ $addCart->isEmpty() ? 'disabled' : '' }}><i class="fas fa-print"></i> {{ __('app.btn_print') }}</a> --}}
+                        <button type="button" class="btn btn-sm btn-primary btn-pay" data-toggle="modal" data-target="#modalSubmitCart" {{ $addCart->isEmpty() ? 'disabled' : '' }}><i class="fas fa-save"></i> {{ __('app.btn_accepted') }}</button>
                     </div>
                 </form>
             </div>

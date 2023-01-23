@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportFiles;
 use App\Models\IncomeOptions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IncomeOptionsController extends Controller
 {
@@ -126,6 +128,37 @@ class IncomeOptionsController extends Controller
         $incomeOptions->save();
 
         return redirect('/income-options')->with('status', 'Work place has been updated!');
+    }
+
+    public function exportExcel()
+    {
+        $file_name = 'income_options_'.date('j_m_Y_H_i_s').'.xlsx';
+
+        $datas = IncomeOptions::all();
+
+        $incomeOptions = $datas->map(function ($data) {
+            return [
+                'id' => $data->id,
+                'name' => $data->name,
+                'note' => $data->note,
+                'created_by' => $data->creator->name ?? '',
+                'updated_by' => $data->updator->name ?? '',
+                'created_at' => $data->created_at->format('d-m-Y h:i:s A'),
+                'updated_at' => $data->updated_at->format('d-m-Y h:i:s A')
+            ];
+        });
+
+        $heading = [
+            __('app.table_no'),
+            __('app.label_name'),
+            __('app.label_note'),
+            __('app.created_by'),
+            __('app.updated_by'),
+            __('app.created_at'),
+            __('app.updated_at')
+        ];
+        
+        return Excel::download(new ExportFiles($incomeOptions,$heading,$file_name),$file_name);
     }
 
     /**

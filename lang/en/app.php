@@ -139,6 +139,9 @@ return [
     'label_sale_daily' => 'ការលក់ប្រចាំថ្ងៃ',
     'label_sale_monthly' => 'ការលក់ប្រចាំខែ',
     'label_sale_report' => 'របាយការណ៍ការលក់',
+    'label_type_income' => 'ប្រភេទប្រាក់ចំណូល',
+    'label_type_expend' => 'ប្រភេទប្រាក់ចំណាយ',
+    'label_last_logging_at' => 'ចូលប្រើប្រាស់ចុងក្រោយ',
 
     'code' => 'កូដ',
     'first_name' => 'First Name',

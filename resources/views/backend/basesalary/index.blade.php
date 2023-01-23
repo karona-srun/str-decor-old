@@ -9,7 +9,7 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.base_salary') }}</h3>
                     <div class="card-tools">
-                        <a href="{{ url('base-salary/create') }}" class="btn btn-primary"> <i class=" fas fa-plus"></i>
+                        <a href="{{ url('base-salary/create') }}" class="btn tbn-sm btn-primary"> <i class=" fas fa-plus"></i>
                             {{ __('app.btn_add') }}</a>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                     </dl>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">{{ __('app.btn_close') }}</button>
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">{{ __('app.btn_close') }}</button>
                 </div>
             </div>
         </div>
@@ -119,9 +119,9 @@
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-danger"
+                        <button type="button" class="btn btn-sm btn-danger"
                             data-dismiss="modal">{{ __('app.btn_close') }}</button>
-                        <button type="submit" class="btn btn-primary updatePosition">{{ __('app.btn_save') }}</button>
+                        <button type="submit" class="btn btn-sm btn-primary updatePosition">{{ __('app.btn_save') }}</button>
                     </div>
                 </form>
             </div>
@@ -146,7 +146,7 @@
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-danger"
                             data-dismiss="modal">{{ __('app.btn_close') }}</button>
-                        <button type="submit" class="btn btn-primary">{{ __('app.btn_delete') }}</button>
+                        <button type="submit" class="btn btn-sm btn-primary">{{ __('app.btn_delete') }}</button>
                     </div>
                 </form>
             </div>

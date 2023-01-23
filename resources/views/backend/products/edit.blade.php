@@ -10,7 +10,7 @@
                     <h3 class="card-title">{{ __('app.label_edit') }}{{ __('app.product') }}</h3>
                     <div class="card-tools">
                         @can('Product List')
-                        <a href="{{ url('/productes') }}" class="btn btn-primary"> <i class=" fas fa-list"></i>
+                        <a href="{{ url('/productes') }}" class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i>
                             {{ __('app.label_list') }} </a>
                         @endcan
                     </div>
@@ -30,9 +30,9 @@
                                             width="150px"​ height="150px" class="rounded-circle img-bordered"
                                             alt="" srcset="">
                                         <input type="file" name="photo" id="imgInp" accept="image/*"
-                                            class="btn btn-file mt-2 imgInp" style="display: none">
+                                            class="btn btn-sm btn-file mt-2 imgInp" style="display: none">
                                         <button type="button"
-                                            class="btn btn-outline-primary mt-2 blah">{{ __('app.btn_browser') }}</button>
+                                            class="btn btn-sm btn-outline-primary mt-2 blah">{{ __('app.btn_browser') }}</button>
                                     </div>
                                 </div>
                                 <div class="col-sm-9">
@@ -256,7 +256,7 @@
                             </div>
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">{{ __('app.btn_save') }}</button>
+                                <button type="submit" class="btn btn-sm btn-primary">{{ __('app.btn_save') }}</button>
                             </div>
                         </div>
                     </form>
@@ -277,13 +277,13 @@
                     <p>{{ __('app.label_confirm_delete') }}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-close" data-dismiss="modal"><i
+                    <button type="button" class="btn btn-sm btn-primary btn-close" data-dismiss="modal"><i
                             class="mdi mdi-close"></i>
                         {{ __('app.btn_close') }}</button>
                     <form action="" method="post" id="form">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-danger"><i class="mdi mdi-delete"></i>
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="mdi mdi-delete"></i>
                             {{ __('app.btn_accepted') }}</button>
                     </form>
                 </div>

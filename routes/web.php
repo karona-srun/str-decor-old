@@ -73,6 +73,8 @@ Route::resource('/attendances', AttendanceController::class);
 Route::get('list-staff', [App\Http\Controllers\AttendanceController::class, 'listStaff']);
 Route::get('/filter-attendances/{id}', [App\Http\Controllers\AttendanceController::class, 'filterAttendances']);
 Route::post('/update-attendance', [App\Http\Controllers\AttendanceController::class, 'updateAttendances']);
+Route::get('/attendances-exportexcel', [App\Http\Controllers\AttendanceController::class, 'exportExcel']);
+
 Route::resource('/payroll', PayrollController::class);
 
 Route::resource('/incomes', IncomeController::class);

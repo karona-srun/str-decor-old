@@ -46,7 +46,7 @@
                                     <td>{{ $item->updator->name }}</td>
                                     <td>{{ $item->updated_at     }}</td>
                                     <td>
-                                        <a href="{{ route('customers.show',$item->id)}}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ route('customers.show',$item->id)}}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

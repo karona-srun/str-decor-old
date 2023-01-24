@@ -2,20 +2,111 @@
 
 @section('title-page', __('app.attendance'))
 
+@section('css')
+    <style>
+        .custom-card-body {
+            padding: 0.5rem 1.25rem !important;
+        }
+    </style>
+
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="card card-outline card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.attendance') }}</h3>
-                    <div class="card-tools">
-                        @can('Attandance Create')
-                        <button type="button" class="btn btn-sm btn-outline-primary createAttendance" data-toggle="modal"
-                            data-target="#modal-default-create"> <i class=" fas fa-plus"></i>
-                            {{ __('app.btn_add') }}</button>
-                        @endcan
+                <form action="{{ url('/attendances') }}" method="get">
+                    <div class="card-header">
+                        <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.attendance') }}</h3>
+                        <div class="card-tools">
+                            <div class="btn-group">
+                                <input type="hidden" name="export" class="export" value="">
+                                <button type="submit" class="btn btn-sm btn-outline-primary exportexcel"> <i
+                                        class=" fas fa-download"></i>
+                                    {{ __('app.btn_download') }}</button>
+
+                                {{-- <a href="{{ url('/attendances') }}" class="btn btn-sm btn-outline-primary exportexcel"> <i class=" fas fa-download"></i>
+                            {{ __('app.btn_download') }}</a> --}}
+                                @can('Attandance Create')
+                                    <button type="button" class="btn btn-sm ml-2 btn-primary createAttendance"
+                                        data-toggle="modal" data-target="#modal-default-create"> <i class=" fas fa-plus"></i>
+                                        {{ __('app.btn_add') }}</button>
+                                @endcan
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <div class="card-body custom-card-body">
+
+                        <div class="row">
+                            <div class="col-sm-3 mb-2">
+                                <label for="">{{ __('app.table_choose') }}{{ __('app.table_staff_name') }}</label>
+                                <select class="form-control select2bs4" name="staff" id="staff" style="width: 100%;">
+                                    <option value="">{{ __('app.label_all') }}</option>
+                                    @foreach ($staff as $item)
+                                        <option value="{{ $item->id }}"
+                                            {{ $item->id == request()->get('staff') ? 'selected' : '' }}><img
+                                                src="{{ 'photos/' . $item->photo }}" class="img-size-50 img-thumbnail">
+                                            {{ $item->full_name_kh }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-sm-2 mb-2">
+                                <label for="">{{ __('app.label_start') }}</label>
+                                <input type="date" class="form-control" name="start_date" id="start_date"
+                                    value="{{ request()->get('start_date') }}">
+                            </div>
+                            <div class="col-sm-2 mb-2">
+                                <label for="">{{ __('app.label_end') }}</label>
+                                <input type="date" class="form-control " name="end_date" id="end_date"
+                                    value="{{ request()->get('end_date') }}">
+                            </div>
+                            <div class="col-sm-5 mb-2">
+                                <label for="">{{ __('app.label_status') }}</label>
+                                <div class="row pl-3">
+
+                                    <div class="form-group pr-3">
+                                        <div class="custom-control custom-radio">
+                                            <input class="custom-control-input" type="radio" id="Radio1" name="status"
+                                                value="" {{ request()->get('status') == '' ? 'checked' : '' }}>
+                                            <label for="Radio1"
+                                                class="custom-control-label">{{ __('app.label_all') }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group pr-3">
+                                        <div class="custom-control custom-radio">
+                                            <input class="custom-control-input" type="radio" id="Radio2" name="status"
+                                                value="presence"
+                                                {{ request()->get('status') == 'presence' ? 'checked' : '' }}>
+                                            <label for="Radio2"
+                                                class="custom-control-label">{{ __('app.label_presence') }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group pr-3">
+                                        <div class="custom-control custom-radio">
+                                            <input class="custom-control-input" type="radio" id="Radio3" name="status"
+                                                value="adsent" {{ request()->get('status') == 'adsent' ? 'checked' : '' }}>
+                                            <label for="Radio3"
+                                                class="custom-control-label">{{ __('app.label_adsent') }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-radio">
+                                            <input class="custom-control-input adsent_permission" type="radio"
+                                                id="Radio4" name="status" value="permission"
+                                                {{ request()->get('status') == 'permission' ? 'checked' : '' }}>
+                                            <label for="Radio4"
+                                                class="custom-control-label">{{ __('app.label_permission_request') }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-3 noexportexcel"> <i class="fas fa-search"></i>
+                            {{ __('app.label_search') }}</button>
+                        <a href="{{ url('attendances') }}" class="btn btn-danger mb-3"> <i class="fas fa-broom"></i>
+                            {{ __('app.btn_clean') }}</a>
+                    </div>
+                </form>
                 <div class="card-body">
                     <table id="datatable" class="table table-bordered table-striped" width="100%">
                         <thead>
@@ -38,14 +129,15 @@
                                     <td>{{ $item->staff->full_name_kh }}</td>
                                     <td>{{ $item->date }}</td>
                                     <td>
-                                        @if ($item->status == "presence")
-                                        <span class="text-sm badge badge-success">{{ __('app.label_presence') }}</span>
-                                        @elseif($item->status == "adsent")
-                                        <span class="text-sm badge badge-secondary">{{ __('app.label_adsent') }}</span>
-                                        @elseif($item->status == "permission")
-                                        <span class="text-sm badge badge-danger">{{ __('app.label_permission') }}</span>
+                                        @if ($item->status == 'presence')
+                                            <span class="text-sm badge badge-success">{{ __('app.label_presence') }}</span>
+                                        @elseif($item->status == 'adsent')
+                                            <span class="text-sm badge badge-secondary">{{ __('app.label_adsent') }}</span>
+                                        @elseif($item->status == 'permission')
+                                            <span
+                                                class="text-sm badge badge-danger">{{ __('app.label_permission_request') }}</span>
                                         @endif
-                                        
+
                                     </td>
                                     <td>{{ $item->check_in }}</td>
                                     <td>{{ $item->check_out }}</td>
@@ -53,14 +145,14 @@
                                     <td>{{ $item->note }}</td>
                                     <td>
                                         @can('Attandance Edit')
-                                        <button class="btn btn-sm btn-warning editAttendance" data-toggle="modal"
-                                            data-target="#modal-default-edit" data-id="{{ $item->id }}"><i
-                                                class="far fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-warning editAttendance" data-toggle="modal"
+                                                data-target="#modal-default-edit" data-id="{{ $item->id }}"><i
+                                                    class="far fa-edit"></i></button>
                                         @endcan
                                         @can('Attandance Delete')
-                                        <button class="btn btn-sm btn-danger deleteAttendance" data-toggle="modal"
-                                            data-target="#modal-default" data-id="{{ $item->id }}"><i
-                                                class="far fa-trash-alt"></i></button>
+                                            <button class="btn btn-sm btn-danger deleteAttendance" data-toggle="modal"
+                                                data-target="#modal-default" data-id="{{ $item->id }}"><i
+                                                    class="far fa-trash-alt"></i></button>
                                         @endcan
                                     </td>
                                 </tr>
@@ -94,7 +186,8 @@
                         </div>
                         <div class="form-group">
                             <label>{{ __('app.table_date') }} <small class="text-red">*</small></label>
-                            <input type="date" name="date" id="date" required class="form-control" placeholder="{{ __('app.label_required') }} {{ __('app.table_date') }}">
+                            <input type="date" name="date" id="date" required class="form-control"
+                                placeholder="{{ __('app.label_required') }} {{ __('app.table_date') }}">
                         </div>
                         <div class="form-group">
                             <label>{{ __('app.table_choose') }} <small class="text-red">*</small></label>
@@ -110,18 +203,18 @@
                                 <div class="form-group pr-3">
 
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input adsent_permission" type="radio" id="customRadio2"
-                                            name="status_" value="adsent">
+                                        <input class="custom-control-input adsent_permission" type="radio"
+                                            id="customRadio2" name="status_" value="adsent">
                                         <label for="customRadio2"
                                             class="custom-control-label">{{ __('app.label_adsent') }}</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input adsent_permission" type="radio" id="customRadio3"
-                                            name="status_" value="permission">
+                                        <input class="custom-control-input adsent_permission" type="radio"
+                                            id="customRadio3" name="status_" value="permission">
                                         <label for="customRadio3"
-                                            class="custom-control-label">{{ __('app.label_permission') }}</label>
+                                            class="custom-control-label">{{ __('app.label_permission_request') }}</label>
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +223,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>{{ __('app.table_checkin') }} <small class="text-red">*</small></label>
-                                    <input type="time" name="checkin" required value="{{ old('first_name') }}"
+                                    <input type="time" name="checkin" value="{{ old('first_name') }}"
                                         class="form-control"
                                         placeholder="{{ __('app.label_required') }} {{ __('app.table_checkin') }}">
                                     @if ($errors->has('checkin'))
@@ -175,7 +268,7 @@
                         <button type="button" class="btn btn-sm pl-3 pr-3 btn-danger"
                             data-dismiss="modal">{{ __('app.btn_close') }}</button>
                         <button type="submit"
-                            class="btn pl-3 pr-3 btn-outline-primary">{{ __('app.btn_save') }}</button>
+                            class="btn btn-sm pl-3 pr-3 btn-outline-primary">{{ __('app.btn_save') }}</button>
                     </div>
                 </form>
             </div>
@@ -198,33 +291,34 @@
                         <input type="hidden" name="id" id="id" class="form-control id">
                         <div class="form-group">
                             <label>{{ __('app.table_date') }} <small class="text-red">*</small></label>
-                            <input type="date" name="date" id="date" required class="form-control date" required placeholder="{{ __('app.label_required') }} {{ __('app.table_date') }}">
+                            <input type="date" name="date" id="date" required class="form-control date"
+                                required placeholder="{{ __('app.label_required') }} {{ __('app.table_date') }}">
                         </div>
                         <div class="form-group">
                             <label>{{ __('app.table_choose') }} <small class="text-red">*</small></label>
                             <div class="row pl-3">
                                 <div class="form-group pr-3">
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input presence status_presence" type="radio" id="customRadio4"
-                                            name="status" value="presence">
+                                        <input class="custom-control-input presence status_presence" type="radio"
+                                            id="customRadio4" name="status" value="presence">
                                         <label for="customRadio4"
                                             class="custom-control-label">{{ __('app.label_presence') }}</label>
                                     </div>
                                 </div>
                                 <div class="form-group pr-3">
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input adsent_permission status_adsent" type="radio" id="customRadio5"
-                                            name="status" value="adsent" >
+                                        <input class="custom-control-input adsent_permission status_adsent" type="radio"
+                                            id="customRadio5" name="status" value="adsent">
                                         <label for="customRadio5"
                                             class="custom-control-label">{{ __('app.label_adsent') }}</label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-radio">
-                                        <input class="custom-control-input adsent_permission status_permission" type="radio" id="customRadio6"
-                                            name="status" value="permission" >
+                                        <input class="custom-control-input adsent_permission status_permission"
+                                            type="radio" id="customRadio6" name="status" value="permission">
                                         <label for="customRadio6"
-                                            class="custom-control-label">{{ __('app.label_permission') }}</label>
+                                            class="custom-control-label">{{ __('app.label_permission_request') }}</label>
                                     </div>
                                 </div>
                             </div>
@@ -320,6 +414,14 @@
                 }
             });
 
+            $('.exportexcel').click(function() {
+                $('.export').val('enabled');
+            });
+
+            $('.noexportexcel').click(function() {
+                $('.export').val('');
+            });
+
             $('.select2ListStaff').select2({
                 placeholder: "ជ្រើសរើសបុគ្គលិក",
                 ajax: {
@@ -364,14 +466,14 @@
                         $('.checkout').val(response.check_out)
                         $('.num_hour').val(response.num_hour)
                         $('.note').val(response.note)
-                        if(response.status == 'presence'){
-                            $('.status_presence').prop( "checked", true );
+                        if (response.status == 'presence') {
+                            $('.status_presence').prop("checked", true);
                             $(".div-check").show();
-                        } else if(response.status == 'adsent'){
-                            $('.status_adsent').prop( "checked", true );
+                        } else if (response.status == 'adsent') {
+                            $('.status_adsent').prop("checked", true);
                             $(".div-check").hide();
-                        } else if(response.status == 'permission'){
-                            $('.status_permission').prop( "checked", true );
+                        } else if (response.status == 'permission') {
+                            $('.status_permission').prop("checked", true);
                             $(".div-check").hide();
                         }
                     }

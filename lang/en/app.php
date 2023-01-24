@@ -56,6 +56,7 @@ return [
     'btn_back' => 'ត្រឡប់ក្រោយ',
     'btn_send_password_reset_link' => 'ផ្ញើតំណកំណត់ពាក្យសម្ងាត់ឡើងវិញ',
     'btn_download' => 'ទាញយក',
+    'btn_clean' => 'សម្អាត',
 
     'table_no' => 'ល.រ',
     'table_name' => 'Name',
@@ -75,8 +76,10 @@ return [
     'label_edit' => 'កែសម្រួល',
     'label_not_yet' => 'មិនទាន់',
     'label_paid' => 'បានបើក',
+    'label_all' => 'ទាំងអស់',
     'label_presence' => 'វត្តមាន',
     'label_adsent' => 'អវត្តមាន',
+    'label_permission_request' => 'សុំច្បាប់',
     'label_permission' => 'ច្បាប់',
     'label_list' => 'តារាងបញ្ជីរ',
     'label_info' => 'ព័ត៍មាន',
@@ -142,6 +145,8 @@ return [
     'label_type_income' => 'ប្រភេទប្រាក់ចំណូល',
     'label_type_expend' => 'ប្រភេទប្រាក់ចំណាយ',
     'label_last_logging_at' => 'ចូលប្រើប្រាស់ចុងក្រោយ',
+    'label_start' => 'ចាប់ផ្តើម',
+    'label_end' => 'ដល់',
 
     'code' => 'កូដ',
     'first_name' => 'First Name',

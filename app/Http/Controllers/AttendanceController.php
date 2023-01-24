@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportFiles;
 use App\Http\Resources\StaffResource;
 use App\Models\Attendance;
 use App\Models\StaffInfo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AttendanceController extends Controller
 {
@@ -25,10 +27,71 @@ class AttendanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $attendances = Attendance::orderBy('id', 'desc')->whereDate('date','=', Carbon::today()->toDateString())->get();
-        return view('backend.attendances.index', compact('attendances'));
+        $staff = StaffInfo::orderBy('id','desc')->get();
+        $query = Attendance::query();
+
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->staff) {
+            $query->where('staff_id', $request->staff);
+        }
+
+        if ($request->start_date || $request->end_date) {
+            $query->whereBetween('date', array($request->start_date,$request->end_date));
+        }else{
+            $query->whereDate('date','=', Carbon::today()->toDateString());
+        }
+
+        $attendances = $query->get();
+        if($request->export == "enabled"){
+            return $this->exportExcel($attendances);
+        }
+        // $attendances = $query->whereDate('date','=', Carbon::today()->toDateString())->get();
+        // $attendances = Attendance::orderBy('id', 'desc')->whereDate('date','=', Carbon::today()->toDateString())->get();
+        return view('backend.attendances.index', compact('attendances', 'staff'));
+    }
+
+    public function exportExcel($attendances)
+    {
+        $file_name = 'Attendances_'.date('j_m_Y_H_i_s').'.xlsx';
+
+        $datas = $attendances->map(function ($data) {
+            return [
+                'id' => $data->id,
+                'date' => $data->date,
+                'name' => $data->staff->full_name_kh,
+                'status' => $data->status,
+                'check_in' => $data->check_in,
+                'check_out' => $data->check_out,
+                'num_hour' => $data->num_hour,
+                'note' => $data->note,
+                'created_by' => $data->creator->name,
+                'updated_by' => $data->updator->name,
+                'created_at' => $data->created_at->format('d-m-Y h:i:s A'),
+                'updated_at' => $data->updated_at->format('d-m-Y h:i:s A')
+            ];
+        });
+
+        $heading = [
+            __('app.table_no'),
+            __('app.table_date'),
+            __('app.table_staff_name'),
+            __('app.table_status'),
+            __('app.table_checkin'),
+            __('app.table_checkout'),
+            __('app.num_hour'),
+            __('app.label_note'),
+            __('app.created_by'),
+            __('app.updated_by'),
+            __('app.created_at'),
+            __('app.updated_at')
+        ];
+        
+        return Excel::download(new ExportFiles($datas,$heading,$file_name),$file_name);
     }
 
     /**

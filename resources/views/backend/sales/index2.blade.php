@@ -16,10 +16,8 @@
             <div>
                 <form action="{{ route('sales.index') }}" class="p-3 card card-primary card-outline" method="get">
                     <p class="label-box">{{ __('app.label_search') }}{{ __('app.product') }}</p>
-                    <div class="row">
+                    <div class="row mb-2 mt-2">
                         <div class="col-sm-3">
-                            <div class="form-group">
-                                <label>{{ __('app.table_choose') }}</label>
                                 <select class="select2 form-control" name="product_category" style="width: 100%">
                                     <option value="">{{ __('app.table_choose') }}</option>
                                     @foreach ($productCategory as $item)
@@ -28,28 +26,19 @@
                                             {{ $item->name }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label>{{ __('app.code') }}{{ __('app.product') }}</label>
-                                <input type="text" class="form-control search_code" name="product_code"
-                                    value="{{ Request::get('product_code') }}" />
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label>{{ __('app.label_name') }}{{ __('app.product') }}</label>
-                                <input type="text" class="form-control" name="product_name"
-                                    value="{{ Request::get('product_name') }}" />
-                            </div>
                         </div>
                         <div class="col-sm-2">
-                            <div class="form-group">
-                                <label>.</label>
-                                <button type="submit"
-                                    class="form-control btn btn-primary">{{ __('app.btn_accepted') }}</button>
-                            </div>
+                                <input type="text" class="form-control search_code" name="product_code"
+                                    value="{{ Request::get('product_code') }}" placeholder="{{ __('app.code') }}{{ __('app.product') }}" />
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control" name="product_name"
+                                value="{{ Request::get('product_name') }}" placeholder="{{ __('app.label_name') }}{{ __('app.product') }}" />
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="submit"
+                                    class="btn btn-primary"> <i class="fas fa-search"></i> {{ __('app.label_search') }}</button>
+                            <a href="{{ url('sales' )}}" class="btn btn-danger"><i class="fas fa-broom"></i> {{__('app.btn_clean')}}</a>
                         </div>
                     </div>
                 </form>

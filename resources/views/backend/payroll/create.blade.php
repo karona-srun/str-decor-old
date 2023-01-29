@@ -62,7 +62,7 @@
                                 </div>
                                 <div class="col-sm-3 div-toggle">
                                     <div class="form-group">
-                                        <label>{{ __('app.table_date') }} <small
+                                        <label>{{ __('app.table_status') }} <small
                                                 class="text-red">*</small></label>
                                         <select class="form-control select2bs4" name="payroll_status"
                                         style="width: 100%;" required>

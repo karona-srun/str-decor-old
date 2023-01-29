@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportFiles;
-use App\Helpers\Helpers;
 use App\Models\Income;
 use App\Models\IncomeOptions;
 use Illuminate\Http\Request;
@@ -181,9 +180,8 @@ class IncomeController extends Controller
             __('app.created_at'),
             __('app.updated_at')
         ];
-        return Helpers::exportExcel($incomes,$heading,$file_name);
-
-        // return Excel::download(new ExportFiles($incomes,$heading,$file_name),$file_name);
+        
+        return Excel::download(new ExportFiles($incomes,$heading,$file_name),$file_name);
     }
 
     /**

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Exports\CustomerExport;
 use App\Exports\ExportFiles;
-use App\Helpers\Helpers;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -90,7 +89,7 @@ class CustomerController extends Controller
         $customer->updated_by = Auth::user()->id;
         $customer->save();
 
-        return redirect()->back()->with('success', __('app.customer').__('app.label_created_successfully'));
+        return redirect()->back();
     }
 
     /**
@@ -167,10 +166,8 @@ class CustomerController extends Controller
             __('app.created_at'),
             __('app.updated_at')
         ];
-
-        return Helpers::exportExcel($customers,$heading,$file_name);
         
-        // return Excel::download(new ExportFiles($customers,$heading,$file_name),$file_name);
+        return Excel::download(new ExportFiles($customers,$heading,$file_name),$file_name);
     }
     /**
      * Remove the specified resource from storage.

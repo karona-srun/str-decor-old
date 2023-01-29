@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Exports\ExportFiles;
 use App\Exports\UsersExport;
-use App\Helpers\Helpers;
 use App\Models\StaffInfo;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -236,9 +235,7 @@ class UserController extends Controller
             __('app.updated_at')
         ];
         
-        return Helpers::exportExcel($users,$heading,$file_name);
-
-        // return Excel::download(new ExportFiles($users,$heading,$file_name),$file_name);
+        return Excel::download(new ExportFiles($users,$heading,$file_name),$file_name);
     }
 
     /**

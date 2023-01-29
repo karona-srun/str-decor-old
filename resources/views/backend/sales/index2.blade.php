@@ -16,8 +16,8 @@
             <div>
                 <form action="{{ route('sales.index') }}" class="p-3 card card-primary card-outline" method="get">
                     <p class="label-box">{{ __('app.label_search') }}{{ __('app.product') }}</p>
-                    <div class="row mb-2 mt-2">
-                        <div class="col-sm-3">
+                    <div class="row mt-2">
+                        <div class="col-sm-3 mb-2">
                                 <select class="select2 form-control" name="product_category" style="width: 100%">
                                     <option value="">{{ __('app.table_choose') }}</option>
                                     @foreach ($productCategory as $item)
@@ -27,15 +27,15 @@
                                     @endforeach
                                 </select>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-2 mb-2">
                                 <input type="text" class="form-control search_code" name="product_code"
                                     value="{{ Request::get('product_code') }}" placeholder="{{ __('app.code') }}{{ __('app.product') }}" />
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-2 mb-2">
                             <input type="text" class="form-control" name="product_name"
                                 value="{{ Request::get('product_name') }}" placeholder="{{ __('app.label_name') }}{{ __('app.product') }}" />
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3 mb-2">
                             <button type="submit"
                                     class="btn btn-primary"> <i class="fas fa-search"></i> {{ __('app.label_search') }}</button>
                             <a href="{{ url('sales' )}}" class="btn btn-danger"><i class="fas fa-broom"></i> {{__('app.btn_clean')}}</a>
@@ -53,7 +53,7 @@
                             @else
                                 <div class="row">
                                     @foreach ($productes as $i => $item)
-                                        <div class="col-md-2 col-lg-3 col-xl-1-2">
+                                        <div class="col-md-2 col-lg-2 col-xl-1-2">
                                             <div class="card card-primary">
                                                 <img src="{{ 'products/' . $item->photo }}" class="img-prod card-img-top"
                                                     alt="...">

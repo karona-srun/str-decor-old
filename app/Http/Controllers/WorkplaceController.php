@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportFiles;
+use App\Helpers\Helpers;
 use App\Models\Workplace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -132,7 +133,9 @@ class WorkplaceController extends Controller
             __('app.updated_at')
         ];
         
-        return Excel::download(new ExportFiles($time,$heading,$file_name),$file_name);
+        return Helpers::exportExcel($time,$heading,$file_name);
+
+        // return Excel::download(new ExportFiles($time,$heading,$file_name),$file_name);
     }
 
     /**

@@ -1,6 +1,6 @@
 @if (Session::has('success'))
     <div id="toastsContainerTopRight" class="toasts-top-right fixed">
-        <div class="toast bg-success fade show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast bg-primary fade show" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <strong class="mr-auto">{{ __('app.label_confirm') }}</strong>
             </div>
@@ -15,6 +15,16 @@
                 <strong class="mr-auto">{{ __('app.label_confirm') }}</strong>
             </div>
             <div class="toast-body">{{ Session::get('info') }}</div>
+        </div>
+    </div>
+@endif
+@if (Session::has('warning'))
+    <div id="toastsContainerTopRight" class="toasts-top-right fixed">
+        <div class="toast bg-warning fade show" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="mr-auto">{{ __('app.label_confirm') }}</strong>
+            </div>
+            <div class="toast-body">{{ Session::get('warning') }}</div>
         </div>
     </div>
 @endif

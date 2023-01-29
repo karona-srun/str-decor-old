@@ -25,6 +25,7 @@
                                 <th>{{ __('app.table_photo') }}</th>
                                 <th>{{ __('app.code') }}</th>
                                 <th>{{ __('app.label_name') }}{{ __('app.product') }}</th>
+                                <th>{{ __('app.label_scale') }}</th>
                                 <th>{{ __('app.label_salling_price') }}</th>
                                 <th>{{ __('app.label_buying_price') }}</th>
                                 <th>{{ __('app.label_buying_date') }}</th>
@@ -35,11 +36,12 @@
                         </thead>
                         <tbody>
                             @foreach ($products as $i => $item)
-                                <tr>
+                                <tr class="{{ $item->store_stock == 0 ? 'bg-danger' : '' }}">
                                     <td>{{ ++$i }}</td>
                                     <td style="width:70px !important"><img src="{{ 'products/'.$item->photo }}" class="img-size-50 img-thumbnail" srcset=""/></td>
                                     <td>{{ $item->product_code }}</td>
                                     <td>{{ $item->product_name }}</td>
+                                    <td>{{ $item->scale }}</td>
                                     <td>{{ $item->salling_price }}</td>
                                     <td>{{ $item->buying_price }}</td>
                                     <td>{{ $item->buying_date }}</td>
@@ -48,6 +50,7 @@
                                     <td>
                                         <a href="{{ route('productes.show',$item->id) }}" class="btn btn-sm btn-primary"><i
                                                 class="far fa-eye"></i></a>
+                                        <a href="{{ url('transf-productes-qty',$item->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-truck"></i></a>
                                         <a href="{{ route('productes.edit',$item->id) }}"  class="btn btn-sm btn-warning"><i
                                                 class="far fa-edit"></i></a>
                                         <button class="btn btn-sm btn-danger deleteProduct" data-toggle="modal"

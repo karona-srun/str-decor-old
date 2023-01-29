@@ -40,7 +40,6 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/dashboard-sale', [App\Http\Controllers\DashboardSaleController::class, 'index'])->name('dashboard-sale');
-
 Route::resource('/positions', PositionController::class);
 Route::post('/update-positions', [App\Http\Controllers\PositionController::class, 'updatePosition']);
 Route::get('/position-exportexcel', [App\Http\Controllers\PositionController::class, 'positionExport']);
@@ -89,15 +88,12 @@ Route::get('/product-category-exportexcel', [App\Http\Controllers\ProductCategor
 
 Route::resource('/productes', ProductController::class);
 Route::delete('/productes/delete-photo/{id}',[App\Http\Controllers\ProductController::class, 'deletePhoto']);
-Route::get('/transf-productes-qty/{id}',[App\Http\Controllers\ProductController::class, 'getQty']);
-Route::post('/transf-productes-qty/{id}',[App\Http\Controllers\ProductController::class, 'transfProducteQty']);
 Route::get('/productes-exportexcel',[App\Http\Controllers\ProductController::class, 'exportExcel']);
-Route::get('/get-product/{id}',[App\Http\Controllers\ProductController::class, 'getProduct']);
 
+Route::get('/get-product/{id}',[App\Http\Controllers\ProductController::class, 'getProduct']);
 Route::resource('/sales', SaleController::class);
 Route::get('/sales-cart-list', [App\Http\Controllers\SaleController::class, 'cartList']);
 Route::get('/sale-report', [App\Http\Controllers\SaleController::class, 'Report']);
-Route::get('/sale-report/{id}', [App\Http\Controllers\SaleController::class, 'reportDetail']);
 Route::resource('/add-cart', AddCartController::class);
 Route::get('/print-add-cart/{id}', [App\Http\Controllers\AddCartController::class, 'print']);
 

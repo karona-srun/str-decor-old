@@ -328,7 +328,7 @@
                                     @can('Role List')
                                         <li class="nav-item">
                                             <a href="{{ route('roles.index') }}"
-                                                class="nav-link{{ Request::is('roles*') ? 'active' : null }}">
+                                                class="nav-link {{ Request::is('roles*') ? 'active' : null }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>{{ __('app.role_permission') }}</p>
                                             </a>

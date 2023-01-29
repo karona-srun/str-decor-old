@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportFiles;
-use App\Helpers\Helpers;
 use App\Models\Attachment;
 use App\Models\BaseSalary;
 use App\Models\Position;
@@ -352,10 +351,8 @@ class StaffInfoController extends Controller
             __('app.created_at'),
             __('app.updated_at')
         ];
-
-        return Helpers::exportExcel($staff,$heading,$file_name);
         
-        // return Excel::download(new ExportFiles($staff,$heading,$file_name),$file_name);
+        return Excel::download(new ExportFiles($staff,$heading,$file_name),$file_name);
     }
 
     /**

@@ -256,7 +256,7 @@
                             </div>
 
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-save"></i> {{ __('app.btn_save') }}</button>
+                                <button type="submit" class="btn btn-sm btn-primary">{{ __('app.btn_save') }}</button>
                             </div>
                         </div>
                     </form>

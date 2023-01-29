@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportFiles;
+use App\Helpers\Helper as HelpersHelper;
+use App\Helpers\Helpers as HelpersHelpers;
 use App\Http\Resources\StaffResource;
 use App\Models\Attendance;
 use App\Models\StaffInfo;
 use Carbon\Carbon;
+use GuzzleHttp\Psr7\Header;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Helpers\Helpers;
 
 class AttendanceController extends Controller
 {
@@ -48,14 +52,14 @@ class AttendanceController extends Controller
 
         $attendances = $query->get();
         if($request->export == "enabled"){
-            return $this->exportExcel($attendances);
+            return $this->processExcel($attendances);
         }
         // $attendances = $query->whereDate('date','=', Carbon::today()->toDateString())->get();
         // $attendances = Attendance::orderBy('id', 'desc')->whereDate('date','=', Carbon::today()->toDateString())->get();
         return view('backend.attendances.index', compact('attendances', 'staff'));
     }
 
-    public function exportExcel($attendances)
+    public function processExcel($attendances)
     {
         $file_name = 'Attendances_'.date('j_m_Y_H_i_s').'.xlsx';
 
@@ -91,7 +95,8 @@ class AttendanceController extends Controller
             __('app.updated_at')
         ];
         
-        return Excel::download(new ExportFiles($datas,$heading,$file_name),$file_name);
+        return Helpers::exportExcel($datas,$heading,$file_name);
+        //Excel::download(new ExportFiles($datas,$heading,$file_name),$file_name);
     }
 
     /**

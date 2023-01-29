@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Sale;
+use Carbon\Carbon;
 
 class DashboardSaleController extends Controller
 {
@@ -23,6 +25,9 @@ class DashboardSaleController extends Controller
      */
     public function index()
     {
-        return view('darhboard_sale');
+        $saleDaily = Sale::whereDate('created_at','=', Carbon::today()->toDateString())->count();
+        $saleMonthly = Sale::whereMonth('created_at', '=', date('m'))->count();
+
+        return view('darhboard_sale', compact('saleDaily','saleMonthly'));
     }
 }

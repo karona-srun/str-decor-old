@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportFiles;
+use App\Helpers\Helpers;
 use App\Models\Position;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -135,8 +136,9 @@ class PositionController extends Controller
             __('app.created_at'),
             __('app.updated_at')
         ];
+        return Helpers::exportExcel($position,$heading,$file_name);
         
-        return Excel::download(new ExportFiles($position,$heading,$file_name),$file_name);
+        // return Excel::download(new ExportFiles($position,$heading,$file_name),$file_name);
     }
 
     /**

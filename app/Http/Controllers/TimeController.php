@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportFiles;
+use App\Helpers\Helpers;
 use App\Models\Time;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
@@ -157,8 +158,10 @@ class TimeController extends Controller
             __('app.created_at'),
             __('app.updated_at')
         ];
+
+        return Helpers::exportExcel($time,$heading,$file_name);
         
-        return Excel::download(new ExportFiles($time,$heading,$file_name),$file_name);
+        // return Excel::download(new ExportFiles($time,$heading,$file_name),$file_name);
     }
 
     /**

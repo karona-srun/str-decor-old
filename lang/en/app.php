@@ -106,7 +106,6 @@ return [
     'label_qty' => 'ចំនួន',
     'label_scale' => 'ខ្នាត',
     'label_store_stock' => 'ស្តុកនៅហាង',
-    'label_cannot_store_stock' => 'លោកអ្នកមិនធ្វើបច្ចុប្បន្នភាពស្តុកនៅហាងបានទេ ពិនិត្យម្តងទៀត!',
     'label_warehouse' => 'ស្តុកនៅឃ្លាំង',
     'label_sold_out' => 'លក់ចេញ',
     'label_search' => 'ស្វែងរក',
@@ -148,7 +147,6 @@ return [
     'label_last_logging_at' => 'ចូលប្រើប្រាស់ចុងក្រោយ',
     'label_start' => 'ចាប់ផ្តើម',
     'label_end' => 'ដល់',
-    'label_invoice_no' => 'លេខ​វិ​ក័​យ​ប័ត្រ',
 
     'code' => 'កូដ',
     'first_name' => 'First Name',

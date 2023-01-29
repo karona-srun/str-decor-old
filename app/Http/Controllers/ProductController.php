@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportFiles;
-use App\Helpers\Helpers;
 use App\Models\Attachment;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -47,26 +46,6 @@ class ProductController extends Controller
         return view('backend.products.create', compact('product_category'));
     }
 
-    public function getQty($id)
-    {
-        $product = Product::find($id);
-        return view('backend.products.transf', compact('product'));
-    }
-
-    public function transfProducteQty(Request $request, $id)
-    {
-        $product = Product::find($id);
-
-        if($product->warehouse < $request->store_stock){
-            return redirect()->back()->with('warning',__('app.label_cannot_store_stock'));
-        }
-
-        $product->warehouse  = $product->warehouse - $request->store_stock;
-        $product->store_stock = $product->store_stock + $request->store_stock;
-        $product->save();
-
-        return redirect('productes')->with('success',__('app.label_store_stock').__('app.label_updated_successfully'));
-    }
     /**
      * Store a newly created resource in storage.
      *
@@ -143,7 +122,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect('/productes')->with('success',__('app.product').__('app.label_created_successfully'));
+        return redirect('/productes')->with('status', 'Products has been created!');
     }
 
     /**
@@ -257,7 +236,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect('/productes')->with('success',__('app.product').__('app.label_updated_successfully'));
+        return redirect('/productes')->with('status', 'Products has been updated!');
     }
 
     public function exportExcel()
@@ -277,7 +256,7 @@ class ProductController extends Controller
                 'salling' => '$'.$data->salling_price,
                 'buying_date' => $data->buying_date,
                 'store_stock' => $data->store_stock,
-                'warehouse' => $data->warehouse,
+                'warehouse' => $data->warehourse,
                 'sold_out' => $data->sold_out,
                 'description' => $data->description,
                 'note' => $data->note,
@@ -307,10 +286,8 @@ class ProductController extends Controller
             __('app.created_at'),
             __('app.updated_at')
         ];
-
-        return Helpers::exportExcel($product,$heading,$file_name);
         
-        // return Excel::download(new ExportFiles($product,$heading,$file_name),$file_name);
+        return Excel::download(new ExportFiles($product,$heading,$file_name),$file_name);
     }
 
     public function deletePhoto($id)
@@ -341,6 +318,6 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return redirect('/productes')->with('danger',__('app.product').__('app.label_deleted_successfully'));
+        return redirect('/productes')->with('status', 'Products has been deleted!');
     }
 }

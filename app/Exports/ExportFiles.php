@@ -7,7 +7,6 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Events\AfterSheet;
-use Maatwebsite\Excel\Events\BeforeExport;
 
 class ExportFiles implements FromCollection, WithHeadings, WithEvents, ShouldAutoSize
 {
@@ -52,7 +51,7 @@ class ExportFiles implements FromCollection, WithHeadings, WithEvents, ShouldAut
         return [
             AfterSheet::class    => function(AfterSheet $event) {
                 $cellRange = 'A1:Z1'; // All headers
-                $event->sheet->getDelegate()->getStyle('A:Z')->getFont()->setSize(13)->setName('Hanuman');
+                $event->sheet->getDelegate()->getStyle('A2:Z1000')->getFont()->setSize(13)->setName('Hanuman');
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14)->setName('Hanuman');
                 $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(30);
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);

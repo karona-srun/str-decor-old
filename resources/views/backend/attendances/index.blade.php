@@ -44,7 +44,8 @@
                                     <option value="">{{ __('app.label_all') }}</option>
                                     @foreach ($staff as $item)
                                         <option value="{{ $item->id }}"
-                                            {{ $item->id == request()->get('staff') ? 'selected' : '' }}>
+                                            {{ $item->id == request()->get('staff') ? 'selected' : '' }}><img
+                                                src="{{ 'photos/' . $item->photo }}" class="img-size-50 img-thumbnail">
                                             {{ $item->full_name_kh }}</option>
                                     @endforeach
                                 </select>

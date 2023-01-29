@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportFiles;
-use App\Helpers\Helpers;
 use App\Models\IncomeOptions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -158,10 +157,8 @@ class IncomeOptionsController extends Controller
             __('app.created_at'),
             __('app.updated_at')
         ];
-
-        return Helpers::exportExcel($incomeOptions,$heading,$file_name);
         
-        // return Excel::download(new ExportFiles($incomeOptions,$heading,$file_name),$file_name);
+        return Excel::download(new ExportFiles($incomeOptions,$heading,$file_name),$file_name);
     }
 
     /**

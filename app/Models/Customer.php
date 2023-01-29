@@ -20,11 +20,11 @@ class Customer extends Model
         return $this->belongsTo(User::class,'updated_by');
     }
 
-    // public function setCreatedAtAttribute( $value ) {
-    //     $this->attributes['created_at'] = (new Carbon($value))->format('d-m-Y h:i:s A');
-    // }
+    public function setCreatedAtAttribute( $value ) {
+        $this->attributes['created_at'] = (new Carbon($value))->format('d-m-Y h:i:s A');
+    }
 
-    // public function setUpdatedAtAttribute( $value ) {
-    //     $this->attributes['updated_at'] = (new Carbon($value))->format('d-m-Y h:i:s A');
-    // }
+    public function setUpdatedAtAttribute( $value ) {
+        $this->attributes['updated_at'] = (new Carbon($value))->format('d-m-Y h:i:s A');
+    }
 }

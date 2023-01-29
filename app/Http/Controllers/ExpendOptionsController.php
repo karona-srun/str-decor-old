@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportFiles;
-use App\Helpers\Helpers;
 use App\Models\ExpendOptions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -159,9 +158,7 @@ class ExpendOptionsController extends Controller
             __('app.updated_at')
         ];
         
-        return Helpers::exportExcel($expendOptions,$heading,$file_name);
-
-        // return Excel::download(new ExportFiles($expendOptions,$heading,$file_name),$file_name);
+        return Excel::download(new ExportFiles($expendOptions,$heading,$file_name),$file_name);
     }
 
     /**

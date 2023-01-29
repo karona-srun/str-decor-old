@@ -2,6 +2,14 @@
 
 @section('title-page', __('app.sales'))
 
+@section('css')
+<style>
+    .img-prod {
+        height: 100px !important;
+    }
+</style>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-sm-12">
@@ -57,14 +65,14 @@
                                 <div class="row">
                                     @foreach ($productes as $i => $item)
                                         <div class="col-md-2 col-lg-3 col-xl-1-2">
-                                            <div class="card card-outline card-primary">
-                                                <img src="{{ 'products/' . $item->photo }}" class="card-img-top"
+                                            <div class="card card-primary">
+                                                <img src="{{ 'products/' . $item->photo }}" class="img-prod card-img-top"
                                                     alt="...">
                                                 <p class="badge badge-primary badge-price">
                                                     @foreach (explode('/', $item->salling_price) as $i => $row)
-                                                        <span>${{ $row }}.00
+                                                        <span class="text-md">${{ $row }}.00
                                                             @if ($i == 0)
-                                                                <span>ចន្លោះ</span>
+                                                                {{-- <span>ចន្លោះ</span> --}}
                                                             @endif
                                                         </span>
                                                     @endforeach
@@ -296,8 +304,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>{{ __('app.label_alert_price') }} <span class="minPirce"></span> {{ __('app.label_to') }} <span
-                            class="maxPirce"></span></p>
+                    <p>{{ __('app.label_alert_price') }} <span class="minPirce"></span> 
+                        {{-- {{ __('app.label_to') }} <span class="maxPirce"></span> --}}
+                    </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-danger"
@@ -368,7 +377,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-6">
-                                <select name="customer" class="form-control select2" id="customer">
+                                <select name="customer" class="form-control form-control-sm select2" id="customer">
                                     <option value="">{{ __('app.table_choose')}}{{__('app.customer')}}</option>
                                     @foreach ($customers as $item)
                                         <option value="{{ $item->id }}">

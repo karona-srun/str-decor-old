@@ -90,7 +90,7 @@
                             </div>
                         </a>
                         <a href="{{ url('users/profile', Auth::user()->id) }}" class="dropdown-item">
-                            <i class="far fa-circle nav-icon"></i>
+                            <i class="far fa-user-circle nav-icon"></i>
                             {{ __('app.label_profile') }}
                         </a>
                         {{-- <a href="#" class="dropdown-item">
@@ -100,7 +100,7 @@
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                            <i class="far fa-circle nav-icon"></i>
+                            <i class="fas fa-sign-out-alt nav-icon"></i>
                             {{ __('app.label_logout') }}
                         </a>
 
@@ -111,7 +111,7 @@
                 </li>
             </ul>
         </nav>
-        <aside class="main-sidebar sidebar-light-primary elevation-2">
+        <aside class="main-sidebar sidebar-dark-primary elevation-2">
             <a href="{{ url('/home') }}" class="brand-link">
                 <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="STR Furniture"
                     class="brand-image img-circle" style="opacity: .7">
@@ -138,7 +138,7 @@
                         @endcan
                         @can('Dashboard Sale')
                             <li class="nav-item">
-                                <a href="{{ url('dashboard-sale') }}" class="nav-link">
+                                <a href="{{ url('dashboard-sale') }}" class="nav-link {{ Request::is('dashboard-sale') ? 'active' : null }}">
                                     <i class="nav-icon fas fa-solar-panel"></i>
                                     <p>
                                         {{ __('app.sale_dashboard') }}

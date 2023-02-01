@@ -1,0 +1,23 @@
+/* Customsize CSS */
+.main-header{
+    border-bottom: 0px solid #dee2e6 !important;
+}
+
+.img-item-product{
+    height: 157px;
+    width: 157px;
+}
+.style4 {
+    background-color: #c4c4c4;
+    border: none;
+    height: 1px;
+    position: relative;
+  }
+  .style4:before {
+    content: "";
+    background-color: #007bff;
+    width: 200px;
+    height:1px;
+    position: absolute;
+    left: 0;
+  }

@@ -32,9 +32,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
+Route::get('/search', [App\Http\Controllers\WelcomeController::class, 'search']);
 
 Auth::routes(['register' => false]);
 

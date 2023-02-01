@@ -72,11 +72,7 @@ class AttendanceController extends Controller
                 'check_in' => $data->check_in,
                 'check_out' => $data->check_out,
                 'num_hour' => $data->num_hour,
-                'note' => $data->note,
-                'created_by' => $data->creator->name,
-                'updated_by' => $data->updator->name,
-                'created_at' => $data->created_at->format('d-m-Y h:i:s A'),
-                'updated_at' => $data->updated_at->format('d-m-Y h:i:s A')
+                'note' => $data->note
             ];
         });
 
@@ -88,11 +84,7 @@ class AttendanceController extends Controller
             __('app.table_checkin'),
             __('app.table_checkout'),
             __('app.num_hour'),
-            __('app.label_note'),
-            __('app.created_by'),
-            __('app.updated_by'),
-            __('app.created_at'),
-            __('app.updated_at')
+            __('app.label_note')
         ];
         
         return Helpers::exportExcel($datas,$heading,$file_name);

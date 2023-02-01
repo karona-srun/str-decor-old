@@ -280,11 +280,7 @@ class ProductController extends Controller
                 'warehouse' => $data->warehouse,
                 'sold_out' => $data->sold_out,
                 'description' => $data->description,
-                'note' => $data->note,
-                'created_by' => $data->creator->name,
-                'updated_by' => $data->updator->name,
-                'created_at' => $data->created_at->format('d-m-Y h:i:s A'),
-                'updated_at' => $data->updated_at->format('d-m-Y h:i:s A')
+                'note' => $data->note
             ];
         });
 
@@ -301,11 +297,7 @@ class ProductController extends Controller
             __('app.label_warehouse'),
             __('app.label_sold_out'),
             __('app.label_description'),
-            __('app.label_note'),
-            __('app.created_by'),
-            __('app.updated_by'),
-            __('app.created_at'),
-            __('app.updated_at')
+            __('app.label_note')
         ];
 
         return Helpers::exportExcel($product,$heading,$file_name);

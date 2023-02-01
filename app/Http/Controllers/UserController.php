@@ -215,11 +215,7 @@ class UserController extends Controller
                 'staff' => $data->staff->full_name_kh ?? '',
                 'roles' => $data->roles->pluck('name'),
                 'email' => $data->email,
-                'authenticated_at' => $data->authenticated_at->format('d-m-Y h:i:s A'),
-                'created_by' => $data->creator->name ?? '',
-                'updated_by' => $data->updator->name ?? '',
-                'created_at' => $data->created_at->format('d-m-Y h:i:s A'),
-                'updated_at' => $data->updated_at->format('d-m-Y h:i:s A')
+                'authenticated_at' => $data->authenticated_at->format('d-m-Y h:i:s A')
             ];
         });
 
@@ -229,11 +225,7 @@ class UserController extends Controller
             __('app.table_staff_name'),
             __('app.role_permission'),
             __('app.email'),
-            __('app.label_last_logging_at'),
-            __('app.created_by'),
-            __('app.updated_by'),
-            __('app.created_at'),
-            __('app.updated_at')
+            __('app.label_last_logging_at')
         ];
         
         return Helpers::exportExcel($users,$heading,$file_name);

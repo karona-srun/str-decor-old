@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="col-4">
-                        <button type="submit" class="btn btn-sm btn-primary btn-block"><i class="fas fa-sign-in"></i> {{ __('app.label_login')}}</button>
+                        <button type="submit" class="btn btn-sm btn-primary btn-block"><i class="fas fa-sign-in-alt"></i> {{ __('app.label_login')}}</button>
                     </div>
                 </div>
             </form>

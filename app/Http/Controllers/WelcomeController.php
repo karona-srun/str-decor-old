@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachment;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
@@ -12,7 +13,16 @@ class WelcomeController extends Controller
     {
         $productes = Product::get();
         $productCategory = ProductCategory::get();
-        return view('welcome', compact('productes','productCategory'));
+        return view('frontend.index', compact('productes','productCategory'));
+    }
+
+    public function getProduct($id)
+    {
+        $product = Product::findOrFail($id);
+        $productes = Product::get();
+        $productCategory = ProductCategory::get();
+        $attachments = Attachment::where(['type_id'=>$id,'type'=>'product'])->get();
+        return view('frontend.details', compact('product','productes','attachments','productCategory'));
     }
 
     public function search(Request $request)
@@ -22,6 +32,6 @@ class WelcomeController extends Controller
         ->orWhere('scale',$request->q)
         ->get();
         $productCategory = ProductCategory::get();
-        return view('welcome', compact('productes','productCategory'));
+        return view('frontend.index', compact('productes','productCategory'));
     }
 }

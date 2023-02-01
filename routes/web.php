@@ -34,6 +34,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
 Route::get('/search', [App\Http\Controllers\WelcomeController::class, 'search']);
+Route::get('/product-details/{id}', [App\Http\Controllers\WelcomeController::class, 'getProduct']);
 
 Auth::routes(['register' => false]);
 

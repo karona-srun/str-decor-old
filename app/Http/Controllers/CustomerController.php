@@ -148,11 +148,7 @@ class CustomerController extends Controller
                 'name' => $data->customer_name,
                 'phone' => $data->customer_phone,
                 'address' => $data->customer_address,
-                'note' => $data->note,
-                'created_by' => $data->creator->name,
-                'updated_by' => $data->updator->name,
-                'created_at' => $data->created_at->format('d-m-Y h:i:s A'),
-                'updated_at' => $data->updated_at->format('d-m-Y h:i:s A')
+                'note' => $data->note
             ];
         });
 
@@ -161,11 +157,7 @@ class CustomerController extends Controller
             __('app.label_name').__('app.customer'),
             __('app.phone'),
             __('app.current_place'),
-            __('app.label_note'),
-            __('app.created_by'),
-            __('app.updated_by'),
-            __('app.created_at'),
-            __('app.updated_at')
+            __('app.label_note')
         ];
 
         return Helpers::exportExcel($customers,$heading,$file_name);

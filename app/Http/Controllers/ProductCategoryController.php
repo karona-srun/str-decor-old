@@ -137,22 +137,14 @@ class ProductCategoryController extends Controller
             return [
                 'id' => $data->id,
                 'name' => $data->name,
-                'note' => $data->note,
-                'created_by' => $data->creator->name,
-                'updated_by' => $data->updator->name,
-                'created_at' => $data->created_at->format('d-m-Y h:i:s A'),
-                'updated_at' => $data->updated_at->format('d-m-Y h:i:s A')
+                'note' => $data->note
             ];
         });
 
         $heading = [
             __('app.table_no'),
             __('app.label_name'),
-            __('app.label_note'),
-            __('app.created_by'),
-            __('app.updated_by'),
-            __('app.created_at'),
-            __('app.updated_at')
+            __('app.label_note')
         ];
 
         return Helpers::exportExcel($productCategory,$heading,$file_name);

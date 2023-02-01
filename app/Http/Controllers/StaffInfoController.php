@@ -318,11 +318,7 @@ class StaffInfoController extends Controller
                 'worktime' => $data->worktime->name,
                 'start_work' => $data->start_work,
                 'stop_work' => $data->stop_work,
-                'note' => $data->note,
-                'created_by' => $data->creator->name,
-                'updated_by' => $data->updator->name,
-                'created_at' => $data->created_at->format('d-m-Y h:i:s A'),
-                'updated_at' => $data->updated_at->format('d-m-Y h:i:s A')
+                'note' => $data->note
             ];
         });
 
@@ -346,11 +342,7 @@ class StaffInfoController extends Controller
             __('app.work_time'),
             __('app.start_work'),
             __('app.stop_work'),
-            __('app.label_note'),
-            __('app.created_by'),
-            __('app.updated_by'),
-            __('app.created_at'),
-            __('app.updated_at')
+            __('app.label_note')
         ];
 
         return Helpers::exportExcel($staff,$heading,$file_name);

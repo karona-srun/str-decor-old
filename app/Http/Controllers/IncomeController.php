@@ -161,11 +161,7 @@ class IncomeController extends Controller
                 'name' => $data->name,
                 'amount' => '$'.$data->amount,
                 'date' => $data->date,
-                'note' => $data->note,
-                'created_by' => $data->creator->name,
-                'updated_by' => $data->updator->name,
-                'created_at' => $data->created_at->format('d-m-Y h:i:s A'),
-                'updated_at' => $data->updated_at->format('d-m-Y h:i:s A')
+                'note' => $data->note
             ];
         });
 
@@ -175,11 +171,7 @@ class IncomeController extends Controller
             __('app.label_name'),
             __('app.label_amount'),
             __('app.table_date'),
-            __('app.label_note'),
-            __('app.created_by'),
-            __('app.updated_by'),
-            __('app.created_at'),
-            __('app.updated_at')
+            __('app.label_note')
         ];
         return Helpers::exportExcel($incomes,$heading,$file_name);
 

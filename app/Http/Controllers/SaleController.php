@@ -101,11 +101,7 @@ class SaleController extends Controller
                 'sale_no' => $data->sale_no,
                 'customer' => $data->customer->customer_name ?? '',
                 'total_qty' => $data->total_qty,
-                'total_price' => '$'.$data->total_price,
-                'created_by' => $data->creator->name,
-                'updated_by' => $data->updator->name,
-                'created_at' => $data->created_at->format('d-m-Y h:i:s A'),
-                'updated_at' => $data->updated_at->format('d-m-Y h:i:s A')
+                'total_price' => '$'.$data->total_price
             ];
         });
 
@@ -114,11 +110,7 @@ class SaleController extends Controller
             __('app.label_invoice_no'),
             __('app.customer'),
             __('app.label_total_qty'),
-            __('app.label_total_price'),
-            __('app.created_by'),
-            __('app.updated_by'),
-            __('app.created_at'),
-            __('app.updated_at')
+            __('app.label_total_price')
         ];
         
         return Helpers::exportExcel($datas,$heading,$file_name);

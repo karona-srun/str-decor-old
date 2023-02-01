@@ -31,18 +31,6 @@ class ExpendController extends Controller
      */
     public function index(Request $request)
     {
-        // if ($request->ajax()) {
-        //     $expends = Expend::all();
-        //     return datatables()->of($expends)
-        //         ->addColumn('action', function ($row) {
-        //             $html = '<a href="#" class="btn btn-xs btn-secondary btn-edit">Edit</a> ';
-        //             $html .= '<button data-rowid="' . $row->id . '" class="btn btn-xs btn-danger btn-delete">Del</button>';
-        //             return $html;
-        //         })->toJson();
-        // }
-
-        // return view('backend.expends.index');
-
         $expends = Expend::orderBy('id','desc')->get();
         return view('backend.expends.index', compact('expends'));
     }

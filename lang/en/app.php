@@ -176,6 +176,7 @@ return [
     'label_amount' => 'ចំនួនទឹកប្រាក់',
     'label_payment_date' => 'កាលបរិច្ឆេទបង់ប្រាក់',
     'label_type' => 'ប្រភេទ',
+    'label_type_your_keyword_here' => 'វាយពាក្យគន្លឹះរបស់អ្នកនៅទីនេះ',
 
     'required' => 'តម្រូវអោយបំពេញ',
     

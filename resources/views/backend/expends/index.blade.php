@@ -49,35 +49,35 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($expends as $i => $item)
+                            @foreach ($expends as $index => $expend)
                                 <tr>
-                                    <td>{{ ++$i }}</td>
-                                    <td>{{ $item->expendOptions->name }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->date }}</td>
-                                    <td>${{ $item->amount }}</td>
-                                    <td>
-                                        @can('Expend Edit')
-                                        <a href="{{ route('expends.show',$item->id) }}" class="btn btn-sm btn-primary"><i
-                                                class="far fa-eye"></i></a>
-                                        @endcan
-                                        @can('Expend Edit')
-                                        <a href="{{ route('expends.edit',$item->id) }}"  class="btn btn-sm btn-warning"><i
-                                                class="far fa-edit"></i></a>
-                                        @endcan
-                                        @can('Expend Delete')
-                                        <button class="btn btn-sm btn-danger deleteIncome" data-toggle="modal"
-                                            data-target="#modal-default" data-id="{{ $item->id }}"><i
-                                                class="far fa-trash-alt"></i></button>
-                                        @endcan
-                                    </td>
-                                </tr>
+                                        <td>{{ ++$index }}</td>
+                                        <td>{{ $expend->expendOptions->name }}</td>
+                                        <td>{{ $expend->name }}</td>
+                                        <td>{{ $expend->date }}</td>
+                                        <td>${{ $expend->amount }}</td>
+                                        <td>
+                                            @can('Expend Edit')
+                                            <a href="{{ route('expends.show',$expend->id) }}" class="btn btn-sm btn-primary"><i
+                                                    class="far fa-eye"></i></a>
+                                            @endcan
+                                            @can('Expend Edit')
+                                            <a href="{{ route('expends.edit',$expend->id) }}"  class="btn btn-sm btn-warning"><i
+                                                    class="far fa-edit"></i></a>
+                                            @endcan
+                                            @can('Expend Delete')
+                                            <button class="btn btn-sm btn-danger deleteIncome" data-toggle="modal"
+                                                data-target="#modal-default" data-id="{{ $expend->id }}"><i
+                                                    class="far fa-trash-alt"></i></button>
+                                            @endcan
+                                        </td>
+                                    </tr>
                             @endforeach
-                        </tbody>
+                        </tbody>  
                     </table>
                 </div>
             </div>
-        </div>
+        </div>    
     </div>
 
     <div class="modal fade" id="modal-default">

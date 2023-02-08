@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="card-header text-center ">
-            <a href="{{ url('/') }}" class="h1"><b>{{ config('app.name', 'STR Funiture') }}</b></a>
+            <a href="{{ url('/') }}" class="h1"><b>{{ $profile->name }}</b></a>
         </div>
         <div class="col-md-12">
             <div class="card card-outline card-primary">

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Expend extends Model
 {
@@ -13,6 +14,10 @@ class Expend extends Model
     {
         return $this->belongsTo(ExpendOptions::class,'expend_option_id');
     }
+
+    public function sumTotalAmount($id, $start_date, $end_date){
+        return Expend::where('expend_option_id', $id)->whereBetween('date', array($start_date,$end_date))->sum('amount');
+    }  
 
     public function creator()
     {

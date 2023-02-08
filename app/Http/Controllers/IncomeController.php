@@ -6,6 +6,7 @@ use App\Exports\ExportFiles;
 use App\Helpers\Helpers;
 use App\Models\Income;
 use App\Models\IncomeOptions;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -29,10 +30,29 @@ class IncomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $incomes = Income::orderBy('id','desc')->get();
-        return view('backend.incomes.index', compact('incomes'));
+        $income_options = IncomeOptions::orderBy('name','desc')->get();
+        
+        $query = Income::query();
+
+        if ($request->income_option) {
+            $query->where('income_option_id', $request->income_option         );
+        }
+
+        if ($request->start_date || $request->end_date) {
+            $query->whereBetween('date', array($request->start_date,$request->end_date));
+        }else{
+            $query->whereDate('date','=', Carbon::today()->toDateString());
+        }
+
+        $incomes = $query->get();
+
+        if($request->export == "enabled"){
+            return $this->processExcel($incomes);
+        }
+
+        return view('backend.incomes.index', compact('income_options','incomes'));
     }
 
     /**
@@ -148,22 +168,22 @@ class IncomeController extends Controller
         return redirect('/incomes')->with('status', 'Income has been updated!');
     }
 
-    public function exportExcel()
+    public function processExcel($datas)
     {
         $file_name = 'Incomes_'.date('j_m_Y_H_i_s').'.xlsx';
 
-        $datas = Income::all();
+        // $datas = Income::all();
 
-        $incomes = $datas->map(function ($data) {
-            return [
-                'id' => $data->id,
-                'type_income' => $data->incomeOptions->name,
-                'name' => $data->name,
-                'amount' => '$'.$data->amount,
-                'date' => $data->date,
-                'note' => $data->note
-            ];
-        });
+        // $incomes = $datas->map(function ($data) {
+        //     return [
+        //         'id' => $data->id,
+        //         'type_income' => $data->incomeOptions->name,
+        //         'name' => $data->name,
+        //         'amount' => '$'.$data->amount,
+        //         'date' => $data->date,
+        //         'note' => $data->note
+        //     ];
+        // });
 
         $heading = [
             __('app.table_no'),
@@ -173,9 +193,11 @@ class IncomeController extends Controller
             __('app.table_date'),
             __('app.label_note')
         ];
-        return Helpers::exportExcel($incomes,$heading,$file_name);
+        // return Helpers::exportExcel($datas,$heading,$file_name);
 
-        // return Excel::download(new ExportFiles($incomes,$heading,$file_name),$file_name);
+        $option = 'income';
+        
+        return Excel::download(new ExportFiles($option,$datas,$heading,$file_name),$file_name);
     }
 
     /**

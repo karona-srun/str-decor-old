@@ -14,6 +14,10 @@ class Income extends Model
         return $this->belongsTo(IncomeOptions::class,'income_option_id');
     }
 
+    public function sumTotalAmount($id, $start_date, $end_date){
+        return Income::where('income_option_id', $id)->whereBetween('date', array($start_date,$end_date))->sum('amount');
+    } 
+
     public function creator()
     {
         return $this->belongsTo(User::class,'created_by');

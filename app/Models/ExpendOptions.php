@@ -21,7 +21,7 @@ class ExpendOptions extends Model
 
     public function expends()
     {
-        return $this->belongsTo(Expend::class,'id','expend_option_id');
+        return $this->hasMany(Expend::class,'expend_option_id','id');
     }
 
 }

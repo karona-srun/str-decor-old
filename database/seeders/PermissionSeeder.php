@@ -81,7 +81,11 @@ class PermissionSeeder extends Seeder
             'Time List',
             'Time Create',
             'Time Edit',
-            'Time Delete'
+            'Time Delete',
+            'System Profile List',
+            'System Profile Create',
+            'System Profile Edit',
+            'System Profile Delete'
         ];
 
         foreach ($permissions as $permission) {

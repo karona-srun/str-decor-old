@@ -34,7 +34,7 @@ return [
         'expend_info' => 'ព័ត៍មានការចំណាយ',
     'user_management' => 'គ្រប់គ្រងអ្នកប្រើប្រាស់',
         'user_info' => 'ព័ត៍មានអ្នកប្រើប្រាស់',
-        'role_permission' => 'តួនាទី និង​ការអនុញ្ញាត',
+        'role_permission' => 'តួនាទី និង​អនុញ្ញាត',
     'settings' => 'ការកំណត់',
         'income_options' => 'ជម្រើសនៃប្រាក់ចំណូល',
         'expend_options' => 'ជម្រើសនៃប្រាក់ចំណាយ',
@@ -174,10 +174,14 @@ return [
     'label_status_disabled' => 'បិទ',
     'label_status_visibled' => 'មើលឃើញ',
     'label_amount' => 'ចំនួនទឹកប្រាក់',
+    'label_total_amount' => 'ចំនួនទឹកប្រាក់សរុប',
     'label_payment_date' => 'កាលបរិច្ឆេទបង់ប្រាក់',
     'label_type' => 'ប្រភេទ',
+    'label_new_product' => 'ផលិតផលថ្មីៗ',
+    'label_pop_product' => 'ផលិតផលពេញនិយម',
     'label_type_your_keyword_here' => 'វាយពាក្យគន្លឹះរបស់អ្នកនៅទីនេះ',
-
+    'label_address' => 'អាស័យដ្ឋាន',  
+    'label_descrip_contract' => 'ពិពណ៌នាកិច្ចសន្យា',
     'required' => 'តម្រូវអោយបំពេញ',
     
 ];

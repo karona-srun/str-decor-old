@@ -15,6 +15,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\StaffInfoController;
+use App\Http\Controllers\SystemProfileController;
 use App\Http\Controllers\TimeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkplaceController;
@@ -110,4 +111,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/users/profile/{id}', [App\Http\Controllers\UserController::class, 'profile']);
     Route::get(' users-exportexcel', [App\Http\Controllers\UserController::class, 'exportExcel']);
     Route::resource('roles', RolesController::class);
+    Route::resource('system-profile', SystemProfileController::class);
 });

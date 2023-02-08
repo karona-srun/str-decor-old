@@ -3,43 +3,63 @@
 namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Events\BeforeExport;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
-class ExportFiles implements FromCollection, WithHeadings, WithEvents, ShouldAutoSize
+class ExportFiles implements FromView, WithHeadings,  ShouldAutoSize, WithEvents
 {
-    protected $myDatas, $myHeadings, $myTitle;
+
+    protected $myDatas, $myHeadings, $myTitle, $option;
     /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function __construct($myDatas, $myHeadings, $myTitle){
+     * @return \Illuminate\Support\Collection
+     */
+    public function __construct($option,$myDatas, $myHeadings, $myTitle)
+    {
+        $this->option = $option;
         $this->myDatas = $myDatas;
         $this->myHeadings = $myHeadings;
         $this->myTitle = $myTitle;
     }
 
-    public function properties(): array
+    public function view(): View
     {
-        return [
-            'creator'        => 'STR Furniture Co,.LTD',
-            'title'          => $this->myTitle. ' Export',
-            'description'    => $this->myTitle.' List export to excel',
-            'subject'        => $this->myTitle,
-            'company'        => 'STR Furniture Co,.LTD',
-        ];
-    }
+        $view = '';
+        if($this->option == 'expend'){
+            $view = 'view_export_expend';
+        }else{
+            $view = 'view_export_income';
+        }
 
-    public function collection()
-    {
-        return $this->myDatas;
+        return view('partials.'.$view, [
+            'datas' => $this->myDatas
+        ]);
     }
+    // public function properties(): array
+    // {
+    //     return [
+    //         'creator'        => 'STR Furniture Co,.LTD',
+    //         'title'          => $this->myTitle. ' Export',
+    //         'description'    => $this->myTitle.' List export to excel',
+    //         'subject'        => $this->myTitle,
+    //         'company'        => 'STR Furniture Co,.LTD',
+    //     ];
+    // }
+
+    // public function collection()
+    // {
+    //     return $this->myDatas;
+    // }
 
     public function headings(): array
     {
-       return $this->myHeadings;
+        return $this->myHeadings;
     }
 
     public function ShouldAutoSize()
@@ -50,15 +70,62 @@ class ExportFiles implements FromCollection, WithHeadings, WithEvents, ShouldAut
     public function registerEvents(): array
     {
         return [
-            AfterSheet::class    => function(AfterSheet $event) {
-                $cellRange = 'A1:Z1'; // All headers
-                $event->sheet->getDelegate()->getStyle('A:Z')->getFont()->setSize(13)->setName('Hanuman');
-                $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14)->setName('Hanuman');
-                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(30);
-                $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);
-                $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setBold(true);
-                $event->sheet->getDelegate()->getStyle('A:Z')->getAlignment()->setHorizontal('center');
-                $event->sheet->getDelegate()->getStyle('A:Z')->getAlignment()->setVertical('center');
+            AfterSheet::class    => function (AfterSheet $event) {
+
+                $active_sheet = $event->sheet->getDelegate();
+
+                $styleArray = [
+                    'font' => [
+                        'size' => 12,
+                        'name' => 'Khmer OS System',
+                        'bold' => true,
+                        'color' => [
+                            'argb' => 'FFFFFF'
+                        ]
+                    ],
+                    'fill' => [
+                        'color' => [
+                            'argb' => '808080'
+                        ],
+                        'fillType' => Fill::FILL_SOLID
+                    ],
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                            'color' => ['argb' => '000000'],
+                        ],
+                    ],
+                    'alignment' => [
+                        'horizontal' => Alignment::HORIZONTAL_CENTER,
+                        'vertical' => Alignment::VERTICAL_CENTER,
+                    ],
+                ];
+                $active_sheet->getStyle('A1:F1')->applyFromArray($styleArray);
+
+                $active_sheet->getDefaultRowDimension()->setRowHeight(50, 'px');
+
+                // Create Style Arrays
+                $default_font_style = [
+                    'font' => ['name' => 'Khmer OS System', 'size' => 12]
+                ];
+
+                $strikethrough = [
+                    'font' => ['strikethrough' => true],
+                ];
+
+                // Get Worksheet
+                $active_sheet = $event->sheet->getDelegate();
+
+                // Apply Style Arrays
+                $active_sheet->getParent()->getDefaultStyle()->applyFromArray($default_font_style);
+
+                // strikethrough group of cells (A10 to B12) 
+                $active_sheet->getStyle('A10:B12')->applyFromArray($strikethrough);
+                // or
+                $active_sheet->getStyle('A10:B12')->getFont()->setStrikethrough(true);
+
+                // single cell
+                $active_sheet->getStyle('A13')->getFont()->setStrikethrough(true);
             },
         ];
     }

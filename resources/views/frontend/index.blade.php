@@ -1,7 +1,7 @@
 @extends('layouts.frontend')
 
 @section('content')
-<div class="content bg-light">
+<div class="content">
     <div class="container mt-4 mb-4">
         <div class="row">
             <div class="col-lg-3">
@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="col-lg-9">
-                <h5 class="text-muted">ផលិតផលដែលពេញនិយម
+                <h5 class="text-muted">{{__('app.label_new_product')}}
                     <a href="http://" class=" float-right btn btn-link text-muted text-md">{{ __('app.label_all')}} <i class="fas fa-angle-double-right"></i></a>
                 </h5>
                 <hr class="style4">
@@ -50,7 +50,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 mt-4 mb-2">
-                <h5 class="text-muted">ផលិតផលថ្មីៗ
+                <h5 class="text-muted">{{__('app.label_pop_product')}}
                     <a href="http://" class=" float-right btn btn-link text-muted text-md">{{ __('app.label_all')}} <i class="fas fa-angle-double-right"></i></a>
                 </h5>
                 <hr class="style4">

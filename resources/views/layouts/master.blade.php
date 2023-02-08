@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'STR Funiture') }} | @yield('title-page')</title>
+    <title>{{$profile->name}} | @yield('title-page')</title>
     <meta name="csrf-token" id="csrf" content="{{ csrf_token() }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -13,10 +13,11 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote-bs4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css') }}">
-
+    <link rel="shortcut icon" sizes="114x114" href="{{ url($profile->photo) }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/fancybox/dist/jquery.fancybox.css') }}" />
     <style>
         @font-face {
@@ -26,6 +27,9 @@
 
         html body {
             font-family: "Hanuman";
+        }
+        .pre-wrap{
+            white-space: pre-wrap;
         }
 
         @page {
@@ -113,9 +117,9 @@
         </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-2">
             <a href="{{ url('/home') }}" class="brand-link">
-                <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="STR Furniture"
+                <img src="{{ url($profile->photo) }}" alt="STR Furniture"
                     class="brand-image img-circle" style="opacity: .7">
-                <span class="brand-text font-weight-light">STR Furniture</span>
+                <span class="brand-text font-weight-light pre-wrap">{{$profile->name}}</span>
             </a>
 
             <div class="sidebar">
@@ -328,7 +332,7 @@
                                     @can('Role List')
                                         <li class="nav-item">
                                             <a href="{{ route('roles.index') }}"
-                                                class="nav-link{{ Request::is('roles*') ? 'active' : null }}">
+                                                class="nav-link {{ Request::is('roles*') ? 'active' : null }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>{{ __('app.role_permission') }}</p>
                                             </a>
@@ -339,11 +343,12 @@
                         @endif
                         @if (Auth::user()->can('Option Income List') ||
                             Auth::user()->can('Option Expend List') ||
-                            Auth::user()->can('Time List'))
+                            Auth::user()->can('Time List') ||
+                            Auth::user()->can('System Profile List'))
                             <li
-                                class="nav-item {{ Request::is('income-options*') || Request::is('expend-options*') || Request::is('times*') ? 'menu-is-opening menu-open' : null }} ">
+                                class="nav-item {{ Request::is('income-options*') || Request::is('expend-options*') || Request::is('times*') || Request::is('system-profile*') ? 'menu-is-opening menu-open' : null }} ">
                                 <a href="#"
-                                    class="nav-link {{ Request::is('income-options*') || Request::is('expend-options*') || Request::is('times*') ? 'active' : null }} ">
+                                    class="nav-link {{ Request::is('income-options*') || Request::is('expend-options*') || Request::is('times*') || Request::is('system-profile*') ? 'active' : null }} ">
                                     <i class="nav-icon fas fa-cogs"></i>
                                     <p>
                                         {{ __('app.settings') }}
@@ -351,6 +356,15 @@
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
+                                    @can('System Profile List')
+                                        <li class="nav-item">
+                                            <a href="{{ url('system-profile') }}"
+                                                class="nav-link {{ Request::is('system-profile*') ? 'active' : null }}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>{{ __('app.settings') }}</p>
+                                            </a>
+                                        </li>
+                                    @endcan
                                     @can('Option Income List')
                                         <li class="nav-item">
                                             <a href="{{ url('income-options') }}"
@@ -430,6 +444,7 @@
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/fancybox/dist/jquery.fancybox.js') }}"></script>
     <script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
 
     @yield('js')
     <script type="text/javascript">
@@ -437,7 +452,7 @@
             $('#toastsContainerTopRight').delay(5000).fadeOut('slow');
 
             // //Initialize Select2 Elements
-            $('.select2bs4').select2({
+            $('.select2bs4, .select2').select2({
                 theme: 'bootstrap4',
             })
 

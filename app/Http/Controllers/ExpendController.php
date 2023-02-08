@@ -6,11 +6,15 @@ use App\Exports\ExportFiles;
 use App\Helpers\Helpers;
 use App\Models\Expend;
 use App\Models\ExpendOptions;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
+
+use function Ramsey\Uuid\v1;
 
 class ExpendController extends Controller
 {
@@ -31,8 +35,26 @@ class ExpendController extends Controller
      */
     public function index(Request $request)
     {
-        $expends = Expend::orderBy('id','desc')->get();
-        return view('backend.expends.index', compact('expends'));
+        $expend_options = ExpendOptions::orderBy('name','desc')->get();
+
+        $query = Expend::query();
+
+        if ($request->expend_option) {
+            $query->where('expend_option_id', $request->expend_option);
+        }
+
+        if ($request->start_date || $request->end_date) {
+            $query->whereBetween('date', array($request->start_date,$request->end_date));
+        }else{
+            $query->whereDate('date','=', Carbon::today()->toDateString());
+        }
+
+        $expends = $query->get();
+        if($request->export == "enabled"){
+            return $this->processExcel($expends);
+        }
+
+        return view('backend.expends.index  ', compact('expends','expend_options'));
     }
 
     /**
@@ -145,22 +167,22 @@ class ExpendController extends Controller
         return redirect('/expends')->with('status', 'Expends has been updated!');
     }
 
-    public function exportExcel()
+    public function processExcel($datas)
     {
         $file_name = 'Expends_'.date('j_m_Y_H_i_s').'.xlsx';
 
-        $datas = Expend::all();
+        // $datas = Expend::all();
 
-        $incomes = $datas->map(function ($data) {
-            return [
-                'id' => $data->id,
-                'type_income' => $data->expendOptions->name,
-                'name' => $data->name,
-                'amount' => '$'.$data->amount,
-                'date' => $data->date,
-                'note' => $data->note
-            ];
-        });
+        // $incomes = $datas->map(function ($data) {
+        //     return [
+        //         'id' => $data->id,
+        //         'type_income' => $data->expendOptions->name,
+        //         'name' => $data->name,
+        //         'amount' => '$'.$data->amount,
+        //         'date' => $data->date,
+        //         'note' => $data->note
+        //     ];
+        // });
 
         $heading = [
             __('app.table_no'),
@@ -171,9 +193,11 @@ class ExpendController extends Controller
             __('app.label_note')
         ];
 
-        return Helpers::exportExcel($incomes,$heading,$file_name);
+        // return Helpers::exportExcel($datas,$heading,$file_name);
+
+        $option = 'expend';
         
-        // return Excel::download(new ExportFiles($incomes,$heading,$file_name),$file_name);
+        return Excel::download(new ExportFiles($option,$datas,$heading,$file_name),$file_name);
     }
 
     /**

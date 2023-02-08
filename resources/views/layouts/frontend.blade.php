@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'STR Funiture') }}</title>
+    <title>{{$profile->name}}</title>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
@@ -12,14 +12,14 @@
     <link rel="stylesheet" href="{{ asset('assets/dist/css/custom.css') }}">
 </head>
 
-<body class="hold-transition sidebar-collapse layout-top-nav bg-primary">
+<body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
-        <nav class="main-header navbar navbar-expand-md navbar-dark navbar-primary">
+        <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
                 <a href="{{ url('/') }}" class="navbar-brand">
-                    <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+                    <img src="{{ asset($profile->photo) }}" alt="AdminLTE Logo"
                         class="brand-image img-circle" style="opacity: .8">
-                    <span class="brand-text font-weight-light">{{ config('app.name', 'STR Funiture') }}</span>
+                    <span class="brand-text font-weight-light">{{$profile->name}}</span>
                 </a>
 
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse"
@@ -97,7 +97,7 @@
         </nav>
 
         <div class="content-wrapper">
-            <div class="content-header bg-primary">
+            <div class="content-header bg-white">
                 <div class="container">
                     <div class="row mb-4">
                         <div class="col-sm-6">

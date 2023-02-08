@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\SystemProfile;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -36,5 +37,14 @@ class AdminUserSeeder extends Seeder
         $role->syncPermissions($permissions);
      
         $user->assignRole([$role->id]);
+
+        $user = SystemProfile::create([
+            'name' => 'Income & Expend MS', 
+            'email' => 'admin@gmail.com',
+            'tel' => '000000000',
+            'photo' => 'logo.png',
+            'address' => 'Phnom Penh, Cambodia',
+            'descrip_contract' => 'testing condition',
+        ]);
     }
 }

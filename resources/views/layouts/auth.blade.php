@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'STR Funiture') }} | @yield('title-page')</title>
+    <title>{{$profile->name}} | @yield('title-page')</title>
     
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -14,6 +14,9 @@
 </head>
 
 <body class="hold-transition">
+    @if (Request::is('password*'))
+    <a href="{{ url('/login') }}" class="btn btn-link"> <i class="fas fa-arrow-alt-circle-left"></i> {{ __('app.btn_back')}}</a>   
+    @endif
     <div class="login--box">
         <div class="row">
             <div class="col-md-5 col-sm-12 justify-content-center align-content-center">

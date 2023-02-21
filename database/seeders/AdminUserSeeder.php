@@ -38,11 +38,11 @@ class AdminUserSeeder extends Seeder
      
         $user->assignRole([$role->id]);
 
-        $user = SystemProfile::create([
-            'name' => 'Income & Expend MS', 
+        SystemProfile::create([
+            'name' => 'STR Decor', 
             'email' => 'admin@gmail.com',
             'tel' => '000000000',
-            'photo' => 'logo.png',
+            'photo' => 'logo.jpg',
             'address' => 'Phnom Penh, Cambodia',
             'descrip_contract' => 'testing condition',
         ]);

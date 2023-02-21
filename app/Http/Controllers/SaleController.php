@@ -151,7 +151,7 @@ class SaleController extends Controller
         $sale_no = '#'.$countDaily + 1;
 
         $sale = new Sale();
-        $sale->sale_no = $sale_no;
+        $sale->sale_no = $this->getNextSaleNo();
         $sale->customer_id = $request->customer;
         $sale->total_qty = $total_qty;
         $sale->total_price = $total_price;
@@ -180,6 +180,26 @@ class SaleController extends Controller
             $addCart->delete();
         }
         return Redirect()->back();
+    }
+
+    public function getNextSaleNo()
+    {
+        // Get the last created order
+        $lastOrder = Sale::orderBy('created_at', 'desc')->first();
+
+        if ( ! $lastOrder )
+            $number = 0;
+        else
+            $number = substr($lastOrder->sale_no, 3);
+
+        // If we have ORD000001 in the database then we only want the number
+        // So the substr returns this 000001
+
+        // Add the string in front and higher up the number.
+        // the %05d part makes sure that there are always 6 numbers in the string.
+        // so it adds the missing zero's when needed.
+
+        return '#SA' . sprintf('%06d', intval($number) + 1);
     }
 
     /**

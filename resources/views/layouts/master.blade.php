@@ -224,6 +224,17 @@
                                 </a>
                             </li>
                         @endcan
+                        @can('Quote List')
+                            <li class="nav-item">
+                                <a href="{{ url('quotes') }}"
+                                    class="nav-link {{ Request::is('quotes*') ? 'active' : null }} ">
+                                        <i class="nav-icon fas fa-hand-holding-usd"></i>
+                                    <p>
+                                        {{ __('app.quote') }}
+                                    </p>
+                                </a>
+                            </li>
+                        @endcan
                         @can('Sale List')
                             <li class="nav-item">
                                 <a href="{{ route('sales.index') }}" class="nav-link">

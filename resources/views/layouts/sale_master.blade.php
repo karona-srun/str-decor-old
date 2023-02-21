@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'STR Funiture') }} | @yield('title-page')</title>
+    <title>{{$profile->name}} | @yield('title-page')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -36,7 +36,7 @@
                 <a href="{{ url('sales') }}" class="navbar-brand">
                     <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
                         class="brand-image img-circle" style="opacity: .8">
-                    <span class="brand-text font-weight-light">{{ config('app.name', 'STR Funiture') }}</span>
+                    <span class="brand-text">{{$profile->name}}</span>
                 </a>
                 @if (Request::path() != "sales-cart-list")
                 <a href="{{ url('/home') }}" class="nav-link">

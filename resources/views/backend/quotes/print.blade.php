@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.css') }}">
-    <style>
+    <style type="text/css">
         @font-face {
             font-family: "Hanuman";
             src: url({{ url('assets/font/Hanuman.woff') }}) format("truetype");
@@ -77,56 +77,39 @@
                                 class="font-1rem">អាស័យដ្ខាន៖ {{ $profile->address }}</span>
                         </h3>
 
-                        <h6>{{ __('app.label_quote_no') }} :{{ $sale->sale_no }}</h6>
+                        <h6>{{ __('app.label_quote_no') }} :{{ $quote->quote_no }}</h6>
 
-                        <h6>{{ __('app.table_date') }} :{{ $sale->created_at->format('d-M-Y') }}</h6>
+                        <h6>{{ __('app.table_date') }} :{{ $quote->date }}</h6>
                     </div>
                 </div>
             </div>
-            <div class="row mt-3 mb-3">
+            <div class="row mt-2 mb-3">
                 <div class="col-sm-12">
-                    <h4 class=" text-center">{{ __('app.label_invoice') }}</h4>
+                    <h4 class=" text-center">{{ __('app.label_quote') }}</h4>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <table id="" class="table table-bordered">
+                    <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>{{ __('app.label_no') }}</th>
                                 <th>{{ __('app.code') }}</th>
-                                <th>{{ __('app.label_name') }}</th>
-                                <th>{{ __('app.label_scale') }}</th>
+                                <th>{{ __('app.product') }}</th>
                                 <th>{{ __('app.label_qty') }}</th>
+                                <th>{{ __('app.label_unit') }}</th>
                                 <th>{{ __('app.label_price') }}</th>
-                                <th style="width: 30%">{{ __('app.label_other') }}</th>
+                                <th>{{ __('app.label_total_amount') }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($sale->saleDetail as $index => $item)
+                            @foreach ($quote->quoteDetail as $item)
                                 <tr>
-                                    <td>{{ ++$index }}
-                                        <input type="hidden" name="add_cart_id[]" value="{{ $item->id }}">
-                                        <input type="hidden" name="product_id[]" value="{{ $item->product_id }}">
-                                    </td>
-                                    <td>{{ $item->product_code }}
-                                        <input type="hidden" name="product_code[]" value="{{ $item->product_code }}">
-                                    </td>
-                                    <td>{{ $item->product_name }}
-                                        <input type="hidden" name="product_name[]" value="{{ $item->product_name }}">
-                                    </td>
-                                    <td>{{ $item->scale }}
-                                        <input type="hidden" name="scale[]" value="{{ $item->scale }}">
-                                    </td>
-                                    <td>{{ $item->qty }}
-                                        <input type="hidden" name="qty[]" value="{{ $item->qty }}">
-                                    </td>
-                                    <td>{{ $item->price }}
-                                        <input type="hidden" name="price[]" value="{{ '$' . $item->price }}">
-                                    </td>
-                                    <td>{{ $item->note }}
-                                        <input type="hidden" name="note[]" value="{{ $item->note }}">
-                                    </td>
+                                    <td>{{ $item->productes->product_code }}</td>
+                                    <td>{{ $item->productes->product_name }}</td>
+                                    <td>{{ $item->qty }}</td>
+                                    <td>{{ $item->unit }}</td>
+                                    <td>${{ $item->amount }}</td>
+                                    <td>${{ $item->total_amount }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -138,15 +121,23 @@
                     <table class=" table table-bordered">
                         <tfoot>
                             <tr>
-                                <td>{{ __('app.label_total_qty') }}:</td>
-                                <td>${{ $sale->total_qty }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ __('app.label_total_price') }}:</td>
-                                <td>${{ $sale->total_price }}</td>
+                                <td>{{ __('app.label_total_amount') }}:</td>
+                                <td>${{ $quote->total_amount }}</td>
                             </tr>
                         </tfoot>
                     </table>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-sm-6">
+                    <h5>{{ __('app.label_term_and_conditions') }}</h5>
+                    {!! $quote->contract !!}
+                </div>
+                <div class="col-sm-3">
+                    <p>{{ __('app.label_recipient_signature') }}</p>
+                </div>
+                <div class="col-sm-3">
+                    <p>{{ __('app.label_handover_signature') }}</p>
                 </div>
             </div>
         </div>

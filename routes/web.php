@@ -12,6 +12,7 @@ use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\StaffInfoController;
@@ -39,71 +40,77 @@ Route::get('/product-details/{id}', [App\Http\Controllers\WelcomeController::cla
 
 Auth::routes(['register' => false]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/dashboard-sale', [App\Http\Controllers\DashboardSaleController::class, 'index'])->name('dashboard-sale');
 
-Route::resource('/positions', PositionController::class);
-Route::post('/update-positions', [App\Http\Controllers\PositionController::class, 'updatePosition']);
-Route::get('/position-exportexcel', [App\Http\Controllers\PositionController::class, 'positionExport']);
-Route::resource('/workplace', WorkplaceController::class);
-Route::post('/update-workplace', [App\Http\Controllers\WorkplaceController::class, 'updateWorkplace']);
-Route::get('/workplace-exportexcel', [App\Http\Controllers\WorkplaceController::class, 'workplaceExportExcel']);
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard-sale', [App\Http\Controllers\DashboardSaleController::class, 'index'])->name('dashboard-sale');
 
-Route::resource('/base-salary', BaseSalaryController::class);
-Route::post('/update-base-salary', [App\Http\Controllers\BaseSalaryController::class, 'updateBaseSalary']);
-Route::resource('/staff-info', StaffInfoController::class);
-Route::get('/staff-exportexcel', [App\Http\Controllers\StaffInfoController::class, 'staffExport']);
+    Route::resource('/positions', PositionController::class);
+    Route::post('/update-positions', [App\Http\Controllers\PositionController::class, 'updatePosition']);
+    Route::get('/position-exportexcel', [App\Http\Controllers\PositionController::class, 'positionExport']);
+    Route::resource('/workplace', WorkplaceController::class);
+    Route::post('/update-workplace', [App\Http\Controllers\WorkplaceController::class, 'updateWorkplace']);
+    Route::get('/workplace-exportexcel', [App\Http\Controllers\WorkplaceController::class, 'workplaceExportExcel']);
 
-Route::resource('/customers', CustomerController::class);
-Route::post('/new-customer', [App\Http\Controllers\CustomerController::class, 'newCustomer']);
-Route::get('/customers-exportexcel', [App\Http\Controllers\CustomerController::class, 'customerExport']);
+    Route::resource('/base-salary', BaseSalaryController::class);
+    Route::post('/update-base-salary', [App\Http\Controllers\BaseSalaryController::class, 'updateBaseSalary']);
+    Route::resource('/staff-info', StaffInfoController::class);
+    Route::get('/staff-exportexcel', [App\Http\Controllers\StaffInfoController::class, 'staffExport']);
 
-Route::get('attachments/download/{file}', [App\Http\Controllers\AttachmentController::class, 'download']);
-Route::resource('/times', TimeController::class);
-Route::post('/update-times', [App\Http\Controllers\TimeController::class, 'updateTime']);
-Route::get('/times-exportexcel', [App\Http\Controllers\TimeController::class, 'timeExport']);
+    Route::resource('/customers', CustomerController::class);
+    Route::get('/get-customer/{id}',  [App\Http\Controllers\CustomerController::class, 'getCustomer']);
+    Route::post('/new-customer', [App\Http\Controllers\CustomerController::class, 'newCustomer']);
+    Route::get('/customers-exportexcel', [App\Http\Controllers\CustomerController::class, 'customerExport']);
 
-Route::resource('/income-options', IncomeOptionsController::class);
-Route::post('/update-income-options', [App\Http\Controllers\IncomeOptionsController::class, 'updateOptionsIncome']);
-Route::get('/income-options-exportexcel', [App\Http\Controllers\IncomeOptionsController::class, 'exportExcel']);
+    Route::get('attachments/download/{file}', [App\Http\Controllers\AttachmentController::class, 'download']);
+    Route::resource('/times', TimeController::class);
+    Route::post('/update-times', [App\Http\Controllers\TimeController::class, 'updateTime']);
+    Route::get('/times-exportexcel', [App\Http\Controllers\TimeController::class, 'timeExport']);
 
-Route::resource('/expend-options', ExpendOptionsController::class);
-Route::post('/update-expend-options', [App\Http\Controllers\ExpendOptionsController::class, 'updateExpendOptions']);
-Route::get('/expend-options-exportexcel', [App\Http\Controllers\ExpendOptionsController::class, 'exportExcel']);
+    Route::resource('/income-options', IncomeOptionsController::class);
+    Route::post('/update-income-options', [App\Http\Controllers\IncomeOptionsController::class, 'updateOptionsIncome']);
+    Route::get('/income-options-exportexcel', [App\Http\Controllers\IncomeOptionsController::class, 'exportExcel']);
 
-Route::resource('/attendances', AttendanceController::class);
-Route::get('list-staff', [App\Http\Controllers\AttendanceController::class, 'listStaff']);
-Route::get('/filter-attendances/{id}', [App\Http\Controllers\AttendanceController::class, 'filterAttendances']);
-Route::post('/update-attendance', [App\Http\Controllers\AttendanceController::class, 'updateAttendances']);
-Route::get('/attendances-exportexcel', [App\Http\Controllers\AttendanceController::class, 'exportExcel']);
+    Route::resource('/expend-options', ExpendOptionsController::class);
+    Route::post('/update-expend-options', [App\Http\Controllers\ExpendOptionsController::class, 'updateExpendOptions']);
+    Route::get('/expend-options-exportexcel', [App\Http\Controllers\ExpendOptionsController::class, 'exportExcel']);
 
-Route::resource('/payroll', PayrollController::class);
+    Route::resource('quotes', QuoteController::class);
+    Route::get('quotes-print/{id}', [App\Http\Controllers\QuoteController::class, 'print']);
+    Route::get('quote-exportexcel',[App\Http\Controllers\QuoteController::class, 'exportExcel']);
 
-Route::resource('/incomes', IncomeController::class);
-Route::get('incomes-exportexcel',[App\Http\Controllers\IncomeController::class, 'exportExcel']);
+    Route::resource('/attendances', AttendanceController::class);
+    Route::get('list-staff', [App\Http\Controllers\AttendanceController::class, 'listStaff']);
+    Route::get('/filter-attendances/{id}', [App\Http\Controllers\AttendanceController::class, 'filterAttendances']);
+    Route::post('/update-attendance', [App\Http\Controllers\AttendanceController::class, 'updateAttendances']);
+    Route::get('/attendances-exportexcel', [App\Http\Controllers\AttendanceController::class, 'exportExcel']);
 
-Route::resource('/expends', ExpendController::class);
-Route::get('expends-exportexcel',[App\Http\Controllers\ExpendController::class, 'exportExcel']);
+    Route::resource('/payroll', PayrollController::class);
 
-Route::resource('/product-category', ProductCategoryController::class);
-Route::get('/product-category-exportexcel', [App\Http\Controllers\ProductCategoryController::class, 'exportExcel']);
+    Route::resource('/incomes', IncomeController::class);
+    Route::get('incomes-exportexcel', [App\Http\Controllers\IncomeController::class, 'exportExcel']);
 
-Route::resource('/productes', ProductController::class);
-Route::delete('/productes/delete-photo/{id}',[App\Http\Controllers\ProductController::class, 'deletePhoto']);
-Route::get('/transf-productes-qty/{id}',[App\Http\Controllers\ProductController::class, 'getQty']);
-Route::post('/transf-productes-qty/{id}',[App\Http\Controllers\ProductController::class, 'transfProducteQty']);
-Route::get('/productes-exportexcel',[App\Http\Controllers\ProductController::class, 'exportExcel']);
-Route::get('/get-product/{id}',[App\Http\Controllers\ProductController::class, 'getProduct']);
+    Route::resource('/expends', ExpendController::class);
+    Route::get('expends-exportexcel', [App\Http\Controllers\ExpendController::class, 'exportExcel']);
 
-Route::resource('/sales', SaleController::class);
-Route::get('/sales-cart-list', [App\Http\Controllers\SaleController::class, 'cartList']);
-Route::get('/sale-report', [App\Http\Controllers\SaleController::class, 'Report']);
-Route::get('/sale-report/{id}', [App\Http\Controllers\SaleController::class, 'reportDetail']);
-Route::resource('/add-cart', AddCartController::class);
-Route::get('/print-add-cart/{id}', [App\Http\Controllers\AddCartController::class, 'print']);
+    Route::resource('/product-category', ProductCategoryController::class);
+    Route::get('/product-category-exportexcel', [App\Http\Controllers\ProductCategoryController::class, 'exportExcel']);
 
+    Route::resource('/productes', ProductController::class);
+    Route::delete('/productes/delete-photo/{id}', [App\Http\Controllers\ProductController::class, 'deletePhoto']);
+    Route::get('/transf-productes-qty/{id}', [App\Http\Controllers\ProductController::class, 'getQty']);
+    Route::post('/transf-productes-qty/{id}', [App\Http\Controllers\ProductController::class, 'transfProducteQty']);
+    Route::get('/productes-exportexcel', [App\Http\Controllers\ProductController::class, 'exportExcel']);
+    Route::get('/get-product/{id}', [App\Http\Controllers\ProductController::class, 'getProduct']);
+    Route::get('/get-products', [App\Http\Controllers\ProductController::class, 'getAllProducts']);
 
-Route::group(['middleware' => ['auth']], function() {
+    Route::resource('/sales', SaleController::class);
+    Route::get('/sales-cart-list', [App\Http\Controllers\SaleController::class, 'cartList']);
+    Route::get('/sale-report', [App\Http\Controllers\SaleController::class, 'Report']);
+    Route::get('/sale-report/{id}', [App\Http\Controllers\SaleController::class, 'reportDetail']);
+    Route::resource('/add-cart', AddCartController::class);
+    Route::get('/print-add-cart/{id}', [App\Http\Controllers\AddCartController::class, 'print']);
+
     Route::resource('users', UserController::class);
     Route::get('/users/reset-password/{id}', [App\Http\Controllers\UserController::class, 'resetPassword']);
     Route::post('/users/update-password', [App\Http\Controllers\UserController::class, 'updatePassword']);

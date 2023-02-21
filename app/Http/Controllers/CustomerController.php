@@ -105,6 +105,12 @@ class CustomerController extends Controller
         return view('backend.customer.show', compact('customer'));
     }
 
+    public function getCustomer($id)
+    {
+        $customer = Customer::find($id);
+        return response()->json($customer);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

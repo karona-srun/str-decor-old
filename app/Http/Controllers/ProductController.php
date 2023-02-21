@@ -165,6 +165,20 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
+    public function getAllProducts(Request $request)
+    {
+        $query = Product::query();
+       
+        if($request->searchTerm){
+           $query->where('product_name','LIKE','%'.$request->searchTerm.'%')->orderBy('product_name','desc');
+        }else{
+            $query->orderBy('product_name','desc');
+        }
+
+        $product = $query->get();
+        return response()->json($product);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

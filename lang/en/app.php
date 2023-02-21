@@ -191,6 +191,7 @@ return [
     'label_recipient_signature' => 'ហត្តលេខាអ្នកទទួល',
     'label_handover_signature' => 'ហត្តលេខាអ្នកប្រគល់',
     'label_other' => 'ផ្សេងៗ',
+    'label_all' => 'ទាំងអស់',
     'required' => 'តម្រូវអោយបំពេញ',
     
 ];

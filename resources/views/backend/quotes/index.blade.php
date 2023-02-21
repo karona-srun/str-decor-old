@@ -9,8 +9,8 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.quote') }}</h3>
                     <div class="card-tools">
-                        <a href="{{ url('/times-exportexcel') }}" class="btn btn-sm btn-outline-primary"> <i class=" fas fa-download"></i>
-                            {{ __('app.btn_download') }}</a>
+                        <a href="{{ url('/quote-exportexcel') }}" class="btn btn-sm btn-outline-primary"> <i class=" fas fa-download"></i>
+                            {{ __('app.btn_download') }}{{__('app.label_all')}}</a>
                         @can('Time Create')
                         <a href="{{ url('quotes/create') }}" class="btn btn-sm btn-primary"> <i class=" fas fa-plus"></i>
                             {{ __('app.btn_add') }}</a>
@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered table-striped" width="100%">
+                    <table id="datatable" class="table table-bordered table-striped" width="100%">
                         <thead>
                             <tr>
                                 <th>{{ __('app.table_no')}}</th>

@@ -77,6 +77,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('quotes', QuoteController::class);
     Route::get('quotes-print/{id}', [App\Http\Controllers\QuoteController::class, 'print']);
+    Route::get('quote-exportexcel',[App\Http\Controllers\QuoteController::class, 'exportExcel']);
 
     Route::resource('/attendances', AttendanceController::class);
     Route::get('list-staff', [App\Http\Controllers\AttendanceController::class, 'listStaff']);

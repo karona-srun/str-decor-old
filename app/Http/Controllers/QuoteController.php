@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use App\Helpers\Helpers;
 
 class QuoteController extends Controller
 {
@@ -22,6 +23,35 @@ class QuoteController extends Controller
     {
         $quotes = Quote::orderBy('created_at', 'desc')->get();
         return view('backend.quotes.index', compact('quotes'));
+    }
+
+    
+    public function exportExcel() 
+    {
+        $file_name = 'quote_'.date('d_m_y_H_i_s').'.xlsx';
+
+        $datas = Quote::all();
+
+        $position = $datas->map(function ($data) {
+            return [
+                'id' => $data->quote_no,
+                'quote_no' => $data->quote_no,
+                'customer' => $data->customer->customer_name.' '.$data->customer->customer_phone.' '.$data->customer->customer_address,
+                'date' => $data->date,
+                'total_amount' => '$'.$data->total_amount,
+            ];
+        });
+
+        $heading = [
+            __('app.label_no'),
+            __('app.label_quote_no'),
+            __('app.customer'),
+            __('app.table_date'),
+            __('app.label_total_amount')
+        ];
+        return Helpers::exportExcel($position,$heading,$file_name);
+        
+        // return Excel::download(new ExportFiles($position,$heading,$file_name),$file_name);
     }
 
     /**

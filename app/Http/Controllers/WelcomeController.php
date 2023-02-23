@@ -11,18 +11,34 @@ class WelcomeController extends Controller
 {
     public function index(Request $request)
     {
-        $productes = Product::get();
+        $productes = Product::limit(15)->get();;
+        $producteRandom = Product::inRandomOrder()->limit(10)->get();
         $productCategory = ProductCategory::get();
-        return view('frontend.index', compact('productes','productCategory'));
+        return view('frontend.index', compact('productes','producteRandom','productCategory'));
     }
 
     public function getProduct($id)
     {
         $product = Product::findOrFail($id);
-        $productes = Product::get();
+        $productes = Product::inRandomOrder()->limit(10)->get();
         $productCategory = ProductCategory::get();
         $attachments = Attachment::where(['type_id'=>$id,'type'=>'product'])->get();
         return view('frontend.details', compact('product','productes','attachments','productCategory'));
+    }
+
+    public function getProductByCategory($id)
+    {
+        $productes = Product::where('product_category_id',$id)->get();
+        $productCategory = ProductCategory::get();
+        $producteRandom = Product::inRandomOrder()->limit(10)->get();
+        return view('frontend.index', compact('productes','producteRandom','productCategory'));
+    }
+
+    public function productList()
+    {
+        $productes = Product::get();
+        $productCategory = ProductCategory::get();
+        return view('frontend.product_list', compact('productes','productCategory'));
     }
 
     public function search(Request $request)

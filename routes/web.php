@@ -37,6 +37,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
 Route::get('/search', [App\Http\Controllers\WelcomeController::class, 'search']);
 Route::get('/product-details/{id}', [App\Http\Controllers\WelcomeController::class, 'getProduct']);
+Route::get('/product-categories/{id}', [App\Http\Controllers\WelcomeController::class, 'getProductByCategory']);
+Route::get('/products-list', [App\Http\Controllers\WelcomeController::class, 'productList']);
 
 Auth::routes(['register' => false]);
 

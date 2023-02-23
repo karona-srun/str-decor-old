@@ -158,6 +158,7 @@ return [
     'last_name_kh' => 'នាមត្រកូល',
     'gender' => 'ភេទ',
     'phone' => 'លេខទូរស័ព្ទ',
+    'contact' => 'ទំនាក់ទំនង',
     'email' => 'អ៊ីម៉ែល',
     'birth_of_date' => 'ថ្ងៃខែឆ្នាំកំណើត',
     'birth_of_place' => 'ទីកន្លែងកំណើត',

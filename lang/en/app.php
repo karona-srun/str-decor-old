@@ -58,6 +58,7 @@ return [
     'btn_send_password_reset_link' => 'ផ្ញើតំណកំណត់ពាក្យសម្ងាត់ឡើងវិញ',
     'btn_download' => 'ទាញយក',
     'btn_clean' => 'សម្អាត',
+    'btn_import_product' => 'នាំចូល',
 
     'table_no' => 'ល.រ',
     'table_name' => 'Name',

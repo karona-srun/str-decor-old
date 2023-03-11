@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Exports\ExportFiles;
 use App\Helpers\Helpers;
+use App\Imports\ProductCategoryImport;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -125,6 +128,32 @@ class ProductCategoryController extends Controller
         $productCategory->save();
 
         return redirect('/product-category')->with('status', 'Product Category has been updated!');
+    }
+
+    public function importExcelForm()
+    {
+        return view('backend.product_category.form');
+    }
+
+    public function importExcel(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'file' =>'required',
+        ],[
+            'file.required' => __('app.choose_file').__('app.product_category'),
+        ]);
+
+        if($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+
+        $name = date('Y_m_d_hisA').'_'. $request->file('file')->getClientOriginalName();
+
+        Storage::putFileAs('public/importfiles', $request->file('file'),$name);
+
+        Excel::import(new ProductCategoryImport, $request->file('file'));
+
+        return back()->with('status', 'ការនាំចូលប្រភេទផលិតរបស់លោកអ្នកបានដោយជោគជ័យ');
     }
 
     public function exportExcel()

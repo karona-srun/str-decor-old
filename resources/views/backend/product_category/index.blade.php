@@ -9,6 +9,8 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.product_category') }}</h3>
                     <div class="card-tools">
+                        <a href="{{ url('/import-product-category') }}" class="btn btn-sm btn-outline-primary"> <i class="fas fa-file-import"></i>
+                            {{ __('app.btn_import_product')}}</a>
                         <a href="{{ url('/product-category-exportexcel') }}" class="btn btn-sm btn-outline-primary"> <i class=" fas fa-download"></i>
                             {{ __('app.btn_download') }}</a>
                         @can('Product Category Create')

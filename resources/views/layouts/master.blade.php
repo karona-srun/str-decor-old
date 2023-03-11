@@ -460,7 +460,7 @@
     @yield('js')
     <script type="text/javascript">
         $(function() {
-            $('#toastsContainerTopRight').delay(5000).fadeOut('slow');
+            $('#toastsContainerTopRight, .alert').delay(5000).fadeOut('slow');
 
             // //Initialize Select2 Elements
             $('.select2bs4, .select2').select2({

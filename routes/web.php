@@ -97,6 +97,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('/product-category', ProductCategoryController::class);
     Route::get('/product-category-exportexcel', [App\Http\Controllers\ProductCategoryController::class, 'exportExcel']);
+    Route::get('/import-product-category', [App\Http\Controllers\ProductCategoryController::class, 'importExcelForm']);
+    Route::post('/import-product-category', [App\Http\Controllers\ProductCategoryController::class, 'importExcel']);
+    Route::get('/download-file', [App\Http\Controllers\DownloadController::class, 'downloadFile']);
+    Route::get('/delete-file', [App\Http\Controllers\DownloadController::class, 'deleteFile']);
 
     Route::resource('/productes', ProductController::class);
     Route::delete('/productes/delete-photo/{id}', [App\Http\Controllers\ProductController::class, 'deletePhoto']);

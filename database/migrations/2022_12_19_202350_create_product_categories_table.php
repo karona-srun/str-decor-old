@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('product_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->nullable();
+            $table->string('code');
             $table->string('name');
             $table->string('note')->nullable();
-            $table->bigInteger('created_by');
-            $table->bigInteger('updated_by');
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Exports\ExportFiles;
 use App\Helpers\Helpers;
+use App\Imports\ProductImport;
 use App\Models\Attachment;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -32,7 +35,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('id','desc')->get();
+        $products = Product::orderBy('id', 'desc')->get();
         return view('backend.products.index', compact('products'));
     }
 
@@ -43,7 +46,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $product_category = ProductCategory::orderBy('id','desc')->get();
+        $product_category = ProductCategory::orderBy('id', 'desc')->get();
         return view('backend.products.create', compact('product_category'));
     }
 
@@ -57,15 +60,15 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
 
-        if($product->warehouse < $request->store_stock){
-            return redirect()->back()->with('warning',__('app.label_cannot_store_stock'));
+        if ($product->warehouse < $request->store_stock) {
+            return redirect()->back()->with('warning', __('app.label_cannot_store_stock'));
         }
 
         $product->warehouse  = $product->warehouse - $request->store_stock;
         $product->store_stock = $product->store_stock + $request->store_stock;
         $product->save();
 
-        return redirect('productes')->with('success',__('app.label_store_stock').__('app.label_updated_successfully'));
+        return redirect('productes')->with('success', __('app.label_store_stock') . __('app.label_updated_successfully'));
     }
     /**
      * Store a newly created resource in storage.
@@ -75,9 +78,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            'product_category' =>'required',
-            'code' =>'required',
+        $validator = Validator::make($request->all(), [
+            'product_category' => 'required',
+            'code' => 'required',
             'name' => 'required',
             'scale' => 'required',
             'buying_price' => 'required',
@@ -86,27 +89,27 @@ class ProductController extends Controller
             'store_stock' => 'required',
             'warehouse' => 'required',
             'photo' => 'required',
-        ],[
-            'product_category.required' => __('app.product_category').__('app.required'),
-            'code.required' => __('app.code').__('app.product_category').__('app.required'),
-            'name.required' => __('app.label_name').__('app.product_category').__('app.required'),
-            'scale.required' => __('app.label_scale').__('app.required'),
-            'buying_price.required' => __('app.label_buying_price').__('app.required'),
-            'salling_price.required' => __('app.label_salling_price').__('app.required'),
-            'buying_date.required' => __('app.label_buying_date').__('app.required'),
-            'store_stock.required' => __('app.label_store_stock').__('app.required'),
-            'warehouse.required' => __('app.label_warehouse').__('app.required'),
-            'photo.required' => __('app.btn_browser').__('app.required'),
+        ], [
+            'product_category.required' => __('app.product_category') . __('app.required'),
+            'code.required' => __('app.code') . __('app.product_category') . __('app.required'),
+            'name.required' => __('app.label_name') . __('app.product_category') . __('app.required'),
+            'scale.required' => __('app.label_scale') . __('app.required'),
+            'buying_price.required' => __('app.label_buying_price') . __('app.required'),
+            'salling_price.required' => __('app.label_salling_price') . __('app.required'),
+            'buying_date.required' => __('app.label_buying_date') . __('app.required'),
+            'store_stock.required' => __('app.label_store_stock') . __('app.required'),
+            'warehouse.required' => __('app.label_warehouse') . __('app.required'),
+            'photo.required' => __('app.btn_browser') . __('app.required'),
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
         $imageName = '';
-        if($request->hasFile('photo')){
-            $imageName = 'product_'.time().rand(1,99999).'.'.$request->photo->getClientOriginalExtension();
-            $imageName = str_replace(' ','_',$imageName);
+        if ($request->hasFile('photo')) {
+            $imageName = 'product_' . time() . rand(1, 99999) . '.' . $request->photo->getClientOriginalExtension();
+            $imageName = str_replace(' ', '_', $imageName);
             $request->photo->move(public_path('products'), $imageName);
         }
 
@@ -128,11 +131,10 @@ class ProductController extends Controller
         $product->save();
 
         $images = [];
-        if ($request->filenames){
-            foreach($request->filenames as $key => $image)
-            {
-                $imageName = 'product_'.time().rand(1,99999).'.'.$image->getClientOriginalExtension();  
-                $imageName = str_replace(' ','_',$imageName);
+        if ($request->filenames) {
+            foreach ($request->filenames as $key => $image) {
+                $imageName = 'product_' . time() . rand(1, 99999) . '.' . $image->getClientOriginalExtension();
+                $imageName = str_replace(' ', '_', $imageName);
                 $image->move(public_path('attachments'), $imageName);
                 $attachment = new Attachment();
                 $attachment->name = $imageName;
@@ -143,7 +145,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect('/productes')->with('success',__('app.product').__('app.label_created_successfully'));
+        return redirect('/productes')->with('success', __('app.product') . __('app.label_created_successfully'));
     }
 
     /**
@@ -155,8 +157,8 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        $attachments = Attachment::where(['type_id'=>$id,'type'=>'product'])->get(); 
-        return view('backend.products.show', compact('product','attachments'));
+        $attachments = Attachment::where(['type_id' => $id, 'type' => 'product'])->get();
+        return view('backend.products.show', compact('product', 'attachments'));
     }
 
     public function getProduct($id)
@@ -168,11 +170,11 @@ class ProductController extends Controller
     public function getAllProducts(Request $request)
     {
         $query = Product::query();
-       
-        if($request->searchTerm){
-           $query->where('product_name','LIKE','%'.$request->searchTerm.'%')->orderBy('product_name','desc');
-        }else{
-            $query->orderBy('product_name','desc');
+
+        if ($request->searchTerm) {
+            $query->where('product_name', 'LIKE', '%' . $request->searchTerm . '%')->orderBy('product_name', 'desc');
+        } else {
+            $query->orderBy('product_name', 'desc');
         }
 
         $product = $query->get();
@@ -188,9 +190,9 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        $product_category = ProductCategory::orderBy('id','desc')->get();
-        $attachments = Attachment::where(['type_id'=>$id,'type'=>'product'])->get(); 
-        return view('backend.products.edit', compact('product','product_category','attachments'));
+        $product_category = ProductCategory::orderBy('id', 'desc')->get();
+        $attachments = Attachment::where(['type_id' => $id, 'type' => 'product'])->get();
+        return view('backend.products.edit', compact('product', 'product_category', 'attachments'));
     }
 
     /**
@@ -202,8 +204,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),[
-            'code' =>'required',
+        $validator = Validator::make($request->all(), [
+            'code' => 'required',
             'name' => 'required',
             'scale' => 'required',
             'buying_price' => 'required',
@@ -211,30 +213,30 @@ class ProductController extends Controller
             'buying_date' => 'required',
             'store_stock' => 'required',
             'warehouse' => 'required',
-        ],[
-            'code.required' => __('app.code').__('app.product_category').__('app.required'),
-            'name.required' => __('app.label_name').__('app.product_category').__('app.required'),
-            'scale.required' => __('app.label_scale').__('app.required'),
-            'buying_price.required' => __('app.label_buying_price').__('app.required'),
-            'salling_price.required' => __('app.label_salling_price').__('app.required'),
-            'buying_date.required' => __('app.label_buying_date').__('app.required'),
-            'store_stock.required' => __('app.label_store_stock').__('app.required'),
-            'warehouse.required' => __('app.label_warehouse').__('app.required'),
+        ], [
+            'code.required' => __('app.code') . __('app.product_category') . __('app.required'),
+            'name.required' => __('app.label_name') . __('app.product_category') . __('app.required'),
+            'scale.required' => __('app.label_scale') . __('app.required'),
+            'buying_price.required' => __('app.label_buying_price') . __('app.required'),
+            'salling_price.required' => __('app.label_salling_price') . __('app.required'),
+            'buying_date.required' => __('app.label_buying_date') . __('app.required'),
+            'store_stock.required' => __('app.label_store_stock') . __('app.required'),
+            'warehouse.required' => __('app.label_warehouse') . __('app.required'),
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
 
-      
+
         $product = Product::find($id);
         $imageName = '';
 
-        if($request->hasFile('photo')){
-            File::delete('products/'.$product->photo);
-            $imageName = 'product_'.time().rand(1,99999).'.'.$request->photo->getClientOriginalExtension();
-            $imageName = str_replace(' ','_',$imageName);
+        if ($request->hasFile('photo')) {
+            File::delete('products/' . $product->photo);
+            $imageName = 'product_' . time() . rand(1, 99999) . '.' . $request->photo->getClientOriginalExtension();
+            $imageName = str_replace(' ', '_', $imageName);
             $request->photo->move(public_path('products'), $imageName);
             $product->photo = $imageName;
         }
@@ -255,11 +257,10 @@ class ProductController extends Controller
         $product->save();
 
         $images = [];
-        if ($request->filenames){
-            foreach($request->filenames as $key => $image)
-            {
-                File::delete('attachments/'.$product->photo);
-                $imageName = 'product_'.time().rand(1,99999).'.'.$image->getClientOriginalExtension();  
+        if ($request->filenames) {
+            foreach ($request->filenames as $key => $image) {
+                File::delete('attachments/' . $product->photo);
+                $imageName = 'product_' . time() . rand(1, 99999) . '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('attachments'), $imageName);
 
                 $attachment = new Attachment();
@@ -271,12 +272,12 @@ class ProductController extends Controller
             }
         }
 
-        return redirect('/productes')->with('success',__('app.product').__('app.label_updated_successfully'));
+        return redirect('/productes')->with('success', __('app.product') . __('app.label_updated_successfully'));
     }
 
     public function exportExcel()
     {
-        $file_name = 'Productes_'.date('d_m_y_H_i_s').'.xlsx';
+        $file_name = 'Productes_' . date('d_m_y_H_i_s') . '.xlsx';
 
         $datas = Product::all();
 
@@ -287,8 +288,8 @@ class ProductController extends Controller
                 'code' => $data->product_code,
                 'name' => $data->product_name,
                 'scale' => $data->scale,
-                'buying' => '$'.$data->buying_price,
-                'salling' => '$'.$data->salling_price,
+                'buying' => '$' . $data->buying_price,
+                'salling' => '$' . $data->salling_price,
                 'buying_date' => $data->buying_date,
                 'store_stock' => $data->store_stock,
                 'warehouse' => $data->warehouse,
@@ -314,8 +315,8 @@ class ProductController extends Controller
             __('app.label_note')
         ];
 
-        return Helpers::exportExcel($product,$heading,$file_name);
-        
+        return Helpers::exportExcel($product, $heading, $file_name);
+
         // return Excel::download(new ExportFiles($product,$heading,$file_name),$file_name);
     }
 
@@ -323,9 +324,47 @@ class ProductController extends Controller
     {
         $attachment = Attachment::find($id);
         if ($attachment->delete()) {
-            File::delete('attachments/'.$attachment->name);
+            File::delete('attachments/' . $attachment->name);
         }
         return back();
+    }
+
+    public function importExcelForm()
+    {
+        return view('backend.products.form');
+    }
+
+    public function importExcel(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'file' => 'required',
+        ], [
+            'file.required' => __('app.choose_file') . __('app.product_category'),
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::back()->withErrors($validator)->withInput();
+        }
+            
+            try {
+                Excel::import(new ProductImport, $request->file('file'));
+
+                $name = date('Y_m_d_hisA') . '_' . $request->file('file')->getClientOriginalName();
+                Storage::putFileAs('public/importproductfiles', $request->file('file'), $name);
+            } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+                 $failures = $e->failures();
+                 
+                 foreach ($failures as $failure) {
+                     $failure->row(); // row that went wrong
+                     $failure->attribute(); // either heading key (if using heading row concern) or column index
+                     $failure->errors(); // Actual error messages from Laravel validator
+                     $failure->values(); // The values of the row that has failed.
+                 }
+                 print_r($failures); 
+            }
+
+        return back()->with('status', 'ការនាំចូលផលិតរបស់លោកអ្នកបានដោយជោគជ័យ');
     }
 
     /**
@@ -337,16 +376,16 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
-        File::delete('products/'.$product->photo);
+        File::delete('products/' . $product->photo);
 
-        $attachments = Attachment::where(['type_id'=>$id,'type'=>'product'])->get();
-        foreach($attachments as $att){
-            File::delete('attachments/'.$att->name);
+        $attachments = Attachment::where(['type_id' => $id, 'type' => 'product'])->get();
+        foreach ($attachments as $att) {
+            File::delete('attachments/' . $att->name);
             $attachments->delete();
         }
 
         $product->delete();
 
-        return redirect('/productes')->with('danger',__('app.product').__('app.label_deleted_successfully'));
+        return redirect('/productes')->with('danger', __('app.product') . __('app.label_deleted_successfully'));
     }
 }

@@ -37,11 +37,11 @@
                                 <dt class="col-sm-4">{{ __('app.code') }}{{ __('app.product') }}</dt>
                                 <dd class="col-sm-8">: {{ $product->product_code }}</dd>
                                 <dt class="col-sm-4">{{ __('app.product') }}</dt>
-                                <dd class="col-sm-8">: {{ $product->productCategory->name }}</dd>
+                                <dd class="col-sm-8">: {{ $product->productCategory->name ?? 'N/A' }}</dd>
                                 <dt class="col-sm-4">{{ __('app.code') }}{{ __('app.product_category') }}</dt>
-                                <dd class="col-sm-8">: {{ $product->productCategory->code }}</dd>
+                                <dd class="col-sm-8">: {{ $product->productCategory->code ?? 'N/A' }}</dd>
                                 <dt class="col-sm-4">{{__('app.product_category')}}</dt>
-                                <dd class="col-sm-8">: {{ $product->productCategory->name }}</dd>
+                                <dd class="col-sm-8">: {{ $product->productCategory->name ?? ''}}</dd>
                               </dl>
 
                             <div class="row">

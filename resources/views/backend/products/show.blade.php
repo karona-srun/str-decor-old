@@ -55,7 +55,7 @@
                                 </tr>
                                 <tr>
                                     <th>{{ __('app.label_name') }}{{ __('app.product_category') }}</th>
-                                    <td class=" text-break">: {{ $product->productCategory->name }}</td>
+                                    <td class=" text-break">: {{ $product->productCategory->name ?? 'N/A'}}</td>
                                 </tr>
                                 <tr>
                                     <th>{{ __('app.label_name') }}{{ __('app.product') }}</th>
@@ -100,7 +100,7 @@
 
                                 <tr>
                                     <th>{{ __('app.created_by') }}</th>
-                                    <td class=" text-break">: {{ $product->creator->name }}</td>
+                                    <td class=" text-break">: {{ $product->creator->name ?? '' }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{ __('app.created_at') }}</th>
@@ -108,7 +108,7 @@
                                 </tr>
                                 <tr>
                                     <th>{{ __('app.updated_by') }}</th>
-                                    <td class=" text-break">: {{ $product->updator->name }}</td>
+                                    <td class=" text-break">: {{ $product->updator->name ?? '' }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{ __('app.updated_at') }}</th>

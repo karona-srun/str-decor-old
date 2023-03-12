@@ -109,7 +109,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/productes-exportexcel', [App\Http\Controllers\ProductController::class, 'exportExcel']);
     Route::get('/get-product/{id}', [App\Http\Controllers\ProductController::class, 'getProduct']);
     Route::get('/get-products', [App\Http\Controllers\ProductController::class, 'getAllProducts']);
-
+    Route::get('/import-product', [App\Http\Controllers\ProductController::class, 'importExcelForm']);
+    Route::post('/import-product', [App\Http\Controllers\ProductController::class, 'importExcel']);
+    
     Route::resource('/sales', SaleController::class);
     Route::get('/sales-cart-list', [App\Http\Controllers\SaleController::class, 'cartList']);
     Route::get('/sale-report', [App\Http\Controllers\SaleController::class, 'Report']);

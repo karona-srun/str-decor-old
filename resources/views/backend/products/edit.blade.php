@@ -184,14 +184,14 @@
                                             <div class="form-group">
                                                 <label>{{ __('app.label_description') }}</label>
                                                 <textarea rows="3" name="description" class="form-control"
-                                                    placeholder="{{ __('app.label_required') }}{{ __('app.label_description') }}">{{ old('description') }}</textarea>
+                                                    placeholder="{{ __('app.label_required') }}{{ __('app.label_description') }}">{{ $product->description }}</textarea>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>{{ __('app.label_note') }}</label>
                                                 <textarea rows="3" name="note" class="form-control"
-                                                    placeholder="{{ __('app.label_required') }}{{ __('app.label_note') }}">{{ old('note') }}</textarea>
+                                                    placeholder="{{ __('app.label_required') }}{{ __('app.label_note') }}">{{ $product->note }}</textarea>
                                             </div>
                                         </div>
                                     </div>

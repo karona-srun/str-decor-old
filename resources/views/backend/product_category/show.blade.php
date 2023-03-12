@@ -40,17 +40,17 @@
                                     <div class="col-sm-6">
                                         <p>{{ __('app.label_creator') }}</p>
                                         <p class="text-black">{{ __('app.created_by') }}: 
-                                        <label>{{ $product_category->creator->name }}</label></p>
+                                        <label>{{ $product_category->creator->name ?? ''}}</label></p>
                                         <p class="text-black">{{ __('app.created_at') }}: 
-                                        <label>{{ $product_category->created_at->format('d-m-Y h:i:s A') }}</label></p>
+                                        <label>{{ $product_category->created_at }}</label></p>
                                     </div>
                                     <div class="col-sm-6">
                                         <p>{{ __('app.label_updator') }}</p>
 
                                         <p class="text-black">{{ __('app.updated_by') }}: 
-                                        <label>{{ $product_category->updator->name }}</label></p>
+                                        <label>{{ $product_category->updator->name ?? ''}}</label></p>
                                         <p class="text-black">{{ __('app.updated_at') }}: 
-                                        <label>{{ $product_category->updated_at->format('d-m-Y h:i:s A') }}</label></p>
+                                        <label>{{ $product_category->updated_at }}</label></p>
                                     </div>
                             </blockquote>
                         </div>

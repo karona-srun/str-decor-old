@@ -32,7 +32,7 @@ class ProductCategoryController extends Controller
      */
     public function index()
     {
-        $product_category = ProductCategory::orderBy('id','desc')->get();
+        $product_category = ProductCategory::orderBy('id', 'desc')->get();
         return view('backend.product_category.index', compact('product_category'));
     }
 
@@ -54,15 +54,15 @@ class ProductCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            'code' =>'required',
-            'name' =>'required',
-        ],[
-            'code.required' => __('app.code').__('app.product_category').__('app.required'),
-            'name.required' => __('app.label_name').__('app.product_category').__('app.required'),
+        $validator = Validator::make($request->all(), [
+            'code' => 'required',
+            'name' => 'required',
+        ], [
+            'code.required' => __('app.code') . __('app.product_category') . __('app.required'),
+            'name.required' => __('app.label_name') . __('app.product_category') . __('app.required'),
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
@@ -110,13 +110,13 @@ class ProductCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(),[
-            'name' =>'required',
-        ],[
-            'name.required' => __('app.label_name').__('app.product_category').__('app.required'),
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+        ], [
+            'name.required' => __('app.label_name') . __('app.product_category') . __('app.required'),
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
@@ -137,28 +137,37 @@ class ProductCategoryController extends Controller
 
     public function importExcel(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            'file' =>'required',
-        ],[
-            'file.required' => __('app.choose_file').__('app.product_category'),
+        $validator = Validator::make($request->all(), [
+            'file' => 'required',
+        ], [
+            'file.required' => __('app.choose_file') . __('app.product_category'),
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
         }
+        try {
+            Excel::import(new ProductCategoryImport, $request->file('file'));
+            $name = date('Y_m_d_hisA') . '_' . $request->file('file')->getClientOriginalName();
+            Storage::putFileAs('public/importfiles', $request->file('file'), $name);
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
 
-        $name = date('Y_m_d_hisA').'_'. $request->file('file')->getClientOriginalName();
-
-        Storage::putFileAs('public/importfiles', $request->file('file'),$name);
-
-        Excel::import(new ProductCategoryImport, $request->file('file'));
+            foreach ($failures as $failure) {
+                $failure->row(); // row that went wrong
+                $failure->attribute(); // either heading key (if using heading row concern) or column index
+                $failure->errors(); // Actual error messages from Laravel validator
+                $failure->values(); // The values of the row that has failed.
+            }
+            print_r($failures);
+        }
 
         return back()->with('status', 'ការនាំចូលប្រភេទផលិតរបស់លោកអ្នកបានដោយជោគជ័យ');
     }
 
     public function exportExcel()
     {
-        $file_name = 'Product_Category_'.date('d_m_y_H_i_s').'.xlsx';
+        $file_name = 'Product_Category_' . date('d_m_y_H_i_s') . '.xlsx';
 
         $datas = ProductCategory::all();
 
@@ -176,8 +185,8 @@ class ProductCategoryController extends Controller
             __('app.label_note')
         ];
 
-        return Helpers::exportExcel($productCategory,$heading,$file_name);
-        
+        return Helpers::exportExcel($productCategory, $heading, $file_name);
+
         // return Excel::download(new ExportFiles($productCategory,$heading,$file_name),$file_name);
     }
 

@@ -23,7 +23,7 @@
                 </div>
             @endif
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
 
             <div class="mb-3">
                 <p class="mb-2">
@@ -96,7 +96,7 @@
                 </tr>
             </table>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
             <table class="table table-sm table-bordered">
                 <tr>
                     <th>ឈ្មោះ</th>
@@ -106,7 +106,9 @@
                         <th>
                             <div class=" form-inline">
                             <a href="#" class="text-muted">
-                                {{ $item }}
+                                @foreach(explode('/',$item) as $i => $row)
+                                   @if($i == 2) <li>{{ $row }}</li>@endif
+                                @endforeach
                             </a>
                             <form action="{{ url('download-file') }}" method="get">
                                 <input type="hidden" name="path" value="{{ urlencode($item) }}">

@@ -46,7 +46,7 @@ class ExpendController extends Controller
         if ($request->start_date || $request->end_date) {
             $query->whereBetween('date', array($request->start_date,$request->end_date));
         }else{
-            $query->whereDate('date','=', Carbon::today()->toDateString());
+            $query->whereBetween('date', array(Carbon::now()->firstOfMonth()->toDateString(),Carbon::now()->lastOfMonth()->toDateString()));
         }
 
         $expends = $query->get();
@@ -102,7 +102,7 @@ class ExpendController extends Controller
         $expend->updated_by = Auth::user()->id;
         $expend->save();
 
-        return redirect('/expends')->with('status', 'Expends has been created!');
+        return redirect('/expends?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Expends has been created!');
     }
 
     /**
@@ -164,7 +164,7 @@ class ExpendController extends Controller
         $expend->updated_by = Auth::user()->id;
         $expend->save();
 
-        return redirect('/expends')->with('status', 'Expends has been updated!');
+        return redirect('/expends?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Expends has been updated!');
     }
 
     public function processExcel($datas)
@@ -211,6 +211,6 @@ class ExpendController extends Controller
         $expend = Expend::find($id);
         $expend->delete();
 
-        return redirect('/expends')->with('status', 'Expend has been deleted!');
+        return redirect('/expends?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Expend has been deleted!');
     }
 }

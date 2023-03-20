@@ -37,13 +37,13 @@ class IncomeController extends Controller
         $query = Income::query();
 
         if ($request->income_option) {
-            $query->where('income_option_id', $request->income_option         );
+            $query->where('income_option_id', $request->income_option);
         }
 
         if ($request->start_date || $request->end_date) {
             $query->whereBetween('date', array($request->start_date,$request->end_date));
         }else{
-            $query->whereDate('date','=', Carbon::today()->toDateString());
+            $query->whereBetween('date', array(Carbon::now()->firstOfMonth()->toDateString(),Carbon::now()->lastOfMonth()->toDateString()));
         }
 
         $incomes = $query->get();
@@ -101,7 +101,7 @@ class IncomeController extends Controller
         $income->updated_by = Auth::user()->id;
         $income->save();
 
-        return redirect('/incomes')->with('status', 'Income has been created!');
+        return redirect('/incomes?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Income has been created!');
     }
 
     /**
@@ -165,7 +165,7 @@ class IncomeController extends Controller
         $income->save();
 
 
-        return redirect('/incomes')->with('status', 'Income has been updated!');
+        return redirect('/incomes?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Income has been updated!');
     }
 
     public function processExcel($datas)
@@ -211,6 +211,6 @@ class IncomeController extends Controller
         $income = Income::find($id);
         $income->delete();
 
-        return redirect('/incomes')->with('status', 'Income has been deleted!');
+        return redirect('/incomes?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Income has been deleted!');
     }
 }

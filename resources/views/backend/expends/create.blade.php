@@ -10,7 +10,7 @@
                     <h3 class="card-title">{{ __('app.expend_info') }}</h3>
                     <div class="card-tools">
                         @can('Expend List')
-                        <a href="{{ url('/expends') }}" class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i>
+                        <a href="{{ url('/expends?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString()) }}" class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i>
                             {{ __('app.label_list') }} </a>
                             @endcan
                     </div>
@@ -27,8 +27,7 @@
                                         <select class="form-control select2" name="expend_option" style="width: 100%;">
                                             <option value="">{{ __('app.table_choose') }}</option>
                                             @foreach ($expend_options as $item)
-                                                <option value="{{ $item->id }}">
-                                                    {{ $item->name }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
                                         </select>
                                         @if ($errors->has('expend_option'))

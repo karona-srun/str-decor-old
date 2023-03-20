@@ -300,7 +300,7 @@
                                 <ul class="nav nav-treeview">
                                     @can('Income List')
                                         <li class="nav-item">
-                                            <a href="{{ url('incomes') }}"
+                                            <a href="{{ URL('/incomes?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())}}"
                                                 class="nav-link {{ Request::is('incomes*') ? 'active' : null }} ">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>{{ __('app.income_info') }}</p>
@@ -309,7 +309,7 @@
                                     @endcan
                                     @can('Expend List')
                                         <li class="nav-item">
-                                            <a href="{{ url('expends') }}"
+                                            <a href="{{ url('expends?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString()) }}"
                                                 class="nav-link {{ Request::is('expends*') ? 'active' : null }} ">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>{{ __('app.expend_info') }}</p>
@@ -463,7 +463,13 @@
             $('#toastsContainerTopRight').delay(5000).fadeOut('slow');
 
             // //Initialize Select2 Elements
-            $('.select2bs4, .select2').select2({
+            $('.select2bs4').select2({
+                theme: 'bootstrap4',
+            })
+            $('.select2').select2({
+                theme: 'bootstrap4',
+            })
+            $('.select2ListStaff').select2({
                 theme: 'bootstrap4',
             })
 

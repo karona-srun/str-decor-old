@@ -102,7 +102,7 @@ class StaffInfoController extends Controller
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-        $imageName= '';
+        $imageName= 'avatar.png';
         if($request->hasFile('photo')){
             $imageName = 'staff_info_'.time().rand(1,99999).'.'.$request->photo->getClientOriginalExtension();
             $imageName = str_replace(' ','_',$imageName);

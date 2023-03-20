@@ -72,6 +72,7 @@ class ProductImport implements ToCollection, WithHeadingRow, SkipsOnError, WithV
                 'buying_date' => $row['buying_date'],
                 'store_stock' => $row['store_stock'],
                 'warehouse' => $row['warehouse'],
+                'photo' => 'product_image.png',
                 'sold_out' => $row['sold_out'],
                 'description' => $row['description'],
                 'note' => $row['note'],

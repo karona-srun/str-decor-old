@@ -23,7 +23,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>{{ __('app.income_options') }} <small class="text-red">*</small></label>
+                                        <label>{{ __('app.expend_options') }} <small class="text-red">*</small></label>
                                         <select class="form-control select2" name="expend_option" style="width: 100%;">
                                             <option value="">{{ __('app.table_choose') }}</option>
                                             @foreach ($expend_options as $item)

@@ -81,7 +81,7 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>{{ __('app.label_descrip_contract') }}</label>
-                                    <textarea class="summernote" name="contract"></textarea>
+                                    <textarea class="summernote" name="contract" required></textarea>
                                 </div>
                             </div>
                         </div>

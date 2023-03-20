@@ -90,7 +90,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>{{ __('app.gender') }} <small class="text-red">*</small></label>
-                                                <select class="form-control select2bs4" value="{{ old('gender') }}"
+                                                <select class="form-control select2" value="{{ old('gender') }}"
                                                     name="gender" style="width: 100%;">
                                                     <option value="female" selected="selected">ស្រី</option>
                                                     <option value="male">ប្រុស</option>
@@ -167,7 +167,7 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>{{ __('app.position') }} <small class="text-red">*</small></label>
-                                                <select class="form-control select2bs4" name="position"
+                                                <select class="form-control select2" name="position"
                                                     style="width: 100%;">
                                                     @foreach ($position as $item)
                                                         <option value="0" selected="selected">
@@ -184,7 +184,7 @@
                                             <div class="form-group">
                                                 <label>{{ __('app.work_place') }} <small
                                                         class="text-red">*</small></label>
-                                                <select class="form-control select2bs4" name="work_place"
+                                                <select class="form-control select2" name="work_place"
                                                     style="width: 100%;">
                                                     @foreach ($workPlace as $item)
                                                         <option value="0" selected="selected">
@@ -201,7 +201,7 @@
                                             <div class="form-group">
                                                 <label>{{ __('app.base_salary') }} <small
                                                         class="text-red">*</small></label>
-                                                <select class="form-control select2bs4" name="base_salary"
+                                                <select class="form-control select2" name="base_salary"
                                                     style="width: 100%;">
                                                     @foreach ($baseSalary as $item)
                                                         <option value="0" selected="selected">
@@ -220,7 +220,7 @@
                                             <div class="form-group">
                                                 <label>{{ __('app.work_time') }} <small
                                                         class="text-red">*</small></label>
-                                                <select class="form-control select2bs4" name="work_time"
+                                                <select class="form-control select2" name="work_time"
                                                     style="width: 100%;">
                                                     <option value="0" selected="selected">
                                                         {{ __('app.label_status_disabled') }}</option>

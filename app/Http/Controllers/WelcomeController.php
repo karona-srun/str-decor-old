@@ -11,7 +11,7 @@ class WelcomeController extends Controller
 {
     public function index(Request $request)
     {
-        $productes = Product::limit(15)->get();;
+        $productes = Product::limit(15)->get();
         $producteRandom = Product::inRandomOrder()->limit(10)->get();
         $productCategory = ProductCategory::get();
         return view('frontend.index', compact('productes','producteRandom','productCategory'));
@@ -48,6 +48,8 @@ class WelcomeController extends Controller
         ->orWhere('scale',$request->q)
         ->get();
         $productCategory = ProductCategory::get();
-        return view('frontend.index', compact('productes','productCategory'));
+
+        $producteRandom = Product::inRandomOrder()->limit(10)->get();
+        return view('frontend.index', compact('productes','producteRandom','productCategory'));
     }
 }

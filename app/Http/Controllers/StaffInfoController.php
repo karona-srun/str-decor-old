@@ -365,7 +365,7 @@ class StaffInfoController extends Controller
         $attachments = Attachment::where(['type_id'=>$id,'type'=>'staff_info'])->get();
         foreach($attachments as $att){
             File::delete('attachments/'.$att->name);
-            $attachments->delete();
+            $att->delete();
         }
         
         return redirect('/staff-info')->with('status', 'Staff Info has been deleted!');

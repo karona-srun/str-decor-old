@@ -255,9 +255,9 @@
                         @endcan
                         @if (Auth::user()->can('Product Category List') || Auth::user()->can('Product List'))
                             <li
-                                class="nav-item {{ Request::is('product-category*') || Request::is('productes*') ? 'menu-is-opening menu-open' : null }} ">
+                                class="nav-item {{ Request::is('product-category*') || Request::is('productes*') || Request::is('import-product*') ? 'menu-is-opening menu-open' : null }} ">
                                 <a href="#"
-                                    class="nav-link {{ Request::is('product-category*') || Request::is('productes*') ? 'active' : null }} ">
+                                    class="nav-link {{ Request::is('product-category*') || Request::is('productes*') ||Request::is('import-product*') ? 'active' : null }} ">
                                     <i class="nav-icon fas fa-cube"></i>
                                     <p>
                                         {{ __('app.stock') }}
@@ -277,7 +277,7 @@
                                     @can('Product List')
                                         <li class="nav-item">
                                             <a href="{{ url('/productes') }}"
-                                                class="nav-link {{ Request::is('productes*') ? 'active' : null }}">
+                                                class="nav-link {{ Request::is('productes*') || Request::is('import-product*') ? 'active' : null }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>{{ __('app.product') }}</p>
                                             </a>

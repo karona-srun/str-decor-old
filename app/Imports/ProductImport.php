@@ -23,6 +23,8 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Events\AfterImport;
 use Maatwebsite\Excel\Validators\Failure;
+use PhpOffice\PhpSpreadsheet\Calculation\DateTimeExcel\Date;
+use PhpOffice\PhpSpreadsheet\Shared\Date as SharedDate;
 use Throwable;
 
 class ProductImport implements ToCollection, WithHeadingRow, SkipsOnError, WithValidation, SkipsOnFailure, WithChunkReading, ShouldQueue, WithEvents
@@ -69,7 +71,7 @@ class ProductImport implements ToCollection, WithHeadingRow, SkipsOnError, WithV
                 'scale' => $row['scale'],
                 'buying_price' => $row['buying_price'],
                 'salling_price' => $row['salling_price'],
-                'buying_date' => $row['buying_date'],
+                'buying_date' => SharedDate::excelToDateTimeObject($row['buying_date'])->format('Y-m-d'),
                 'store_stock' => $row['store_stock'],
                 'warehouse' => $row['warehouse'],
                 'photo' => 'product_image.png',

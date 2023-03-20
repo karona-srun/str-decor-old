@@ -56,8 +56,8 @@
                                 <tbody>
                                     @foreach ($quote->quoteDetail as $item)
                                         <tr>
-                                            <td>{{ $item->productes->product_code }}</td>
-                                            <td>{{ $item->productes->product_name }}</td>
+                                            <td>{{ $item->productes->product_code}}</td>
+                                            <td>{{ $item->productes->product_name}}</td>
                                             <td>{{ $item->qty }}</td>
                                             <td>{{ $item->unit }}</td>
                                             <td>${{ $item->amount }}</td>

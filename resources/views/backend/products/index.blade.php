@@ -40,7 +40,7 @@
                             @foreach ($products as $i => $item)
                                 <tr class="{{ $item->store_stock == 0 ? 'bg-danger' : '' }}">
                                     <td>{{ ++$i }}</td>
-                                    <td style="width:70px !important"><img src="{{ 'products/'.$item->photo }}" class="img-size-50 img-thumbnail" srcset=""/></td>
+                                    <td style="width:70px !important"><img src="{{ url('products/'.$item->photo) }}" class="img-size-50 img-thumbnail" srcset=""/></td>
                                     <td>{{ $item->product_code }}</td>
                                     <td>{{ $item->product_name }}</td>
                                     <td>{{ $item->scale }}</td>

@@ -376,16 +376,20 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
-        File::delete('products/' . $product->photo);
+        if($product->photo){
+            File::delete('products/' . $product->photo);
 
-        $attachments = Attachment::where(['type_id' => $id, 'type' => 'product'])->get();
-        foreach ($attachments as $att) {
-            File::delete('attachments/' . $att->name);
-            $attachments->delete();
+            $attachments = Attachment::where(['type_id' => $id, 'type' => 'product'])->get();
+            if($attachments){
+                foreach ($attachments as $att) {
+                    File::delete('attachments/' . $att->name);
+                    $attachments->delete();
+                }
+            }
+
+            $product->delete();
+
+            return redirect('/productes')->with('danger', __('app.product') . __('app.label_deleted_successfully'));
         }
-
-        $product->delete();
-
-        return redirect('/productes')->with('danger', __('app.product') . __('app.label_deleted_successfully'));
     }
 }

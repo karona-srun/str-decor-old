@@ -359,16 +359,18 @@ class StaffInfoController extends Controller
     public function destroy($id)
     {
         $staffInfo = StaffInfo::find($id);
-        File::delete('photos/'.$staffInfo->photo);
-        $staffInfo->delete();
+        if($staffInfo->photo) {
+            File::delete('photos/'.$staffInfo->photo);
+            $staffInfo->delete();
 
-        $attachments = Attachment::where(['type_id'=>$id,'type'=>'staff_info'])->get();
-        foreach($attachments as $att){
-            File::delete('attachments/'.$att->name);
-            $attachments->delete();
+            $attachments = Attachment::where(['type_id'=>$id,'type'=>'staff_info'])->get();
+            foreach($attachments as $att){
+                File::delete('attachments/'.$att->name);
+                $attachments->delete();
+            }
+            
+            return redirect('/staff-info')->with('status', 'Staff Info has been deleted!');
         }
-        
-        return redirect('/staff-info')->with('status', 'Staff Info has been deleted!');
     }
 
 }

@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{$profile->name}}</title>
+    <link rel="shortcut icon" sizes="114x114" href="{{ url($profile->photo) }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
@@ -32,11 +33,11 @@
 
                 <!-- Right navbar links -->
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="btn btn-sm btn-primary" href="{{ route('login') }}" role="button">
                             <i class="fas fa-sign-in-alt"></i> {{ __('app.label_login') }}
                         </a>
-                    </li>
+                    </li> --}}
                     @if (Route::has('register'))
                         <li class="nav-item ml-2">
                             <a class="btn btn-sm btn-outline-primary" href="{{ route('register') }}" role="button">
@@ -52,12 +53,8 @@
             <div class="content-header bg-white">
                 <div class="container">
                     <div class="row mb-4">
-                        <div class="col-sm-6">
-                            <h1 class="m-0"> ស្វាគមន៍ចូលមកកាន់ {{ config('app.name', 'STR Funiture') }}</h1>
-                        </div>
-                    </div>
-                    <div class="row mb-4">
-                        <div class="col-md-8 offset-md-2">
+                        <div class="col-lg-8 col-sm-10 offset-sm-1 offset-lg-2">
+                            <h1 class="m-0 mb-4 text-center"> ស្វាគមន៍ចូលមកកាន់ {{ config('app.name', 'STR Funiture') }}</h1>
                             <form action="{{ url('search') }}" method="GET">
                                 <div class="input-group">
                                     <input type="search" name="q" value="{{ request()->get('q') }}" class="form-control" placeholder="{{__('app.label_type_your_keyword_here')}}">

@@ -10,14 +10,14 @@
                     <h3 class="card-title">{{ __('app.income_info') }}</h3>
                     <div class="card-tools">
                         @can('Income List')
-                        <a href="{{ url('/incomes?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString()) }}" class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i>
+                        <a href="{{ url('/revenue?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString()) }}" class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i>
                             {{ __('app.label_list') }} </a>
                         @endcan
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <form id="quickForm" action="{{ url('incomes') }}" method="post">
+                    <form id="quickForm" action="{{ url('revenue') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
                             <div class="row">
@@ -40,7 +40,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>{{ __('app.label_name') }} <small class="text-red">*</small></label>
-                                        <input type="text" name="name" class="form-control"
+                                        <input type="text" name="name" class="form-control" value="{{ old('name') }}"
                                             placeholder="{{ __('app.label_required') }}{{ __('app.label_name') }}">
                                         @if ($errors->has('name'))
                                             <div class="error text-danger text-sm mt-1">
@@ -54,7 +54,7 @@
                                     <div class="form-group">
                                         <label>{{ __('app.label_payment_date') }} <small class="text-red">*</small></label>
                                         <input type="date" name="date" id="date" class="form-control"
-                                            placeholder="{{ __('app.table_date') }}">
+                                            placeholder="{{ __('app.table_date') }}" value="{{ old('date') }}">
                                         @if ($errors->has('date'))
                                             <div class="error text-danger text-sm mt-1">
                                                 {{ $errors->first('date') }}</div>
@@ -68,12 +68,24 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">$</span>
                                             </div>
-                                            <input type="number" name="amount" step="any" class="form-control"
+                                            <input type="number" name="amount" step="any" class="form-control" value="{{ old('amount') }}"
                                                 placeholder="{{ __('app.label_required') }}{{ __('app.label_amount') }}">
                                         </div>
                                         @if ($errors->has('amount'))
                                             <div class="error text-danger text-sm mt-1">
                                                 {{ $errors->first('amount') }}</div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>{{ __('app.table_photo') }} <small class="text-red">*</small></label>
+                                        <input type="file" name="photo" class="form-control">
+                                        @if ($errors->has('photo'))
+                                            <div class="error text-danger text-sm mt-1">
+                                                {{ $errors->first('photo') }}</div>
                                         @endif
                                     </div>
                                 </div>

@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="card card-outline card-primary">
 
-                <form action="{{ url('incomes') }}" class="p-3" method="get">
+                <form action="{{ url('revenue') }}" class="p-3" method="get">
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.income_info') }}</h3>
                     <div class="card-tools">
@@ -16,7 +16,7 @@
                                 {{ __('app.btn_download') }}</button>
                        
                             @can('Income List')
-                            <a href="{{ url('incomes/create') }}" class="btn btn-sm btn-primary"> <i class=" fas fa-plus"></i>
+                            <a href="{{ url('revenue/create') }}" class="btn btn-sm btn-primary"> <i class=" fas fa-plus"></i>
                                 {{ __('app.btn_add') }}</a>
                             @endcan 
                     </div>
@@ -43,7 +43,7 @@
                         <div class="col-sm-3 mb-2">
                             <button type="submit"
                                     class="btn btn-primary noexportexcel"> <i class="fas fa-search"></i> {{ __('app.label_search') }}</button>
-                            <a href="{{ url('incomes' )}}" class="btn btn-danger"><i class="fas fa-broom"></i> {{__('app.btn_clean')}}</a>
+                            <a href="{{ url('revenue' )}}" class="btn btn-danger"><i class="fas fa-broom"></i> {{__('app.btn_clean')}}</a>
                         </div>
                     </div>
                 </form>
@@ -85,9 +85,9 @@
                                                 ${{ $row->sumTotalAmount($row->incomeOptions->id, Request::get('start_date') != null ? Request::get('start_date') : Carbon::today()->toDateString(), Request::get('end_date') != null ? Request::get('end_date') : Carbon::today()->toDateString()) }}</td>
                                         @endif
                                         <td>
-                                            <a href="{{ url('incomes', $row->id) }}" class="btn btn-sm btn-ligth"> <i
+                                            <a href="{{ url('revenue', $row->id) }}" class="btn btn-sm btn-ligth"> <i
                                                     class="fas fa-eye"></i> </a>
-                                            <a href="{{ route('incomes.edit', $row->id) }}" class="btn btn-sm btn-link"> <i
+                                            <a href="{{ route('revenue.edit', $row->id) }}" class="btn btn-sm btn-link"> <i
                                                     class="fas fa-edit"></i> </a>
                                             <button type="button" class="btn btn-sm btn-link text-danger deleteIncome"
                                                 data-toggle="modal" data-target="#modal-default"
@@ -148,7 +148,7 @@
 
             $(".deleteIncome").click(function() {
                 var id = $(this).data("id");
-                $('.formDelete').attr('action', 'incomes/' + id);
+                $('.formDelete').attr('action', 'revenue/' + id);
             });
 
         });

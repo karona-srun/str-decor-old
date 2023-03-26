@@ -89,10 +89,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('/payroll', PayrollController::class);
 
-    Route::resource('/incomes', IncomeController::class);
+    Route::resource('/revenue', IncomeController::class);
     Route::get('incomes-exportexcel', [App\Http\Controllers\IncomeController::class, 'exportExcel']);
 
-    Route::resource('/expends', ExpendController::class);
+    Route::resource('/expend', ExpendController::class);
     Route::get('expends-exportexcel', [App\Http\Controllers\ExpendController::class, 'exportExcel']);
 
     Route::resource('/product-category', ProductCategoryController::class);

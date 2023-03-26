@@ -25,9 +25,9 @@
                                         class=" fas fa-download"></i>
                                     {{ __('app.btn_download') }}</button>
 
-                                {{-- <a href="{{ url('/attendances') }}" class="btn btn-sm btn-outline-primary exportexcel"> <i class=" fas fa-download"></i>
-                            {{ __('app.btn_download') }}</a> --}}
                                 @can('Attandance Create')
+                                <a  href="{{ url('attendances/create') }}" class="btn btn-sm ml-2 btn-primary"> <i class=" fas fa-plus"></i>
+                                {{ __('app.btn_add') }}</a>
                                     <button type="button" class="btn btn-sm ml-2 btn-primary createAttendance"
                                         data-toggle="modal" data-target="#modal-default-create"> <i class=" fas fa-plus"></i>
                                         {{ __('app.btn_add') }}</button>
@@ -40,12 +40,13 @@
                         <div class="row">
                             <div class="col-sm-3 mb-2">
                                 <label for="">{{ __('app.table_choose') }}{{ __('app.table_staff_name') }}</label>
-                                <select class="form-control select2bs4" name="staff" id="staff" style="width: 100%;">
+                                <select class="form-control select2" name="staff" id="staff" style="width: 100%;">
                                     <option value="">{{ __('app.label_all') }}</option>
                                     @foreach ($staff as $item)
                                         <option value="{{ $item->id }}"
                                             {{ $item->id == request()->get('staff') ? 'selected' : '' }}>
-                                            {{ $item->full_name_kh }}</option>
+                                            {{ $item->full_name_kh == null ? $item->full_name : $item->full_name_kh }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -136,7 +137,6 @@
                                             <span
                                                 class="text-sm badge badge-danger">{{ __('app.label_permission_request') }}</span>
                                         @endif
-
                                     </td>
                                     <td>{{ $item->check_in }}</td>
                                     <td>{{ $item->check_out }}</td>
@@ -173,13 +173,13 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                 <form action="{{ url('/attendances') }}" method="post">
+                <form action="{{ url('/attendances') }}" method="post">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
                             <label>{{ __('app.table_choose') }}{{ __('app.table_staff_name') }} <small
                                     class="text-red">*</small></label>
-                            <select class="form-control select2ListStaff" id="listStaff" name="staff_id"
+                            <select class="form-control select2" id="listStaff" required name="staff_id"
                                 style="width: 100%;">
                             </select>
                         </div>
@@ -326,7 +326,7 @@
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>{{ __('app.table_checkin') }} <small class="text-red">*</small></label>
-                                    <input type="time" name="checkin" required value="{{ old('first_name') }}"
+                                    <input type="time" name="checkin" value="{{ old('first_name') }}"
                                         class="form-control checkin"
                                         placeholder="{{ __('app.label_required') }} {{ __('app.table_checkin') }}">
                                     @if ($errors->has('checkin'))
@@ -407,10 +407,31 @@
 @section('js')
     <script type="text/javascript">
         $(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+
+             $("#listStaffs").select2({
+               
+                ajax: {
+                    url: "{{ url('list-staff') }}",
+                    type: "get",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            _token: CSRF_TOKEN,
+                            search: params.term // search term
+                        };
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
                 }
+
             });
 
             $('.exportexcel').click(function() {
@@ -421,14 +442,13 @@
                 $('.export').val('');
             });
 
-            $('.select2ListStaff').select2({
+            $('.select2').select2({
                 placeholder: "ជ្រើសរើសបុគ្គលិក",
                 ajax: {
-                    url: '/list-staff',
+                    url: '/api/list-staff',
                     dataType: 'json',
                     delay: 250,
                     processResults: function(data) {
-                        console.log(data);
                         return {
                             results: $.map(data, function(item) {
                                 return {

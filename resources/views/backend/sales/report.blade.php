@@ -23,9 +23,9 @@
                         <div class="row">
                             <div class="col-sm-3 mb-2">
                                 <label for="">{{ __('app.table_choose') }}{{ __('app.customer') }}</label>
-                                <select class="form-control select2bs4" name="customer" id="customer" style="width: 100%;">
+                                <select class="form-control select2" name="customer" id="customer" style="width: 100%;">
                                     <option value="">{{ __('app.label_all') }}</option>
-                                    @foreach ($customers as $item)
+                                    @foreach($customers as $item)
                                         <option value="{{ $item->id }}" {{ $item->id == request()->get('customer') ? 'selected' : '' }}>{{ $item->customer_name }}</option>
                                     @endforeach
                                 </select>

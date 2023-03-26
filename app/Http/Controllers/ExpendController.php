@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
@@ -85,11 +86,19 @@ class ExpendController extends Controller
             'expend_option.required' => __('app.expend_info').' '.__('app.required'),
             'name.required' => __('app.label_name').' '.__('app.required'),
             'date.required' => __('app.label_payment_date').' '.__('app.required'),
+            'photo.required' => __('app.table_photo').__('app.required'),
             'amount.required' => __('app.label_amount').' '.__('app.required'),
         ]);
 
         if($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
+        }
+
+        $imageName = '';
+        if ($request->hasFile('photo')) {
+            $imageName = 'expend_' . time() . rand(1, 99999) . '.' . $request->photo->getClientOriginalExtension();
+            $imageName = str_replace(' ', '_', $imageName);
+            $request->photo->move(public_path('expends'), $imageName);
         }
 
         $expend = new Expend();
@@ -98,11 +107,12 @@ class ExpendController extends Controller
         $expend->date = $request->date;
         $expend->amount = $request->amount;
         $expend->note = $request->note;
+        $expend->photo = $imageName;
         $expend->created_by = Auth::user()->id;
         $expend->updated_by = Auth::user()->id;
         $expend->save();
 
-        return redirect('/expends?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Expends has been created!');
+        return redirect('/expend?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Expends has been created!');
     }
 
     /**
@@ -156,6 +166,16 @@ class ExpendController extends Controller
         }
 
         $expend = Expend::find($id);
+
+        $imageName = '';
+        if ($request->hasFile('photo')) {
+            File::delete('expends/' . $expend->photo);
+            $imageName = 'expend_' . time() . rand(1, 99999) . '.' . $request->photo->getClientOriginalExtension();
+            $imageName = str_replace(' ', '_', $imageName);
+            $request->photo->move(public_path('expends'), $imageName);
+            $expend->photo = $imageName;
+        }
+
         $expend->expend_option_id = $request->expend_option;
         $expend->name = $request->name;
         $expend->date = $request->date;
@@ -164,7 +184,7 @@ class ExpendController extends Controller
         $expend->updated_by = Auth::user()->id;
         $expend->save();
 
-        return redirect('/expends?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Expends has been updated!');
+        return redirect('/expend?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Expends has been updated!');
     }
 
     public function processExcel($datas)
@@ -211,6 +231,6 @@ class ExpendController extends Controller
         $expend = Expend::find($id);
         $expend->delete();
 
-        return redirect('/expends?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Expend has been deleted!');
+        return redirect('/expend?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Expend has been deleted!');
     }
 }

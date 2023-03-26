@@ -300,7 +300,7 @@
                                 <ul class="nav nav-treeview">
                                     @can('Income List')
                                         <li class="nav-item">
-                                            <a href="{{ URL('/incomes?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())}}"
+                                            <a href="{{ URL('/revenue?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())}}"
                                                 class="nav-link {{ Request::is('incomes*') ? 'active' : null }} ">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>{{ __('app.income_info') }}</p>
@@ -309,7 +309,7 @@
                                     @endcan
                                     @can('Expend List')
                                         <li class="nav-item">
-                                            <a href="{{ url('expends?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString()) }}"
+                                            <a href="{{ url('expend?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString()) }}"
                                                 class="nav-link {{ Request::is('expends*') ? 'active' : null }} ">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>{{ __('app.expend_info') }}</p>
@@ -456,20 +456,18 @@
     <script src="{{ asset('assets/plugins/fancybox/dist/jquery.fancybox.js') }}"></script>
     <script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
-
+    <script src="{{ asset('assets/plugins/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('assets/dist/js/demo.js') }}"></script>
     @yield('js')
     <script type="text/javascript">
         $(function() {
             $('#toastsContainerTopRight').delay(5000).fadeOut('slow');
 
-            // //Initialize Select2 Elements
             $('.select2bs4').select2({
                 theme: 'bootstrap4',
             })
+
             $('.select2').select2({
-                theme: 'bootstrap4',
-            })
-            $('.select2ListStaff').select2({
                 theme: 'bootstrap4',
             })
 
@@ -512,8 +510,8 @@
 
             var myDate = new Date();
 
-            let daysList = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            let monthsList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Aug', 'Oct', 'Nov', 'Dec'];
+            let daysList = ['ថ្ងៃអាទិត្យ', 'ថ្ងៃច័ន្ទ', 'ថ្ងៃអង្គារ៍', 'ថ្ងៃពុធ', 'ថ្ងៃព្រហស្បត្តិ៍', 'ថ្ងៃសុក្រ', 'ថ្ងៃសៅរ៍'];
+            let monthsList = ['មករា', 'កុម្ភៈ', 'មីនា', 'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា', 'សីហា', 'កញ្ញា', 'តុលា', 'វិច្ឆិកា', 'ធ្នូ'];
 
             let date = myDate.getDate();
             let month = monthsList[myDate.getMonth()];
@@ -525,13 +523,13 @@
             let amOrPm;
             let twelveHours = function() {
                 if (myDate.getHours() > 12) {
-                    amOrPm = 'PM';
+                    amOrPm = 'ល្ងាច';
                     let twentyFourHourTime = myDate.getHours();
                     let conversion = twentyFourHourTime - 12;
                     return `${conversion}`
 
                 } else {
-                    amOrPm = 'AM';
+                    amOrPm = 'ព្រឹក';
                     return `${myDate.getHours()}`
                 }
             };

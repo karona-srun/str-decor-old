@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Helpers\Helpers;
+use App\Http\Resources\ListStaffResource;
+use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
 {
@@ -22,10 +24,10 @@ class AttendanceController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -56,7 +58,8 @@ class AttendanceController extends Controller
         }
         // $attendances = $query->whereDate('date','=', Carbon::today()->toDateString())->get();
         // $attendances = Attendance::orderBy('id', 'desc')->whereDate('date','=', Carbon::today()->toDateString())->get();
-        return view('backend.attendances.index', compact('attendances', 'staff'));
+        $datas = StaffInfo::orderBy('id', 'desc')->get(['id', 'first_name as text']);
+        return view('backend.attendances.index', compact('attendances', 'staff', 'datas'));
     }
 
     public function processExcel($attendances)
@@ -129,7 +132,8 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        //
+        $staffs = StaffResource::collection(StaffInfo::orderBy('id', 'desc')->get());
+        return view('backend.attendances.create', compact('staffs'));
     }
 
     /**

@@ -26,7 +26,7 @@
                             </div>
                             <div class="form-group">
                                 <label>{{ __('app.label_status') }}</label>
-                                <select class="form-control select2bs4" name="status" style="width: 100%;">
+                                <select class="form-control select2" name="status" style="width: 100%;">
                                     <option value="0" selected="selected">{{ __('app.label_status_disabled') }}</option>
                                     <option value="1">{{ __('app.label_status_visibled') }}</option>
                                 </select>

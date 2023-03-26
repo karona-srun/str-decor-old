@@ -10,7 +10,7 @@
                     <h3 class="card-title">{{ __('app.expend_info') }}</h3>
                     <div class="card-tools">
                         @can('Expend List')
-                        <a href="{{ url('/expends?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString()) }}" class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i>
+                        <a href="{{ url('/expend?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString()) }}" class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i>
                             {{ __('app.label_list') }} </a>
                         @endcan
                     </div>

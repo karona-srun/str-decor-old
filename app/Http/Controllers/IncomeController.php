@@ -9,6 +9,7 @@ use App\Models\IncomeOptions;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
@@ -78,17 +79,26 @@ class IncomeController extends Controller
             'income_option' =>'required',
             'name' =>'required',
             'date' =>'required',
+            'photo' =>'required',
             'amount' =>'required',
         ],[
             
-            'income_option.required' => __('app.income_info').' '.__('app.required'),
-            'name.required' => __('app.label_name').' '.__('app.required'),
-            'date.required' => __('app.label_payment_date').' '.__('app.required'),
-            'amount.required' => __('app.label_amount').' '.__('app.required'),
+            'income_option.required' => __('app.income_info').__('app.required'),
+            'name.required' => __('app.label_name').__('app.required'),
+            'date.required' => __('app.label_payment_date').__('app.required'),
+            'photo.required' => __('app.table_photo').__('app.required'),
+            'amount.required' => __('app.label_amount').__('app.required'),
         ]);
 
         if($validator->fails()) {
             return Redirect::back()->withErrors($validator)->withInput();
+        }
+
+        $imageName = '';
+        if ($request->hasFile('photo')) {
+            $imageName = 'income_' . time() . rand(1, 99999) . '.' . $request->photo->getClientOriginalExtension();
+            $imageName = str_replace(' ', '_', $imageName);
+            $request->photo->move(public_path('incomes'), $imageName);
         }
 
         $income = new Income();
@@ -97,11 +107,12 @@ class IncomeController extends Controller
         $income->date = $request->date;
         $income->amount = $request->amount;
         $income->note = $request->note;
+        $income->photo = $imageName;
         $income->created_by = Auth::user()->id;
         $income->updated_by = Auth::user()->id;
         $income->save();
 
-        return redirect('/incomes?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Income has been created!');
+        return redirect('/revenue?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Income has been created!');
     }
 
     /**
@@ -145,10 +156,10 @@ class IncomeController extends Controller
             'amount' =>'required',
         ],[
             
-            'income_option.required' => __('app.income_info').' '.__('app.required'),
-            'name.required' => __('app.label_name').' '.__('app.required'),
-            'date.required' => __('app.label_payment_date').' '.__('app.required'),
-            'amount.required' => __('app.label_amount').' '.__('app.required'),
+            'income_option.required' => __('app.income_info').__('app.required'),
+            'name.required' => __('app.label_name').__('app.required'),
+            'date.required' => __('app.label_payment_date').__('app.required'),
+            'amount.required' => __('app.label_amount').__('app.required'),
         ]);
 
         if($validator->fails()) {
@@ -156,16 +167,27 @@ class IncomeController extends Controller
         }
 
         $income = Income::find($id);
+
+        $imageName = '';
+        if ($request->hasFile('photo')) {
+            File::delete('incomes/' . $income->photo);
+            $imageName = 'income_' . time() . rand(1, 99999) . '.' . $request->photo->getClientOriginalExtension();
+            $imageName = str_replace(' ', '_', $imageName);
+            $request->photo->move(public_path('incomes'), $imageName);
+            $income->photo = $imageName;
+        }
+
         $income->income_option_id = $request->income_option;
         $income->name = $request->name;
         $income->date = $request->date;
         $income->amount = $request->amount;
         $income->note = $request->note;
+        $income->photo = $imageName;
         $income->updated_by = Auth::user()->id;
         $income->save();
 
 
-        return redirect('/incomes?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Income has been updated!');
+        return redirect('/revenue?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Income has been updated!');
     }
 
     public function processExcel($datas)
@@ -211,6 +233,6 @@ class IncomeController extends Controller
         $income = Income::find($id);
         $income->delete();
 
-        return redirect('/incomes?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Income has been deleted!');
+        return redirect('/revenue?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Income has been deleted!');
     }
 }

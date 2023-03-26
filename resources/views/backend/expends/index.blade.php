@@ -40,7 +40,7 @@
         <div class="col-md-12">
             <div class="card card-outline card-primary">
 
-                <form action="{{ url('expends') }}" class="p-3" method="get">
+                <form action="{{ url('expend') }}" class="p-3" method="get">
                     <div class="card-header">
                         <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.expend_info') }}</h3>
                         <div class="card-tools">
@@ -49,7 +49,7 @@
                             <button type="submit" class="btn btn-sm btn-outline-primary exportexcel"> <i class=" fas fa-download"></i>
                                 {{ __('app.btn_download') }}</button>
                             @can('Expend Create')
-                                <a href="{{ url('expends/create') }}" class="btn btn-sm btn-primary"> <i
+                                <a href="{{ url('expend/create') }}" class="btn btn-sm btn-primary"> <i
                                         class=" fas fa-plus"></i>
                                     {{ __('app.btn_add') }}</a>
                             @endcan
@@ -123,9 +123,9 @@
                                             </td>
                                         @endif
                                         <td>
-                                            <a href="{{ url('expends', $row->id) }}" class="btn btn-sm btn-ligth"> <i
+                                            <a href="{{ url('expend', $row->id) }}" class="btn btn-sm btn-ligth"> <i
                                                     class="fas fa-eye"></i> </a>
-                                            <a href="{{ route('expends.edit', $row->id) }}" class="btn btn-sm btn-link"> <i
+                                            <a href="{{ route('expend.edit', $row->id) }}" class="btn btn-sm btn-link"> <i
                                                     class="fas fa-edit"></i> </a>
                                             <button type="button" class="btn btn-sm btn-link text-danger deleteExpend"
                                                 data-toggle="modal" data-target="#modal-default"
@@ -187,7 +187,7 @@
 
             $('.deleteExpend').click(function() {
                 var id = $(this).data("id");
-                $('.formDelete').attr('action', 'expends/' + id);
+                $('.formDelete').attr('action', 'expend/' + id);
             });
 
         });

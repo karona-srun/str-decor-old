@@ -29,7 +29,7 @@
                                     <div class="form-group">
                                         <label>{{ __('app.table_choose') }}{{ __('app.table_staff_name') }} <small
                                                 class="text-red">*</small></label>
-                                        <select class="form-control select2bs4 selectStaff" name="staff"
+                                        <select class="form-control select2 selectStaff" name="staff"
                                             style="width: 100%;">
                                             <option value="0">
                                                 {{ __('app.table_choose') }}{{ __('app.table_staff_name') }}</option>
@@ -64,7 +64,7 @@
                                     <div class="form-group">
                                         <label>{{ __('app.table_status') }} <small
                                                 class="text-red">*</small></label>
-                                        <select class="form-control select2bs4" name="payroll_status"
+                                        <select class="form-control select2" name="payroll_status"
                                         style="width: 100%;" required>
                                         <option value="" selected>{{ __('app.table_choose') }}</option>
                                         <option value="not_yet">{{ __('app.label_not_yet') }}</option>

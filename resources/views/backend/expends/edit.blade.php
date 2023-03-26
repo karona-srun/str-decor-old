@@ -10,14 +10,14 @@
                     <h3 class="card-title">{{ __('app.expend_info') }}</h3>
                     <div class="card-tools">
                         @can('Expend List')
-                        <a href="{{ url('/expends?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString()) }}" class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i>
+                        <a href="{{ url('/expend?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString()) }}" class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i>
                             {{ __('app.label_list') }} </a>
                         @endcan
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <form id="quickForm" action="{{ url('expends', $expend->id) }}" method="post">
+                    <form id="quickForm" action="{{ url('expend', $expend->id) }}" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
                         <div class="card-body">
@@ -79,6 +79,18 @@
                                         @if ($errors->has('amount'))
                                             <div class="error text-danger text-sm mt-1">
                                                 {{ $errors->first('amount') }}</div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>{{ __('app.table_photo') }} <small class="text-red">*</small></label>
+                                        <input type="file" name="photo" class="form-control">
+                                        @if ($errors->has('photo'))
+                                            <div class="error text-danger text-sm mt-1">
+                                                {{ $errors->first('photo') }}</div>
                                         @endif
                                     </div>
                                 </div>

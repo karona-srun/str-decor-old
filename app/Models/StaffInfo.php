@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 class StaffInfo extends Model
 {
     use HasFactory;
-
+    
     protected $appends = ['full_name','full_name_kh'];
 
     public function getFullNameAttribute() {

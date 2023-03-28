@@ -8,7 +8,7 @@
 
             <div class="col-6 col-md-4 mb-3">
               <h6>{{ __('app.phone')}}{{__('app.contact')}}</h6>
-                <p>{{$profile->tel}}</p>
+                <p>{{$profile->tel}} <br> {{$profile->email}}</p>
             </div>
 
             <div class="col-6 col-md-4 mb-3">

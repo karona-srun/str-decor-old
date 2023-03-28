@@ -58,10 +58,10 @@ class PermissionSeeder extends Seeder
             'Product Create',
             'Product Edit',
             'Product Delete',
-            'Income List',
-            'Income Create',
-            'Income Edit',
-            'Income Delete',
+            'Revenue List',
+            'Revenue Create',
+            'Revenue Edit',
+            'Revenue Delete',
             'Expend List',
             'Expend Create',
             'Expend Edit',
@@ -89,7 +89,11 @@ class PermissionSeeder extends Seeder
             'System Profile List',
             'System Profile Create',
             'System Profile Edit',
-            'System Profile Delete'
+            'System Profile Delete',
+            'About List',
+            'About Create',
+            'About Edit',
+            'About Delete',
         ];
 
         foreach ($permissions as $permission) {

@@ -15,12 +15,12 @@
 
 <body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
-        <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+        <nav class="main-header navbar navbar-expand-md navbar-light bg-primary navbar-white">
             <div class="container">
                 <a href="{{ url('/') }}" class="navbar-brand">
                     <img src="{{ asset($profile->photo) }}" alt="AdminLTE Logo"
                         class="img-circle img-size-64" style="opacity: .8">
-                    <span class="brand-text font-weight-light">{{$profile->name}}</span>
+                    <span class="brand-text font-weight-light font-bold text-white"><strong>{{$profile->name}}</strong></span>
                 </a>
 
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse"
@@ -38,6 +38,12 @@
                             <i class="fas fa-sign-in-alt"></i> {{ __('app.label_login') }}
                         </a>
                     </li> --}}
+                    <li class="nav-item">
+                        <a href="{{ url('/about-us') }}" class="text-white">{{ __('app.label_about') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/contact-us') }}" class="ml-3 text-white">{{ __('app.label_contact') }}</a>
+                    </li>
                     @if (Route::has('register'))
                         <li class="nav-item ml-2">
                             <a class="btn btn-sm btn-outline-primary" href="{{ route('register') }}" role="button">
@@ -50,7 +56,7 @@
         </nav>
 
         <div class="content-wrapper">
-            <div class="content-header bg-white">
+            <div class="content-header bg-primary">
                 <div class="container">
                     <div class="row mb-4">
                         <div class="col-lg-8 col-sm-10 offset-sm-1 offset-lg-2">

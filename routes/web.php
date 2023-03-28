@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AddCartController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\BaseSalaryController;
@@ -35,6 +36,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index']);
+Route::get('/about-us', [App\Http\Controllers\WelcomeController::class, 'aboutUs']);
+Route::get('/contact-us', [App\Http\Controllers\WelcomeController::class, 'contactUs']);
 Route::get('/search', [App\Http\Controllers\WelcomeController::class, 'search']);
 Route::get('/product-details/{id}', [App\Http\Controllers\WelcomeController::class, 'getProduct']);
 Route::get('/product-categories/{id}', [App\Http\Controllers\WelcomeController::class, 'getProductByCategory']);
@@ -127,4 +130,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get(' users-exportexcel', [App\Http\Controllers\UserController::class, 'exportExcel']);
     Route::resource('roles', RolesController::class);
     Route::resource('system-profile', SystemProfileController::class);
+    Route::resource('abouts', AboutController::class);
 });

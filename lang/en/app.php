@@ -151,6 +151,10 @@ return [
     'label_start' => 'ចាប់ផ្តើម',
     'label_end' => 'ដល់',
     'label_invoice_no' => 'លេខ​វិ​ក័​យ​ប័ត្រ',
+    'label_about' => 'អំពីយើង',
+    'label_contact' => 'ទំនាក់ទំនង',
+    'label_content' => 'មាតិកា',
+    'label_report' => 'របាយការណ៍',
 
     'code' => 'កូដ',
     'first_name' => 'First Name',

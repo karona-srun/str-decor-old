@@ -8,19 +8,21 @@
             <div class="card card-outline card-primary">
 
                 <form action="{{ url('revenue') }}" class="p-3" method="get">
-                <div class="card-header">
-                    <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.income_info') }}</h3>
-                    <div class="card-tools">
+                    <div class="card-header">
+                        <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.income_info') }}</h3>
+                        <div class="card-tools">
                             <input type="hidden" name="export" class="export" value="enabled">
-                            <button type="submit" class="btn btn-sm btn-outline-primary exportexcel"> <i class=" fas fa-download"></i>
+                            <button type="submit" class="btn btn-sm btn-outline-primary exportexcel"> <i
+                                    class=" fas fa-download"></i>
                                 {{ __('app.btn_download') }}</button>
-                       
-                            @can('Income List')
-                            <a href="{{ url('revenue/create') }}" class="btn btn-sm btn-primary"> <i class=" fas fa-plus"></i>
-                                {{ __('app.btn_add') }}</a>
-                            @endcan 
+
+                            @can('Revenue Create')
+                                <a href="{{ url('revenue/create') }}" class="btn btn-sm btn-primary"> <i
+                                        class=" fas fa-plus"></i>
+                                    {{ __('app.btn_add') }}</a>
+                            @endcan
+                        </div>
                     </div>
-                </div>
                     <div class="row mt-2">
                         <div class="col-sm-3 mb-2">
                             <select class="select2 form-control" name="income_option" style="width: 100%">
@@ -33,17 +35,20 @@
                             </select>
                         </div>
                         <div class="col-sm-2 mb-2">
-                                <input type="date" class="form-control" name="start_date"
-                                    value="{{ Request::get('start_date') != null ? Request::get('start_date') : Carbon::today()->toDateString() }}"" placeholder="{{ __('app.code') }}{{ __('app.product') }}" />
+                            <input type="date" class="form-control" name="start_date"
+                                value="{{ Request::get('start_date') != null ? Request::get('start_date') : Carbon::today()->toDateString() }}""
+                                placeholder="{{ __('app.code') }}{{ __('app.product') }}" />
                         </div>
                         <div class="col-sm-2 mb-2">
                             <input type="date" class="form-control" name="end_date"
-                                value="{{ Request::get('end_date') != null ? Request::get('end_date') : Carbon::today()->toDateString() }}" placeholder="{{ __('app.label_name') }}{{ __('app.product') }}" />
+                                value="{{ Request::get('end_date') != null ? Request::get('end_date') : Carbon::today()->toDateString() }}"
+                                placeholder="{{ __('app.label_name') }}{{ __('app.product') }}" />
                         </div>
                         <div class="col-sm-3 mb-2">
-                            <button type="submit"
-                                    class="btn btn-primary noexportexcel"> <i class="fas fa-search"></i> {{ __('app.label_search') }}</button>
-                            <a href="{{ url('revenue' )}}" class="btn btn-danger"><i class="fas fa-broom"></i> {{__('app.btn_clean')}}</a>
+                            <button type="submit" class="btn btn-primary noexportexcel"> <i class="fas fa-search"></i>
+                                {{ __('app.label_search') }}</button>
+                            <a href="{{ url('revenue') }}" class="btn btn-danger"><i class="fas fa-broom"></i>
+                                {{ __('app.btn_clean') }}</a>
                         </div>
                     </div>
                 </form>
@@ -74,7 +79,7 @@
                                             @php
                                                 ++$i;
                                             @endphp
-                                            <td rowspan="{{ $span }}">{{ $i  }}</td>
+                                            <td rowspan="{{ $span }}">{{ $i }}</td>
                                             <td rowspan="{{ $span }}">{{ $row->incomeOptions->name }}</td>
                                         @endif
                                         <td>{{ $row->name }}</td>
@@ -82,16 +87,23 @@
                                         <td>${{ $row->amount }}</td>
                                         @if ($loop->first)
                                             <td rowspan="{{ $span }}" class="bg-success">
-                                                ${{ $row->sumTotalAmount($row->incomeOptions->id, Request::get('start_date') != null ? Request::get('start_date') : Carbon::today()->toDateString(), Request::get('end_date') != null ? Request::get('end_date') : Carbon::today()->toDateString()) }}</td>
+                                                ${{ $row->sumTotalAmount($row->incomeOptions->id, Request::get('start_date') != null ? Request::get('start_date') : Carbon::today()->toDateString(), Request::get('end_date') != null ? Request::get('end_date') : Carbon::today()->toDateString()) }}
+                                            </td>
                                         @endif
                                         <td>
-                                            <a href="{{ url('revenue', $row->id) }}" class="btn btn-sm btn-ligth"> <i
-                                                    class="fas fa-eye"></i> </a>
-                                            <a href="{{ route('revenue.edit', $row->id) }}" class="btn btn-sm btn-link"> <i
-                                                    class="fas fa-edit"></i> </a>
-                                            <button type="button" class="btn btn-sm btn-link text-danger deleteIncome"
-                                                data-toggle="modal" data-target="#modal-default"
-                                                data-id="{{ $row->id }}"> <i class="fas fa-trash"></i> </button>
+                                            @can('Revenue Edit')
+                                                <a href="{{ url('revenue', $row->id) }}" class="btn btn-sm btn-ligth"> <i
+                                                        class="fas fa-eye"></i> </a>
+                                            @endcan
+                                            @can('Revenue Edit')
+                                                <a href="{{ route('revenue.edit', $row->id) }}" class="btn btn-sm btn-link"> <i
+                                                        class="fas fa-edit"></i> </a>
+                                            @endcan
+                                            @can('Revenue Delete')
+                                                <button type="button" class="btn btn-sm btn-link text-danger deleteIncome"
+                                                    data-toggle="modal" data-target="#modal-default"
+                                                    data-id="{{ $row->id }}"> <i class="fas fa-trash"></i> </button>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach
@@ -119,9 +131,10 @@
                         <p>{{ __('app.label_confirm_delete') }}</p>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-sm btn-danger"
-                            data-dismiss="modal"><i class="fas fa-window-close"></i> {{ __('app.btn_close') }}</button>
-                        <button type="submit" class="btn btn-sm btn-primary"><i class="far fa-check-square"></i> {{ __('app.btn_delete') }}</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"><i
+                                class="fas fa-window-close"></i> {{ __('app.btn_close') }}</button>
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="far fa-check-square"></i>
+                            {{ __('app.btn_delete') }}</button>
                     </div>
                 </form>
             </div>

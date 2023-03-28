@@ -14,6 +14,12 @@ class Product extends Model
         return $this->belongsTo(ProductCategory::class,'product_category_id');
     }
 
+    public function getProductCategory($id)
+    {
+        $item = ProductCategory::find($id);
+        return $item['name'] ?? 'N/A';
+    }
+
     public function creator()
     {
         return $this->belongsTo(User::class,'created_by');

@@ -286,11 +286,11 @@
                                 </ul>
                             </li>
                         @endif
-                        @if (Auth::user()->can('Income List') || Auth::user()->can('Expend List'))
+                        @if (Auth::user()->can('Revenue List') || Auth::user()->can('Expend List'))
                             <li
-                                class="nav-item {{ Request::is('incomes*') || Request::is('expends*') ? 'menu-is-opening menu-open' : null }} ">
+                                class="nav-item {{ Request::is('revenue*') || Request::is('expends*') ? 'menu-is-opening menu-open' : null }} ">
                                 <a href="#"
-                                    class="nav-link {{ Request::is('incomes*') || Request::is('expends*') ? 'active' : null }} ">
+                                    class="nav-link {{ Request::is('revenue*') || Request::is('expends*') ? 'active' : null }} ">
                                     <i class="nav-icon fas fa-money-check-alt"></i>
                                     <p>
                                         {{ __('app.income_expend') }}
@@ -298,10 +298,10 @@
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
-                                    @can('Income List')
+                                    @can('Revenue List')
                                         <li class="nav-item">
                                             <a href="{{ URL('/revenue?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())}}"
-                                                class="nav-link {{ Request::is('incomes*') ? 'active' : null }} ">
+                                                class="nav-link {{ Request::is('revenue*') ? 'active' : null }} ">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>{{ __('app.income_info') }}</p>
                                             </a>
@@ -355,9 +355,10 @@
                         @if (Auth::user()->can('Option Income List') ||
                             Auth::user()->can('Option Expend List') ||
                             Auth::user()->can('Time List') ||
+                            Auth::user()->can('About List') ||
                             Auth::user()->can('System Profile List'))
                             <li
-                                class="nav-item {{ Request::is('income-options*') || Request::is('expend-options*') || Request::is('times*') || Request::is('system-profile*') ? 'menu-is-opening menu-open' : null }} ">
+                                class="nav-item {{ Request::is('income-options*') || Request::is('expend-options*') || Request::is('times*') || Request::is('system-profile*') || Request::is('abouts*')? 'menu-is-opening menu-open' : null }} ">
                                 <a href="#"
                                     class="nav-link {{ Request::is('income-options*') || Request::is('expend-options*') || Request::is('times*') || Request::is('system-profile*') ? 'active' : null }} ">
                                     <i class="nav-icon fas fa-cogs"></i>
@@ -402,6 +403,15 @@
                                                 <p>{{ __('app.time') }}</p>
                                             </a>
                                         </li>
+                                    @endcan
+                                    @can('About List')
+                                    <li class="nav-item">
+                                        <a href="{{ url('abouts') }}"
+                                            class="nav-link {{ Request::is('abouts*') ? 'active' : null }} ">
+                                            <i class="fas fa-newspaper nav-icon"></i>
+                                            <p>{{ __('app.label_content') }}</p>
+                                        </a>
+                                    </li>
                                     @endcan
                                 </ul>
                             </li>

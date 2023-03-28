@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\About;
 use App\Models\Attachment;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -51,5 +52,16 @@ class WelcomeController extends Controller
 
         $producteRandom = Product::inRandomOrder()->limit(10)->get();
         return view('frontend.index', compact('productes','producteRandom','productCategory'));
+    }
+
+    public function aboutUs()
+    {
+        $abouts = About::get();
+        return view('frontend.about', compact('abouts'));
+    }
+
+    public function contactUs()
+    {
+        return view('frontend.contact');
     }
 }

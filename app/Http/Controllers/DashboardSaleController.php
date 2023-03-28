@@ -46,7 +46,7 @@ class DashboardSaleController extends Controller
         $chart_data = json_encode($dataProducts);
 
         $current = SaleDetail::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
-                    ->whereYear('created_at', date('Y'))
+                    ->whereYear('created_at', '=', date('Y'))
                     ->groupBy(DB::raw("month_name"))
                     ->pluck('count', 'month_name');
  
@@ -55,7 +55,7 @@ class DashboardSaleController extends Controller
         $data = $current->values();
 
         $old = SaleDetail::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
-                    ->whereYear('created_at', date('Y')-1)
+                    ->whereYear('created_at', '=', date('Y') - 1)
                     ->groupBy(DB::raw("month_name"))
                     ->pluck('count', 'month_name');
  

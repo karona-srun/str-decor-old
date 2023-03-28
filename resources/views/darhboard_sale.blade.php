@@ -37,7 +37,7 @@
                 <div class="card-header border-0">
                     <div class="d-flex justify-content-between">
                         <h3 class="card-title">{{ __('app.label_sale_report') }}</h3>
-                        {{-- <a href="javascript:void(0);">View Report</a> --}}
+                        <a href="{{ url('sale-report') }}">View Report</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -59,15 +59,6 @@
                         <canvas id="barchart_material" class="chart"
                             style=" height: 400px; max-height: 400px; max-width: 100%;"></canvas>
                     </div>
-
-                    {{-- <div class="d-flex flex-row justify-content-end">
-                        <span  class="mr-2">
-                            <i class="fas fa-square text-gray"></i> ឆ្នាំចាស់
-                        </span>
-                        <span>
-                            <i class="fas fa-square text-primary"></i> ឆ្នាំបច្ចុប្បន្ន
-                        </span>
-                    </div> --}}
                 </div>
             </div>
         </div>
@@ -93,28 +84,52 @@
         var records = {!! json_encode($data) !!};
         var oldRecords = {!! json_encode($oldData) !!};
 
-        var label = 'របាយការណ៍' + new Date().getFullYear();
-        var oldLabel = 'របាយការណ៍' + new Date().getFullYear();
+        var label = 'របាយការណ៍ ' + new Date().getFullYear();
+        var date = new Date();
+        var oldLabel = 'របាយការណ៍ ' + parseInt(date.getFullYear() - 1);
 
         const data = {
             labels: labels,
             datasets: [{
-                label: oldLabel,
-                backgroundColor: '#6c757d',
-                borderColor: 'rgb(255, 99, 132)',
-                data: oldRecords,
-            }, {
-                label: label,
-                backgroundColor: '#007bff',
-                borderColor: 'rgb(255, 99, 132)',
-                data: records,
-            }]
+                    label: oldLabel,
+                    backgroundColor: '#6c757d',
+                    data: oldRecords,
+                    borderWidth: 1,
+                },
+                {
+                    label: label,
+                    backgroundColor: '#007bff',
+                    data: records,
+                    borderWidth: 1,
+                }
+            ]
         };
 
         const config = {
             type: 'bar',
             data: data,
-            options: {}
+            options: {
+                responsive: true,
+                legend: {
+                    display: true,
+                    position: "top",
+                    labels: {
+                        fontColor: "#333",
+                        fontSize: 14
+                    }
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
         };
 
         const myChart = new Chart(
@@ -122,14 +137,13 @@
             config
         );
 
+        //pie chart data
         var cData = JSON.parse(`<?php echo $chart_data; ?>`);
         var ctx = $("#pie-chart");
 
-        //pie chart data
         var data1 = {
             labels: cData.label,
             datasets: [{
-                label: "Users Count",
                 data: cData.data,
                 backgroundColor: [
                     "#DEB887",

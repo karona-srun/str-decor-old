@@ -9,7 +9,7 @@
                     <hr>
 
                     <div id="accordion">
-                        @foreach ($abouts as $item)
+                        @foreach ($abouts as $index => $item)
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h4 class="card-title w-100">
@@ -19,7 +19,7 @@
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapse{{$item->id}}" class="collapse" data-parent="#accordion" style="">
+                            <div id="collapse{{$item->id}}" class="collapse {{ $index == 0 ? 'show' : ''}}" data-parent="#accordion" style="">
                                 <div class="card-body">
                                     <h1>{!! $item->content !!}</h1>
                                 </div>

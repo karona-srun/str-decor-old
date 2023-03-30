@@ -76,7 +76,7 @@ class CustomerController extends Controller
         $customer->updated_by = Auth::user()->id;
         $customer->save();
 
-        return redirect('/customers')->with('status', 'Customer has been created!');
+        return redirect('/customers')->with('success', __('app.customer').__('app.label_created_successfully'));
     }
 
     public function newCustomer(Request $request)
@@ -139,7 +139,7 @@ class CustomerController extends Controller
         $customer->note = $request->note;
         $customer->updated_by = Auth::user()->id;
         $customer->save();
-        return redirect('/customers')->with('status', 'Customer has been updated!');
+        return redirect('/customers')->with('success',  __('app.customer').__('app.label_updated_successfully'));
     }
 
     public function customerExport() 
@@ -180,6 +180,6 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($id);
         $customer->delete();
-        return redirect('/customers')->with('status', 'Customer has been deleted!');
+        return redirect('/customers')->with('success',  __('app.customer').__('app.label_deleted_successfully'));
     }
 }

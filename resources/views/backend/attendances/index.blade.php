@@ -8,6 +8,9 @@
             padding: 0.5rem 1.25rem !important;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 @endsection
 
@@ -26,8 +29,9 @@
                                     {{ __('app.btn_download') }}</button>
 
                                 @can('Attandance Create')
-                                <a  href="{{ url('attendances/create') }}" class="btn btn-sm ml-2 btn-primary"> <i class=" fas fa-plus"></i>
-                                {{ __('app.btn_add') }}</a>
+                                    {{-- <a href="{{ url('attendances/create') }}" class="btn btn-sm ml-2 btn-primary"> <i
+                                            class=" fas fa-plus"></i>
+                                        {{ __('app.btn_add') }}</a> --}}
                                     <button type="button" class="btn btn-sm ml-2 btn-primary createAttendance"
                                         data-toggle="modal" data-target="#modal-default-create"> <i class=" fas fa-plus"></i>
                                         {{ __('app.btn_add') }}</button>
@@ -132,7 +136,8 @@
                                         @if ($item->status == 'presence')
                                             <span class="text-sm badge badge-success">{{ __('app.label_presence') }}</span>
                                         @elseif($item->status == 'adsent')
-                                            <span class="text-sm badge badge-secondary">{{ __('app.label_adsent') }}</span>
+                                            <span
+                                                class="text-sm badge badge-secondary">{{ __('app.label_adsent') }}</span>
                                         @elseif($item->status == 'permission')
                                             <span
                                                 class="text-sm badge badge-danger">{{ __('app.label_permission_request') }}</span>
@@ -179,7 +184,7 @@
                         <div class="form-group">
                             <label>{{ __('app.table_choose') }}{{ __('app.table_staff_name') }} <small
                                     class="text-red">*</small></label>
-                            <select class="form-control select2" id="listStaff" required name="staff_id"
+                            <select class="form-control select2 listStaff" id="listStaff" required name="staff_id"
                                 style="width: 100%;">
                             </select>
                         </div>
@@ -265,9 +270,9 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-sm pl-3 pr-3 btn-danger"
-                            data-dismiss="modal">{{ __('app.btn_close') }}</button>
+                            data-dismiss="modal"><i class="fas fa-window-close"></i> {{ __('app.btn_close') }}</button>
                         <button type="submit"
-                            class="btn btn-sm pl-3 pr-3 btn-outline-primary">{{ __('app.btn_save') }}</button>
+                            class="btn btn-sm pl-3 pr-3 btn-outline-primary"><i class="fas fa-save"></i> {{ __('app.btn_save') }}</button>
                     </div>
                 </form>
             </div>
@@ -369,9 +374,9 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-sm pl-3 pr-3 btn-danger"
-                            data-dismiss="modal">{{ __('app.btn_close') }}</button>
+                            data-dismiss="modal"><i class="fas fa-window-close"></i> {{ __('app.btn_close') }}</button>
                         <button type="submit"
-                            class="btn pl-3 pr-3 btn-sm btn-outline-primary">{{ __('app.btn_save') }}</button>
+                            class="btn pl-3 pr-3 btn-sm btn-outline-primary"><i class="fas fa-save"></i> {{ __('app.btn_save') }}</button>
                     </div>
                 </form>
             </div>
@@ -395,8 +400,8 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-sm btn-danger"
-                            data-dismiss="modal">{{ __('app.btn_close') }}</button>
-                        <button type="submit" class="btn btn-sm btn-primary">{{ __('app.btn_delete') }}</button>
+                            data-dismiss="modal"><i class="fas fa-window-close"></i> {{ __('app.btn_close') }}</button>
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-trash"></i> {{ __('app.btn_delete') }}</button>
                     </div>
                 </form>
             </div>
@@ -407,32 +412,43 @@
 @section('js')
     <script type="text/javascript">
         $(function() {
-            
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-
-             $("#listStaffs").select2({
-               
-                ajax: {
-                    url: "{{ url('list-staff') }}",
-                    type: "get",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function(params) {
-                        return {
-                            _token: CSRF_TOKEN,
-                            search: params.term // search term
-                        };
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response
-                        };
-                    },
-                    cache: true
+            var countriesList = '/api/list-staff',
+                listStaff = $('.listStaff');
+            $.ajax({
+                type: 'POST',
+                url: countriesList,
+                dataType: 'json',
+                success: function(response) {
+                    listStaff.select2({
+                        data: response.map(item => ({
+                            id: item.id,
+                            text: item.text,
+                        })),
+                        width: '100%',
+                        dropdownAutoWidth: true,
+                        matcher: startWithMatcher,
+                        placeholder: 'ជ្រើសរើសបុគ្គលិក',
+                        theme: 'bootstrap4',
+                        language: 'km'
+                    });
                 }
-
             });
+
+            listStaff.on('select2:select', function(e) {
+                var data = e.params.data;
+            });
+
+            function startWithMatcher(params, data) {
+                params.term = params.term || '';
+                if (data.text.toUpperCase().indexOf(params.term.toUpperCase()) == 0) {
+                    return data;
+                }
+                return false;
+            }
+
+
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
             $('.exportexcel').click(function() {
                 $('.export').val('enabled');
@@ -440,26 +456,6 @@
 
             $('.noexportexcel').click(function() {
                 $('.export').val('');
-            });
-
-            $('.select2').select2({
-                placeholder: "ជ្រើសរើសបុគ្គលិក",
-                ajax: {
-                    url: '/api/list-staff',
-                    dataType: 'json',
-                    delay: 250,
-                    processResults: function(data) {
-                        return {
-                            results: $.map(data, function(item) {
-                                return {
-                                    text: item.full_name,
-                                    id: item.id
-                                }
-                            })
-                        };
-                    },
-                    cache: true
-                }
             });
 
             $(".div-check").hide();

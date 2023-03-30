@@ -149,7 +149,7 @@ class StaffInfoController extends Controller
             }
         }
 
-        return redirect('/staff-info')->with('status', 'Staff Info has been created!');
+        return redirect('/staff-info')->with('success',  __('app.staff_info').__('app.label_created_successfully'));
     }
 
     /**
@@ -288,7 +288,7 @@ class StaffInfoController extends Controller
             }
         }
 
-        return redirect('/staff-info')->with('status', 'Staff Info has been updated!');
+        return redirect('/staff-info')->with('success',  __('app.staff_info').__('app.label_updated_successfully'));
     }
 
     public function staffExport() 
@@ -368,6 +368,6 @@ class StaffInfoController extends Controller
             $att->delete();
         }
         
-        return redirect('/staff-info')->with('status', 'Staff Info has been deleted!');
+        return redirect('/staff-info')->with('success',  __('app.staff_info').__('app.label_deleted_successfully'));
     }
 }

@@ -18,19 +18,21 @@ class StaffController extends Controller
 
         $search = $request->search;
   
-        if($search == ''){
-           $staff = StaffInfo::orderby('first_name','asc')->select('id','last_name','first_name','last_name_kh','first_name_kh')->limit(5)->get();
-        }else{
-           $staff = StaffInfo::orderby('first_name','asc')->select('id','last_name','first_name','last_name_kh','first_name_kh')->where('first_name', 'like', '%' .$search . '%')->limit(5)->get();
-        }
-  
-        $response = array();
-        foreach($staff as $st){
-           $response[] = array(
-                "id"=>$st->id,
-                "text"=>$st->full_name_kh
-           );
-        }
+        $staff = StaffInfo::orderBy('first_name')
+                  ->select('id', 'last_name', 'first_name', 'last_name_kh', 'first_name_kh')
+                  ->when($search, function ($query) use ($search) {
+                      return $query->where('full_name_kh', 'like', '%' . $search . '%');
+                  })
+                  ->take(5)
+                  ->get();
+                  
+        $response = $staff->map(function ($st) {
+            return [
+               'id' => $st->id,
+               'text' => $st->full_name_kh,
+            ];
+         });
+
         return response()->json($response);
     }
 

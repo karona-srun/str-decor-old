@@ -10,7 +10,7 @@
                     {{ csrf_field() }}
                     {{ method_field('PATCH') }}
                     <div class="card-header">
-                        <h3 class="card-title">{{ __('app.label_info') }}{{ __('app.staff_info') }}</h3>
+                        <h3 class="card-title">{{ __('app.staff_info') }}</h3>
                         <div class="card-tools">
                             <button type="submit" class="btn btn-sm btn-outline-primary" id="btn-save"> <i class="fas fa-save"></i>
                                 {{ __('app.btn_save') }}</button>

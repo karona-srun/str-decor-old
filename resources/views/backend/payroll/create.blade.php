@@ -147,12 +147,19 @@
                         $('.rate_per_hour').val(response.staff.rate_per_hour)
 
                         $.each(response.data, function(i, item) {
-                            console.log(item);
+                            var status = "";
+                            if(item.status == "permission") {
+                                status = "<span class='text-info'>សុំច្បាប់</span>";
+                            }else if(item.status == "adsent") {
+                                status = "<span class='text-danger'>អវត្តមាន</span>";
+                            }else {
+                                status = "<span class='text-primary'>វត្តមាន</span>";
+                            }
                             $('.tbody').append('[<tr class="child">' +
                                 '<td>' + ++i + '</td>' +
                                 '<td>' + item.staff_id + '</td>' +
                                 '<td>' + item.date + '</td>' +
-                                '<td>' + item.status + '</td>' +
+                                '<td>' + status + '</td>' +
                                 '<td>' + item.check_in + '</td>' +
                                 '<td>' + item.check_out + '</td>' +
                                 '<td>' + item.num_hour + '</td>' +

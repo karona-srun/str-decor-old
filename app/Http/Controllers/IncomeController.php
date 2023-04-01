@@ -112,7 +112,7 @@ class IncomeController extends Controller
         $income->updated_by = Auth::user()->id;
         $income->save();
 
-        return redirect('/revenue?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Income has been created!');
+        return redirect('/revenue?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('success', __('app.income_info') . __('app.label_created_successfully'));
     }
 
     /**
@@ -187,7 +187,7 @@ class IncomeController extends Controller
         $income->save();
 
 
-        return redirect('/revenue?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Income has been updated!');
+        return redirect('/revenue?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('success', __('app.income_info') . __('app.label_updated_successfully'));
     }
 
     public function processExcel($datas)
@@ -233,6 +233,6 @@ class IncomeController extends Controller
         $income = Income::find($id);
         $income->delete();
 
-        return redirect('/revenue?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Income has been deleted!');
+        return redirect('/revenue?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('success', __('app.income_info') . __('app.label_deleted_successfully'));
     }
 }

@@ -74,7 +74,7 @@ class ProductCategoryController extends Controller
         $productCategory->updated_by = Auth::user()->id;
         $productCategory->save();
 
-        return redirect('/product-category')->with('status', 'Product Category has been created!');
+        return redirect('/product-category')->with('success', __('app.product_category') . __('app.label_created_successfully'));
     }
 
     /**
@@ -127,7 +127,7 @@ class ProductCategoryController extends Controller
         $productCategory->updated_by = Auth::user()->id;
         $productCategory->save();
 
-        return redirect('/product-category')->with('status', 'Product Category has been updated!');
+        return redirect('/product-category')->with('success', __('app.product_category') . __('app.label_updated_successfully'));
     }
 
     public function importExcelForm()
@@ -201,6 +201,6 @@ class ProductCategoryController extends Controller
         $productCategory = ProductCategory::find($id);
         $productCategory->delete();
 
-        return redirect('/product-category')->with('status', 'Product Category has been deleted!');
+        return redirect('/product-category')->with('success', __('app.product_category') . __('app.label_deleted_successfully'));
     }
 }

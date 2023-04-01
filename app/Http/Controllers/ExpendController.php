@@ -112,7 +112,7 @@ class ExpendController extends Controller
         $expend->updated_by = Auth::user()->id;
         $expend->save();
 
-        return redirect('/expend?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Expends has been created!');
+        return redirect('/expend?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('success', __('app.expend_info') . __('app.label_created_successfully'));
     }
 
     /**
@@ -184,7 +184,7 @@ class ExpendController extends Controller
         $expend->updated_by = Auth::user()->id;
         $expend->save();
 
-        return redirect('/expend?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Expends has been updated!');
+        return redirect('/expend?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('success', __('app.expend_info') . __('app.label_updated_successfully'));
     }
 
     public function processExcel($datas)
@@ -231,6 +231,6 @@ class ExpendController extends Controller
         $expend = Expend::find($id);
         $expend->delete();
 
-        return redirect('/expend?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('status', 'Expend has been deleted!');
+        return redirect('/expend?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())->with('success', __('app.expend_info') . __('app.label_updated_successfully'));
     }
 }

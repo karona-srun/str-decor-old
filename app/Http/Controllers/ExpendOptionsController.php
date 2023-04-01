@@ -68,7 +68,7 @@ class ExpendOptionsController extends Controller
         $expendOptions->updated_by = Auth::user()->id; 
         $expendOptions->save();
 
-        return redirect('/expend-options')->with('status', 'Expend options has been created!');
+        return redirect('/expend-options')->with('success', __('app.expend_options') . __('app.label_created_successfully'));
     }
 
     /**
@@ -128,7 +128,7 @@ class ExpendOptionsController extends Controller
         $expendOptions->updated_by = Auth::user()->id; 
         $expendOptions->save();
 
-        return redirect('/expend-options')->with('status', 'Expend options has been updated!');
+        return redirect('/expend-options')->with('success', __('app.expend_options') . __('app.label_updated_successfully'));
     }
 
     public function exportExcel()
@@ -167,6 +167,6 @@ class ExpendOptionsController extends Controller
         $expendOptions = ExpendOptions::find($id);
         $expendOptions->delete();
 
-        return redirect('/expend-options')->with('status', 'Expend Options has been deleted!');
+        return redirect('/expend-options')->with('success', __('app.expend_options') . __('app.label_deleted_successfully'));
     }
 }

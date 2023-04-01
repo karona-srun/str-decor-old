@@ -56,7 +56,7 @@ class PositionController extends Controller
         $position->updated_by = Auth::user()->id; 
         $position->save();
 
-        return redirect('/positions')->with('status', 'Position has been created!');
+        return redirect('/positions')->with('success', __('app.position') . __('app.label_created_successfully'));
     }
 
     /**
@@ -106,7 +106,7 @@ class PositionController extends Controller
         $position->updated_by = Auth::user()->id; 
         $position->save();
 
-        return redirect('positions')->with('status', 'Position has been updated!');
+        return redirect('positions')->with('success', __('app.position') . __('app.label_updated_successfully'));
     }
 
     public function positionExport() 
@@ -144,6 +144,6 @@ class PositionController extends Controller
         $position = Position::find($id);
         $position->delete();
 
-        return redirect('/positions')->with('status', 'Position has been deleted!');
+        return redirect('/positions')->with('success', __('app.position') . __('app.label_deleted_successfully'));
     }
 }

@@ -68,7 +68,7 @@ class IncomeOptionsController extends Controller
         $incomeOptions->updated_by = Auth::user()->id; 
         $incomeOptions->save();
 
-        return redirect('/income-options')->with('status', 'Work place has been created!');
+        return redirect('/income-options')->with('success', __('app.income_options') . __('app.label_created_successfully'));
     }
 
     /**
@@ -128,7 +128,7 @@ class IncomeOptionsController extends Controller
         $incomeOptions->updated_by = Auth::user()->id; 
         $incomeOptions->save();
 
-        return redirect('/income-options')->with('status', 'Work place has been updated!');
+        return redirect('/income-options')->with('success', __('app.income_options') . __('app.label_updated_successfully'));
     }
 
     public function exportExcel()
@@ -167,6 +167,6 @@ class IncomeOptionsController extends Controller
         $incomeOptions = IncomeOptions::find($id);
         $incomeOptions->delete();
 
-        return redirect('/income-options')->with('status', 'Income Options has been deleted!');
+        return redirect('/income-options')->with('success', __('app.income_options') . __('app.label_updated_successfully'));
     }
 }

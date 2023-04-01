@@ -75,7 +75,7 @@ class TimeController extends Controller
         $time->updated_by = Auth::user()->id; 
         $time->save();
 
-        return redirect('/times')->with('status', 'Time has been updated!');
+        return redirect('/times')->with('success', __('app.time') . __('app.label_created_successfully'));
     }
 
     /**
@@ -127,7 +127,7 @@ class TimeController extends Controller
         $time->updated_by = Auth::user()->id; 
         $time->save();
 
-        return redirect('/times')->with('status', 'Time has been updated!');
+        return redirect('/times')->with('success', __('app.time') . __('app.label_updated_successfully'));
     }
 
 
@@ -167,6 +167,6 @@ class TimeController extends Controller
         $time = Time::find($id);
         $time->delete();
 
-        return redirect('/times')->with('status', 'Time has been deleted!');
+        return redirect('/times')->with('success', __('app.time') . __('app.label_deleted_successfully'));
     }
 }

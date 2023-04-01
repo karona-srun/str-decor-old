@@ -6,6 +6,7 @@ use App\Http\Resources\PayrollResource;
 use App\Models\Attendance;
 use App\Models\Payroll;
 use App\Models\StaffInfo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -28,11 +29,7 @@ class PayrollController extends Controller
      */
     public function index()
     {
-        // $staffs = StaffInfo::with('attendances')->get();
-
-        // dd($staffs);
-
-        $payroll = Payroll::orderBy('id','desc')->with('staff')->get();
+        $payroll = Payroll::orderBy('id','desc')->with('staff')->whereBetween('date', array(Carbon::now()->firstOfMonth()->toDateString(),Carbon::now()->lastOfMonth()->toDateString()))->get();
 
         return view('backend.payroll.index', compact('payroll'));
     }

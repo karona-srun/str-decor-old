@@ -156,7 +156,7 @@ class AttendanceController extends Controller
         $attendance->updated_by = Auth::user()->id;
         $attendance->save();
 
-        return redirect('/attendances')->with('status', 'Attendance has been created!');
+        return redirect('/attendances')->with('success', __('app.attendance') . __('app.label_created_successfully'));
     }
 
     /**
@@ -202,7 +202,7 @@ class AttendanceController extends Controller
         $attendance->updated_by = Auth::user()->id;
         $attendance->save();
 
-        return redirect('/attendances')->with('status', 'Attendance has been updated!');
+        return redirect('/attendances')->with('success', __('app.attendance') . __('app.label_updated_successfully'));
     }
 
     /**
@@ -216,6 +216,6 @@ class AttendanceController extends Controller
         $attendance = Attendance::find($id);
         $attendance->delete();
 
-        return redirect('/attendances')->with('status', 'Attendance has been deleted!');
+        return redirect('/attendances')->with('success', __('app.attendance') . __('app.label_deleted_successfully'));
     }
 }

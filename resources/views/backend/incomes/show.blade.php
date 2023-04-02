@@ -46,6 +46,17 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-sm-6">
+                            <blockquote>
+                            <p class="text-sm">{{ __('app.attachments') }} <small class="text-red">*</small></p>
+                            <button type="button" class="btn btn-link btn-preview">{{$income->photo}} <i class="fas fa-expand ml-2"></i></button>
+                            <div class="form-group div-preview">
+                                <iframe src="{{asset('incomes/'.$income->photo )}}" frameborder="1" style="width:100vh; min-height:440px;"></iframe>
+                            </div>   
+                            </blockquote>     
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-12">
                             <blockquote class="card-footer">
                                 <div class="row">
@@ -72,11 +83,13 @@
         </div>
     </div>
 @endsection
-
 @section('js')
     <script type="text/javascript">
         $(function() {
-
+            $('.div-preview').hide();
+            $('.btn-preview').click(function() {
+                $(".div-preview").toggle();
+            });
         });
     </script>
 @endsection

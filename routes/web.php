@@ -43,8 +43,9 @@ Route::get('/product-details/{id}', [App\Http\Controllers\WelcomeController::cla
 Route::get('/product-categories/{id}', [App\Http\Controllers\WelcomeController::class, 'getProductByCategory']);
 Route::get('/products-list', [App\Http\Controllers\WelcomeController::class, 'productList']);
 
-Auth::routes(['register' => false]);
-
+Route::group(['prefix' => 'admin'], function () {
+    Auth::routes(['register' => false]);
+});
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

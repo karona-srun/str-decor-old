@@ -10,14 +10,16 @@
                     <h3 class="card-title">{{ __('app.income_info') }}</h3>
                     <div class="card-tools">
                         @can('Revenue List')
-                        <a href="{{ url('/revenue?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString()) }}" class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i>
-                            {{ __('app.label_list') }} </a>
+                            <a href="{{ url('/revenue?start_date=' .Carbon::now()->firstOfMonth()->toDateString() .'&end_date=' .Carbon::now()->lastOfMonth()->toDateString()) }}"
+                                class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i>
+                                {{ __('app.label_list') }} </a>
                         @endcan
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <form id="quickForm" action="{{ url('revenue', $income->id) }}" method="post" enctype="multipart/form-data">
+                    <form id="quickForm" action="{{ url('revenue', $income->id) }}" method="post"
+                        enctype="multipart/form-data">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
                         <div class="card-body">
@@ -92,6 +94,11 @@
                                                 {{ $errors->first('photo') }}</div>
                                         @endif
                                     </div>
+                                    <p class="text-sm">{{ __('app.attachments') }} <small class="text-red">*</small></p>
+                                    <button type="button" class="btn btn-link btn-preview">{{$income->photo}} <i class="fas fa-expand ml-2"></i></button>
+                                    <div class="form-group div-preview">
+                                        <iframe src="{{asset('incomes/'.$income->photo )}}" frameborder="1" style="width:100vh; min-height:440px;"></iframe>
+                                    </div>        
                                 </div>
                             </div>
                             <div class="form-group">
@@ -113,7 +120,10 @@
 @section('js')
     <script type="text/javascript">
         $(function() {
-
+            $('.div-preview').hide();
+            $('.btn-preview').click(function() {
+                $(".div-preview").toggle();
+            });
         });
     </script>
 @endsection

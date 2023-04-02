@@ -83,6 +83,18 @@
                                     </div>
                                 </div>
                             </div>
+                            {{-- <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>{{ __('app.table_photo') }} <small class="text-red">*</small></label>
+                                        <input type="file" name="photo" class="form-control">
+                                        @if ($errors->has('photo'))
+                                            <div class="error text-danger text-sm mt-1">
+                                                {{ $errors->first('photo') }}</div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div> --}}
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -93,6 +105,11 @@
                                                 {{ $errors->first('photo') }}</div>
                                         @endif
                                     </div>
+                                    <p class="text-sm">{{ __('app.attachments') }} <small class="text-red">*</small></p>
+                                    <button type="button" class="btn btn-link btn-preview">{{$expend->photo}} <i class="fas fa-expand ml-2"></i></button>
+                                    <div class="form-group div-preview">
+                                        <iframe src="{{asset('expends/'.$expend->photo )}}" frameborder="1" style="width:100vh; min-height:440px;"></iframe>
+                                    </div>        
                                 </div>
                             </div>
                             <div class="form-group">
@@ -114,7 +131,10 @@
 @section('js')
     <script type="text/javascript">
         $(function() {
-
+            $('.div-preview').hide();
+            $('.btn-preview').click(function() {
+                $(".div-preview").toggle();
+            });
         });
     </script>
 @endsection

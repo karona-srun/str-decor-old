@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{$profile->name}} | @yield('title-page')</title>
+    <title>{{ $profile->name }} | @yield('title-page')</title>
     <meta name="csrf-token" id="csrf" content="{{ csrf_token() }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -28,7 +28,8 @@
         html body {
             font-family: "Hanuman";
         }
-        .pre-wrap{
+
+        .pre-wrap {
             white-space: pre-wrap;
         }
 
@@ -68,6 +69,16 @@
                         <i class="far fa-calendar-alt"></i><small id="date"></small>
                         <i class="far fa-clock"></i><small id="time"></small>
                     </a>
+                </li>
+                <li class="nav-item dropdown">
+                    @foreach (Config::get('languages') as $lang => $language)
+                        @if ($lang != App::getLocale())
+                            <a href="{{ route('lang.switch', $lang) }}" class="text-white nav-link">
+                                <img src="{{ asset(app()->getLocale() == 'en' ? '/images/en_flag.png' : '/images/km_flag.png') }}"
+                                    class="img-size-32 mr-3" alt="language">
+                            </a>
+                        @endif
+                    @endforeach
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -117,9 +128,9 @@
         </nav>
         <aside class="main-sidebar sidebar-dark-primary elevation-2">
             <a href="{{ url('/home') }}" class="brand-link">
-                <img src="{{ url($profile->photo) }}" alt="STR Furniture"
-                    class="brand-image img-circle" style="opacity: .7">
-                <span class="brand-text font-weight-light pre-wrap">{{$profile->name}}</span>
+                <img src="{{ url($profile->photo) }}" alt="STR Furniture" class="brand-image img-circle"
+                    style="opacity: .7">
+                <span class="brand-text font-weight-light pre-wrap">{{ $profile->name }}</span>
             </a>
 
             <div class="sidebar">
@@ -142,7 +153,8 @@
                         @endcan
                         @can('Dashboard Sale')
                             <li class="nav-item">
-                                <a href="{{ url('dashboard-sale') }}" class="nav-link {{ Request::is('dashboard-sale') ? 'active' : null }}">
+                                <a href="{{ url('dashboard-sale') }}"
+                                    class="nav-link {{ Request::is('dashboard-sale') ? 'active' : null }}">
                                     <i class="nav-icon fas fa-solar-panel"></i>
                                     <p>
                                         {{ __('app.sale_dashboard') }}
@@ -162,9 +174,9 @@
                             </li>
                         @endcan
                         @if (Auth::user()->can('Staff List') ||
-                            Auth::user()->can('Position List') ||
-                            Auth::user()->can('WorkPlace List') ||
-                            Auth::user()->can('Payroll List'))
+                                Auth::user()->can('Position List') ||
+                                Auth::user()->can('WorkPlace List') ||
+                                Auth::user()->can('Payroll List'))
                             <li
                                 class="nav-item {{ Request::is('staff-info*') || Request::is('positions*') || Request::is('workplace*') || Request::is('base-salary*') || Request::is('payroll*') ? 'menu-is-opening menu-open' : null }} ">
                                 <a href="#"
@@ -228,7 +240,7 @@
                             <li class="nav-item">
                                 <a href="{{ url('quotes') }}"
                                     class="nav-link {{ Request::is('quotes*') ? 'active' : null }} ">
-                                        <i class="nav-icon fas fa-hand-holding-usd"></i>
+                                    <i class="nav-icon fas fa-hand-holding-usd"></i>
                                     <p>
                                         {{ __('app.quote') }}
                                     </p>
@@ -257,7 +269,7 @@
                             <li
                                 class="nav-item {{ Request::is('product-category*') || Request::is('productes*') || Request::is('import-product*') ? 'menu-is-opening menu-open' : null }} ">
                                 <a href="#"
-                                    class="nav-link {{ Request::is('product-category*') || Request::is('productes*') ||Request::is('import-product*') ? 'active' : null }} ">
+                                    class="nav-link {{ Request::is('product-category*') || Request::is('productes*') || Request::is('import-product*') ? 'active' : null }} ">
                                     <i class="nav-icon fas fa-cube"></i>
                                     <p>
                                         {{ __('app.stock') }}
@@ -300,7 +312,7 @@
                                 <ul class="nav nav-treeview">
                                     @can('Revenue List')
                                         <li class="nav-item">
-                                            <a href="{{ URL('/revenue?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString())}}"
+                                            <a href="{{ URL('/revenue?start_date=' .Carbon::now()->firstOfMonth()->toDateString() .'&end_date=' .Carbon::now()->lastOfMonth()->toDateString()) }}"
                                                 class="nav-link {{ Request::is('revenue*') ? 'active' : null }} ">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>{{ __('app.income_info') }}</p>
@@ -309,7 +321,7 @@
                                     @endcan
                                     @can('Expend List')
                                         <li class="nav-item">
-                                            <a href="{{ url('expend?start_date='.Carbon::now()->firstOfMonth()->toDateString().'&end_date='.Carbon::now()->lastOfMonth()->toDateString()) }}"
+                                            <a href="{{ url('expend?start_date=' .Carbon::now()->firstOfMonth()->toDateString() .'&end_date=' .Carbon::now()->lastOfMonth()->toDateString()) }}"
                                                 class="nav-link {{ Request::is('expends*') ? 'active' : null }} ">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>{{ __('app.expend_info') }}</p>
@@ -353,12 +365,12 @@
                             </li>
                         @endif
                         @if (Auth::user()->can('Option Income List') ||
-                            Auth::user()->can('Option Expend List') ||
-                            Auth::user()->can('Time List') ||
-                            Auth::user()->can('About List') ||
-                            Auth::user()->can('System Profile List'))
+                                Auth::user()->can('Option Expend List') ||
+                                Auth::user()->can('Time List') ||
+                                Auth::user()->can('About List') ||
+                                Auth::user()->can('System Profile List'))
                             <li
-                                class="nav-item {{ Request::is('income-options*') || Request::is('expend-options*') || Request::is('times*') || Request::is('system-profile*') || Request::is('abouts*')? 'menu-is-opening menu-open' : null }} ">
+                                class="nav-item {{ Request::is('income-options*') || Request::is('expend-options*') || Request::is('times*') || Request::is('system-profile*') || Request::is('abouts*') ? 'menu-is-opening menu-open' : null }} ">
                                 <a href="#"
                                     class="nav-link {{ Request::is('income-options*') || Request::is('expend-options*') || Request::is('times*') || Request::is('system-profile*') ? 'active' : null }} ">
                                     <i class="nav-icon fas fa-cogs"></i>
@@ -405,13 +417,13 @@
                                         </li>
                                     @endcan
                                     @can('About List')
-                                    <li class="nav-item">
-                                        <a href="{{ url('abouts') }}"
-                                            class="nav-link {{ Request::is('abouts*') ? 'active' : null }} ">
-                                            <i class="fas fa-newspaper nav-icon"></i>
-                                            <p>{{ __('app.label_content') }}</p>
-                                        </a>
-                                    </li>
+                                        <li class="nav-item">
+                                            <a href="{{ url('abouts') }}"
+                                                class="nav-link {{ Request::is('abouts*') ? 'active' : null }} ">
+                                                <i class="fas fa-newspaper nav-icon"></i>
+                                                <p>{{ __('app.label_content') }}</p>
+                                            </a>
+                                        </li>
                                     @endcan
                                 </ul>
                             </li>
@@ -480,48 +492,87 @@
             $('.select2').select2({
                 theme: 'bootstrap4',
             })
-
-            $('#datatable').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": true,
-                "responsive": true,
-                "language": {
-                    "sProcessing": "ដំណើរការ...",
-                    "sLengthMenu": "បង្ហាញ _MENU_ ទិន្នន័យ",
-                    "sZeroRecords": "មិនមានទិន្នន័យនៅក្នុងតារាងនេះទេ។",
-                    "sEmptyTable": "មិនមានទិន្នន័យនៅក្នុងតារាងនេះទេ។",
-                    "sInfo": "បង្ហាញ _START_ ទៅ _END_ នៃ _TOTAL_ ទិន្នន័យ",
-                    "sInfoEmpty": "បង្ហាញកំណត់ត្រាពី 0 ដល់ 0 ក្នុងចំណោមកំណត់ត្រាសរុប 0",
-                    "sInfoFiltered": "(ការត្រងចេញពីកំណត់ត្រាសរុប _MAX_)",
-                    "sInfoPostFix": "",
-                    "sSearch": "ស្វែងរកទិន្នន័យ:",
-                    "sUrl": "",
-                    "sInfoThousands": ",",
-                    "sLoadingRecords": "ដំណើរការ...",
-                    "oPaginate": {
-                        "sFirst": "ដំបូង",
-                        "sLast": "ចុងក្រោយ",
-                        "sNext": "បន្ត",
-                        "sPrevious": "ថយក្រោយ"
+            if (document.documentElement.lang.toLowerCase() === "km") {
+                $('#datatable').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": true,
+                    "responsive": true,
+                    "language": {
+                        "sProcessing": "ដំណើរការ...",
+                        "sLengthMenu": "បង្ហាញ _MENU_ ទិន្នន័យ",
+                        "sZeroRecords": "មិនមានទិន្នន័យនៅក្នុងតារាងនេះទេ។",
+                        "sEmptyTable": "មិនមានទិន្នន័យនៅក្នុងតារាងនេះទេ។",
+                        "sInfo": "បង្ហាញ _START_ ទៅ _END_ នៃ _TOTAL_ ទិន្នន័យ",
+                        "sInfoEmpty": "បង្ហាញកំណត់ត្រាពី 0 ដល់ 0 ក្នុងចំណោមកំណត់ត្រាសរុប 0",
+                        "sInfoFiltered": "(ការត្រងចេញពីកំណត់ត្រាសរុប _MAX_)",
+                        "sInfoPostFix": "",
+                        "sSearch": "ស្វែងរកទិន្នន័យ:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "ដំណើរការ...",
+                        "oPaginate": {
+                            "sFirst": "ដំបូង",
+                            "sLast": "ចុងក្រោយ",
+                            "sNext": "បន្ត",
+                            "sPrevious": "ថយក្រោយ"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": ធ្វើឱ្យសកម្មដើម្បីតម្រៀបជួរឈរតាមលំដាប់ឡើង",
+                            "sSortDescending": ": ធ្វើឱ្យសកម្មដើម្បីតម្រៀបជួរឈរតាមលំដាប់ចុះ"
+                        }
                     },
-                    "oAria": {
-                        "sSortAscending": ": ធ្វើឱ្យសកម្មដើម្បីតម្រៀបជួរឈរតាមលំដាប់ឡើង",
-                        "sSortDescending": ": ធ្វើឱ្យសកម្មដើម្បីតម្រៀបជួរឈរតាមលំដាប់ចុះ"
-                    }
-                },
-            });
+                });
+            } else {
+                $('#datatable').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": true,
+                    "responsive": true,
+                    "language": {
+                        "sProcessing": "Progress...",
+                        "sLengthMenu": "Show _MENU_ Records",
+                        "sZeroRecords": "There is no data in this table.",
+                        "sEmptyTable": "There is no data in this table.",
+                        "sInfo": "Show _START_ to _END_ of _TOTAL_ Records",
+                        "sInfoEmpty": "Show records from _START_ to _END_ out of _TOTAL_ Records",
+                        "sInfoFiltered": "(Filtering out total records _MAX_)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Search Records:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Progress...",
+                        "oPaginate": {
+                            "sFirst": "First",
+                            "sLast": "Last",
+                            "sNext": "Next",
+                            "sPrevious": "Previous"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activate to sort rows in ascending order",
+                            "sSortDescending": ": Activate to sort standing rows in descending order"
+                        }
+                    },
+                });
+            }
         });
 
         function showTime() {
 
             var myDate = new Date();
 
-            let daysList = ['ថ្ងៃអាទិត្យ', 'ថ្ងៃច័ន្ទ', 'ថ្ងៃអង្គារ៍', 'ថ្ងៃពុធ', 'ថ្ងៃព្រហស្បត្តិ៍', 'ថ្ងៃសុក្រ', 'ថ្ងៃសៅរ៍'];
-            let monthsList = ['មករា', 'កុម្ភៈ', 'មីនា', 'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា', 'សីហា', 'កញ្ញា', 'តុលា', 'វិច្ឆិកា', 'ធ្នូ'];
+            let daysList = ['ថ្ងៃអាទិត្យ', 'ថ្ងៃច័ន្ទ', 'ថ្ងៃអង្គារ៍', 'ថ្ងៃពុធ', 'ថ្ងៃព្រហស្បត្តិ៍', 'ថ្ងៃសុក្រ',
+                'ថ្ងៃសៅរ៍'
+            ];
+            let monthsList = ['មករា', 'កុម្ភៈ', 'មីនា', 'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា', 'សីហា', 'កញ្ញា', 'តុលា',
+                'វិច្ឆិកា', 'ធ្នូ'
+            ];
 
             let date = myDate.getDate();
             let month = monthsList[myDate.getMonth()];

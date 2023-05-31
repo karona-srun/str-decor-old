@@ -39,6 +39,14 @@
                         </a>
                     </li> --}}
                     <li class="nav-item">
+                        @foreach (Config::get('languages') as $lang => $language) @if ($lang != App::getLocale())
+                        <a href="{{ route('lang.switch', $lang) }}" class="text-white">
+                        <img src="{{ asset(app()->getLocale() == "en" ? '/images/en_flag.png' : '/images/km_flag.png') }}" class="img-size-32 mr-3" alt="language">
+                        </a>
+                        @endif
+                        @endforeach
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ url('/about-us') }}" class="text-white">{{ __('app.label_about') }}</a>
                     </li>
                     <li class="nav-item">
@@ -60,7 +68,7 @@
                 <div class="container">
                     <div class="row mb-4">
                         <div class="col-lg-8 col-sm-10 offset-sm-1 offset-lg-2">
-                            <h1 class="m-0 mb-4 text-center"> ស្វាគមន៍ចូលមកកាន់ {{ config('app.name', 'STR Funiture') }}</h1>
+                            <h1 class="m-0 mb-4 text-center"> {{ __('app.label_welcome_to')}} {{ config('app.name', 'STR Funiture') }}</h1>
                             <form action="{{ url('search') }}" method="GET">
                                 <div class="input-group">
                                     <input type="search" name="q" value="{{ request()->get('q') }}" class="form-control" placeholder="{{__('app.label_type_your_keyword_here')}}">

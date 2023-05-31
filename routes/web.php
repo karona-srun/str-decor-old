@@ -42,6 +42,7 @@ Route::get('/search', [App\Http\Controllers\WelcomeController::class, 'search'])
 Route::get('/product-details/{id}', [App\Http\Controllers\WelcomeController::class, 'getProduct']);
 Route::get('/product-categories/{id}', [App\Http\Controllers\WelcomeController::class, 'getProductByCategory']);
 Route::get('/products-list', [App\Http\Controllers\WelcomeController::class, 'productList']);
+Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
 
 Route::group(['prefix' => 'admin'], function () {
     Auth::routes(['register' => false]);

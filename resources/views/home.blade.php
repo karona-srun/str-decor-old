@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title-page','ទំព័រដើម')
+@section('title-page',__('app.dashboard'))
 
 @section('content')
 <div class="row">

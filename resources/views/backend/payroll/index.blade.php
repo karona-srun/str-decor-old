@@ -25,6 +25,7 @@
                                 <th>{{ __('app.rate_per_hour') }}</th>
                                 <th>{{ __('app.num_hour') }}</th>
                                 <th>{{ __('app.label_amount') }}</th>
+                                <th>{{ __('app.label_duration') }}</th>
                                 <th>{{ __('app.table_date') }}</th>
                                 <th>{{ __('app.table_status') }}</th>
                                 <th>{{ __('app.table_action') }}</th>
@@ -39,8 +40,9 @@
                                     <td>${{ $item->staff->rate_per_hour }}</td>
                                     <td>{{ $item->total_hour }}</td>
                                     <td>${{ $item->total_salary }}</td>
+                                    <td>{{ $item->start_date }} - {{ $item->end_date }}</td>
                                     <td>{{ $item->date }}</td>
-                                    <td>{{ $item->payroll_status == 'paid' ? 'បានបើក':'មិនទាន់' }}</td>
+                                    <td>{{ $item->payroll_status == 'paid' ? __('app.label_paid') : __('app.label_not_yet') }}</td>
                                     <td>
                                         <a href="{{ url('payroll', $item->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-file-invoice text-white"></i></a>
                                         @can('Payroll Delete')

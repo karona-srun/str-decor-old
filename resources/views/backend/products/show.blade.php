@@ -54,11 +54,15 @@
                                     <td class=" text-break">: {{ $product->product_code }}</td>
                                 </tr>
                                 <tr>
-                                    <th>{{ __('app.label_name') }}{{ __('app.product_category') }}</th>
+                                    <th style="width: 200px">{{ __('app.label_color_code') }}</th>
+                                    <td class=" text-break">: {{ $product->color_code }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ __('app.product_category') }}</th>
                                     <td class=" text-break">: {{ $product->productCategory->name ?? 'N/A'}}</td>
                                 </tr>
                                 <tr>
-                                    <th>{{ __('app.label_name') }}{{ __('app.product') }}</th>
+                                    <th>{{ __('app.label_name') }}</th>
                                     <td class=" text-break">: {{ $product->product_name }}</td>
                                 </tr>
                                 <tr>

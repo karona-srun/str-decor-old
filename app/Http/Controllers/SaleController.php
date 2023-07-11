@@ -9,6 +9,8 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Sale;
 use App\Models\SaleDetail;
+use App\Models\User;
+use App\Notifications\UserNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
@@ -60,6 +62,11 @@ class SaleController extends Controller
     {
         $sales = Sale::where('created_by',Auth::user()->id)->whereDate('created_at', Carbon::today())->get();
         return view('backend.sales.cart_list', compact('sales'));
+    }
+
+    public function cartListDetail($id) {
+        $sale = Sale::where('created_by',Auth::user()->id)->find($id);
+        return view('backend.sales.print_detail', compact('sale'));
     }
 
     public function Report(Request $request)
@@ -143,42 +150,53 @@ class SaleController extends Controller
         $total_qty = 0;
         $total_price = 0;
         foreach($request->product_id as $index => $add) {
-            $total_qty += $request->qty[$index];
-            $total_price += $request->price[$index];
+            $total_qty += $request->product_qty[$index];
+            $total_price += $request->product_amount[$index];
         }
 
-        $countDaily = Sale::whereDate('created_at','=', Carbon::today()->toDateString())->count();
-        $sale_no = '#'.$countDaily + 1;
+        // $countDaily = Sale::whereDate('created_at','=', Carbon::today()->toDateString())->count();
+        // $sale_no = '#'.$countDaily + 1;
 
         $sale = new Sale();
         $sale->sale_no = $this->getNextSaleNo();
         $sale->customer_id = $request->customer;
         $sale->total_qty = $total_qty;
         $sale->total_price = $total_price;
+        $sale->request_status = 0;
+        $sale->submit_by = Auth::user()->id;
+        $sale->approve_status = 1;
+        $sale->balance = $request->balance;
+        $sale->deposit = $request->deposit;
+        $sale->approve_by = Auth::user()->id;
         $sale->created_by = Auth::user()->id;
         $sale->updated_by = Auth::user()->id;
         $sale->save(); 
 
         foreach($request->product_id as $index => $add) {
-            // $product = Product::find($request->product_id[$index]);
-            // $update_qty = (int)$product->store_stock - (int)$request->qty[$index];
-            // $product->store_stock = $update_qty;
-            // $product->save();
+            $product = Product::find($request->product_id[$index]);
+            $update_qty = (int)$product->store_stock - (int)$request->product_qty[$index];
+            $product->store_stock = $update_qty;
+            $product->save();
 
             $saleDetail = new SaleDetail();
             $saleDetail->sales_id = $sale->id;
             $saleDetail->product_id = $request->product_id[$index];
             $saleDetail->product_code = $request->product_code[$index];
             $saleDetail->product_name = $request->product_name[$index];
-            $saleDetail->scale = $request->scale[$index];
-            $saleDetail->qty = $request->qty[$index];
-            $saleDetail->price = $request->price[$index];
-            $saleDetail->note = $request->note[$index];
+            $saleDetail->photo = $request->product_photo[$index];
+            $saleDetail->scale = $request->product_amount[$index];
+            $saleDetail->qty = $request->product_qty[$index];
+            $saleDetail->unit = $request->product_unit[$index];
+            $saleDetail->discount = $request->product_discount[$index];
+            $saleDetail->price = $request->product_price[$index];
+            $saleDetail->amount = $request->product_amount[$index];
+            $saleDetail->note = $request->product_note[$index];
             $saleDetail->save();
 
             $addCart = AddCart::find($request->add_cart_id[$index]);
             $addCart->delete();
         }
+        $this->sendNotification($sale->id);
         return Redirect()->back();
     }
 
@@ -222,6 +240,43 @@ class SaleController extends Controller
     public function edit(Sale $sale)
     {
         //
+    }
+
+    public function sendNotification($id)
+    {
+        $users = User::whereHas('roles', function($q){
+            $q->where('id', 1);
+        })->get();
+  
+        $details = [
+            'greeting' => 'Hi Administrator',
+            'body' => 'This is my first notification from Nicesnippests.com',
+            'thanks' => 'Thank you for using Nicesnippests.com tuto!',
+            'offerText' => 'View sales',
+            'offerUrl' => url('sales-cart-list/detail/'.$id),
+            'quote_id' => $id,
+        ];
+  
+        foreach ($users as $user) {
+            $details['name'] = $user->name;
+            $details['email'] = $user->email;
+
+            $user->notify(new UserNotification($details));
+        }
+
+        return true;
+    }
+
+    public function saleStatus(Request $request)
+    {
+        $sale = Sale::find($request->sale_id);
+        $sale->approve_status = $request->status;
+        $sale->approve_by = Auth::user()->id;
+        $sale->updated_by = Auth::user()->id;
+        $sale->save();
+        
+        $this->sendNotification($sale->id);
+        return redirect('/sale-report')->with('success', __('app.sales').__('app.label_updated_successfully'));
     }
 
     /**

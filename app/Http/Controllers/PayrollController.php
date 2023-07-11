@@ -62,6 +62,8 @@ class PayrollController extends Controller
         $payroll->rate_salary = $request->rate_per_hour;
         $payroll->total_hour = $request->total_hour;
         $payroll->total_salary = $request->total_salary;
+        $payroll->start_date = $request->start_date;
+        $payroll->end_date = $request->end_date;
         $payroll->date = $request->date;
         $payroll->note = $request->note;
         $payroll->created_by = Auth::user()->id;
@@ -82,8 +84,14 @@ class PayrollController extends Controller
         $payroll = Payroll::find($id);
         $staff = StaffInfo::find($payroll->staff_id);
 
-        $data = Attendance::orderBy('date', 'desc')->where('staff_id',$payroll->staff_id)->get();
-       
+        $startDate = $payroll->start_date;
+        $endDate = $payroll->end_date;
+
+        $data = Attendance::orderBy('date', 'desc')
+            ->where('staff_id', $payroll->staff_id)
+            ->whereBetween('date', [$startDate, $endDate])
+            ->get();
+
         foreach ($data as $i => $value) {
             $data[$i]['staff_id'] = $value->staff->full_name_kh;
             $data[$i]['check_in'] = $value->check_in ?? '';
@@ -95,6 +103,29 @@ class PayrollController extends Controller
         }
 
         return view('backend.payroll.show', compact('data','staff','payroll'));
+    }
+
+    public function summary($id)
+    {
+        $payroll = Payroll::find($id);
+        $staff = StaffInfo::find($payroll->staff_id);
+
+        $startDate = $payroll->start_date;
+        $endDate = $payroll->end_date;
+
+        $data = Attendance::orderBy('date', 'desc')
+            ->where('staff_id', $payroll->staff_id)
+            ->whereBetween('date', [$startDate, $endDate])
+            ->get()
+            ->groupBy('status');
+
+        $datas = [
+            'presence' => $data['presence']->count().' '. __('app.label_day'),
+            'permission' => $data['permission']->count().' '. __('app.label_day'),
+            'adsent' => $data['adsent']->count().' '. __('app.label_day'),
+        ];
+
+        return view('backend.payroll.summary', compact('data','datas','staff','payroll'));
     }
 
     /**

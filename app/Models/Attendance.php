@@ -14,6 +14,11 @@ class Attendance extends Model
         return $this->belongsTo(StaffInfo::class,'staff_id');
     }
 
+    public function sumAttendanceFilter($id, $startDate, $endDate)
+    {
+        return Attendance::where('staff_id',$id)->whereBetween('date', [$startDate, $endDate])->sum('num_hour');
+    }
+
     public function sumAttendance($id)
     {
         return Attendance::where('staff_id',$id)->sum('num_hour');

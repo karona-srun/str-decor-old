@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('tel');
             $table->string('email');
             $table->longText('address');
-            $table->longText('descrip_contract');
+            $table->longText('descrip_contract_invoice');
+            $table->longText('descrip_contract_quote');
             $table->timestamps();
         });
     }

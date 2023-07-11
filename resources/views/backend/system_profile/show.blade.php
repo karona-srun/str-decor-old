@@ -76,9 +76,19 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label>{{ __('app.label_descrip_contract') }}</label>
-                                            <textarea id="summernote" name="descrip_contract">
-                                                {{ $profile->descrip_contract }}
+                                            <label>{{ __('app.label_term_and_conditions_invoice') }} {{__('app.label_invoice')}}</label>
+                                            <textarea id="summernote" name="descrip_contract_invoice">
+                                                {{ $profile->descrip_contract_invoice }}
+                                            </textarea>                                
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>{{ __('app.label_term_and_conditions_quote') }} {{__('app.label_quote')}}</label>
+                                            <textarea id="summernote_quote" name="descrip_contract_quote">
+                                                {{ $profile->descrip_contract_quote }}
                                             </textarea>                                
                                         </div>
                                     </div>
@@ -98,12 +108,16 @@
             $('.btn-save').toggle();
             $('.btn-cancel').toggle();
             $('.system-profile *').prop('disabled', true);
-            
+            $('#summernote').summernote('disable');
+            $('#summernote_quote').summernote('disable');
+
             $('.btn-edit').click( function() {
                 $('.btn-save').toggle();
                 $('.btn-edit').toggle(); 
                 $('.btn-cancel').toggle(); 
                 $('.system-profile *').prop('disabled', false);
+                $('#summernote').summernote('enable');
+                $('#summernote_quote').summernote('enable');
             });
 
             $('.btn-cancel').click( function() {
@@ -111,6 +125,8 @@
                 $('.btn-edit').toggle(); 
                 $('.btn-cancel').toggle(); 
                 $('.system-profile *').prop('disabled', true);
+                $('#summernote').summernote('disable');
+                $('#summernote_quote').summernote('disable');
             });
 
             $('#summernote').summernote({
@@ -121,12 +137,29 @@
                     ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],
                     ['fontname', ['fontname']],
+                    ['insert', ['link', 'picture']],
                     ['height', ['height']],
                     ['table', ['table']],
                     ['view', ['fullscreen']],
                 ]
             })
 
+            
+            $('#summernote_quote').summernote({
+                height: 200,
+                placeholder: 'សរសេរពិពណ៌នាកិច្ចសន្យា',
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']], //Specific toolbar display
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['fontname', ['fontname']],
+                    ['height', ['height']],
+                    ['insert', ['link', 'picture']],
+                    ['table', ['table']],
+                    []
+                    ['view', ['fullscreen']],
+                ]
+            })
 
 
             $(".btn-add-file").click(function() {

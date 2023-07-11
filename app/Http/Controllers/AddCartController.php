@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Sale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
@@ -62,12 +63,16 @@ class AddCartController extends Controller
 
         $addCart = new AddCart();
         $addCart->product_id = $product->id;
+        $addCart->photo = $product->photo;
         $addCart->product_code = $product->product_code;
         $addCart->product_name = $product->product_name;
         $addCart->scale = $product->scale;
         $addCart->qty = $request->product_qty;
         $addCart->price = $request->product_price;
+        $addCart->unit = $request->unit;
+        $addCart->discount = $request->discount;
         $addCart->note = $request->note;
+        $addCart->amount = $request->product_price - $request->discount;
         $addCart->created_by = Auth::user()->id;
         $addCart->updated_by = Auth::user()->id;
         $addCart->save();

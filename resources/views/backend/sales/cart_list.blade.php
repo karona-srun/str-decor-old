@@ -4,67 +4,57 @@
 
 @section('content')
     <div class="row">
-        @foreach ($sales as $item)
-            <div class="col-sm-3">
-                <div class="card card-outline card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">{{ __('app.label_list') }}</h3>
-                    </div>
-                    <div class="card-body">
-                        <div id="accordion">
-                            <div class="card card-primary card-outline">
-                                <div class="card-header">
-                                    <h4 class="card-title w-100">
-                                        <a class="d-block w-100 collapsed mb-2 mt-2" data-toggle="collapse"
-                                            href="#collapseOne{{ $item->id }}" aria-expanded="false">
-                                            {{ $item->customer == '' ? '' : __('app.customer').': '.$item->customer->customer_name  }}
-                                            {{ __('app.table_date') }}: {{ $item->created_at->format('d.m.Y h:i:s A') }}
-                                        </a>
-                                        <a href="{{ url('/print-add-cart', $item->id) }}" target="_blink"
-                                            class="btn btn-sm btn-outline-primary"><i class="fas fa-print"></i>
-                                            {{ __('app.btn_print') }}</a>
-                                    </h4>
-                                </div>
-                                <div id="collapseOne{{ $item->id }}" class="collapse" data-parent="#accordion"
-                                    style="">
-                                    <div class="card-body">
-                                        <p>{{ __('app.customer') }}: {{ $item->customer->customer_name ?? '' }} <br>
-                                        {{ __('app.phone') }}: {{ $item->customer->customer_phone ?? '' }} <br>
-                                        {{ __('app.current_place') }}: {{ $item->customer->customer_address ?? '' }}</p>
-                                        </p>
-                                        <table class="table table-bordered table-responsive">
-                                            <thead>
-                                                <tr>
-                                                    <th>{{ __('app.table_no') }}</th>
-                                                    <th>{{ __('app.code') }}</th>
-                                                    <th>{{ __('app.product') }}</th>
-                                                    <th>{{ __('app.label_scale') }}</th>
-                                                    <th>{{ __('app.label_qty') }}</th>
-                                                    <th>{{ __('app.label_price') }}</th>
-                                                    <th>{{ __('app.label_note') }}</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($item->saleDetail as $index => $item)
-                                                    <tr>
-                                                        <td>{{ ++$index }}</td>
-                                                        <td>{{ $item->product_code }}</td>
-                                                        <td>{{ $item->product_name }}</td>
-                                                        <td>{{ $item->scale }}</td>
-                                                        <td>{{ $item->qty }}</td>
-                                                        <td>${{ $item->price }}</td>
-                                                        <td>{{ $item->note }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="col-sm-12">
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">{{ __('app.label_list') }}</h3>
+                </div>
+                <div class="card-body">
+                    <table id="datatable" class="table table-bordered table-striped" width="100%">
+                        <thead>
+                            <tr>
+                                <th>{{ __('app.label_invoice_no') }}</th>
+                                <th>{{ __('app.customer') }}</th>
+                                <th>{{ __('app.label_total_qty') }}</th>
+                                <th>{{ __('app.label_deposit_') }}</th>
+                                <th>{{ __('app.label_balance_') }}</th>
+                                <th>{{ __('app.label_total_price') }}</th>
+                                <th>{{ __('app.request_status') }}</th>
+                                <th>{{ __('app.submit_by') }}</th>
+                                <th>{{ __('app.approve_status') }}</th>
+                                <th>{{ __('app.approve_by') }}</th>
+                                <th>{{ __('app.created_at') }}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($sales as $index => $items)
+                                <tr>
+                                    <td>{{ $items->sale_no }}</td>
+                                    <td> <p class="text-break">{{ $items->customer->customer_name ?? 'មិនមានព័ត៍មានទេ' }} <br>
+                                        {{ $items->customer->customer_phone ?? 'មិនមានព័ត៍មានទេ' }} <br>
+                                        {{ $items->customer->customer_address ?? 'មិនមានព័ត៍មានទេ' }}</p></td>
+                                    <td>{{ $items->total_qty }}</td>
+                                    <td>{{ $items->deposit !=  '' ? '$'.$items->deposit : '$0' }}</td>
+                                    <td>{{ $items->balance !=  '' ? '$'.$items->balance : '$0' }}</td>
+                                    <td>{{ '$'.$items->total_price }}</td>
+                                    <td> <span class="badge {{ $items->colorStatus($items->request_status) }} text-sm">{{ $items->status($items->request_status) }}</span></td>
+                                    <td>{{ $items->submitBy['name'] ?? '' }}</td>
+                                    <td><span class="badge {{ $items->colorStatus($items->approve_status) }} text-sm">{{ $items->status($items->approve_status) }}</span></td>
+                                    <td>{{ $items->approveBy == '' ? 'Administrator' : 'Administrator: '.$items->approveBy['name'] }}</td>
+                                    <td>{{ $items->created_at }}</td>
+                                    <td>
+                                        <a href="{{ url('/sales-cart-list/detail', $items->id )}}" class="btn btn-sm btn-outline-info"> <i class="fas fa-eye"></i> {{ __('app.btn_view')}} </a>
+                                        <a href="{{ url('/print-add-cart', $items->id) }}" target="_blink"
+                                        class="btn btn-sm btn-outline-primary"><i class="fas fa-print"></i>
+                                        {{ __('app.btn_print') }}</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        @endforeach
+        </div>
     </div>
 @endsection

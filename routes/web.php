@@ -83,16 +83,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/expend-options-exportexcel', [App\Http\Controllers\ExpendOptionsController::class, 'exportExcel']);
 
     Route::resource('quotes', QuoteController::class);
+    Route::post('quote-status', [App\Http\Controllers\QuoteController::class, 'quoteStatus']);
     Route::get('quotes-print/{id}', [App\Http\Controllers\QuoteController::class, 'print']);
     Route::get('quote-exportexcel',[App\Http\Controllers\QuoteController::class, 'exportExcel']);
 
     Route::resource('/attendances', AttendanceController::class);
     Route::get('list-staff', [App\Http\Controllers\AttendanceController::class, 'listStaff']);
-    Route::get('/filter-attendances/{id}', [App\Http\Controllers\AttendanceController::class, 'filterAttendances']);
+    Route::get('/filter-attendances', [App\Http\Controllers\AttendanceController::class, 'filterAttendances']);
     Route::post('/update-attendance', [App\Http\Controllers\AttendanceController::class, 'updateAttendances']);
     Route::get('/attendances-exportexcel', [App\Http\Controllers\AttendanceController::class, 'exportExcel']);
 
     Route::resource('/payroll', PayrollController::class);
+    Route::get('payroll/summary/{id}',[App\Http\Controllers\PayrollController::class, 'summary']);
 
     Route::resource('/revenue', IncomeController::class);
     Route::get('incomes-exportexcel', [App\Http\Controllers\IncomeController::class, 'exportExcel']);
@@ -118,7 +120,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/import-product', [App\Http\Controllers\ProductController::class, 'importExcel']);
     
     Route::resource('/sales', SaleController::class);
+    Route::post('/sale-status', [App\Http\Controllers\SaleController::class, 'saleStatus']);
     Route::get('/sales-cart-list', [App\Http\Controllers\SaleController::class, 'cartList']);
+    Route::get('/sales-cart-list/detail/{id}', [App\Http\Controllers\SaleController::class, 'cartListDetail']);
     Route::get('/sale-report', [App\Http\Controllers\SaleController::class, 'Report']);
     Route::get('/sale-report/{id}', [App\Http\Controllers\SaleController::class, 'reportDetail']);
     Route::resource('/add-cart', AddCartController::class);
@@ -133,4 +137,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('roles', RolesController::class);
     Route::resource('system-profile', SystemProfileController::class);
     Route::resource('abouts', AboutController::class);
+
+    #Display all notifications to Admin
+    Route::get('/notification', [App\Http\Controllers\NotificationController::class,'showNotificaton']);
+    #Notification mark as Read
+    Route::get('/mark-as-read/{type}/{id}',[App\Http\Controllers\NotificationController::class, 'markNotification'])->name('markNotification');
+    Route::get('/mark-as-read', [App\Http\Controllers\NotificationController::class,'markAsRead'])->name('mark-as-read');
 });

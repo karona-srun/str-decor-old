@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{$profile->name}} | @yield('title-page')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" sizes="114x114" href="{{ url($profile->photo) }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
@@ -14,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote-bs4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.css') }}">
     <link
@@ -34,7 +36,7 @@
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container-fluid">
                 <a href="{{ url('sales') }}" class="navbar-brand">
-                    <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+                    <img src="{{ asset($profile->photo) }} " alt="Logo"
                         class="brand-image img-circle" style="opacity: .8">
                     <span class="brand-text">{{$profile->name}}</span>
                 </a>
@@ -68,14 +70,14 @@
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link" data-toggle="dropdown" href="#">
-                            <img src="{{ asset('images/avatar.png') }}" alt="User Avatar"
-                                class="img-size-40 img-thumbnail mr-1 img-circle" width="40px !important"
-                                style="margin-top: -8px;">
-    
-                            <strong>{{ Auth::user()->name }}</strong>
-                            <i class="fas fa-angle-down right"></i>
-                        </a>
+                        @foreach (Config::get('languages') as $lang => $language)
+                            @if ($lang != App::getLocale())
+                                <a href="{{ route('lang.switch', $lang) }}" class="text-white nav-link">
+                                    <img src="{{ asset(app()->getLocale() == 'en' ? '/images/en_flag.png' : '/images/km_flag.png') }}"
+                                        class="img-size-32 mr-3" alt="language">
+                                </a>
+                                @endif
+                                @endforeach
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                             <a href="#" class="dropdown-item">
                                 <div class="media">
@@ -146,6 +148,7 @@
     <script src="{{ asset('assets/plugins/jszip/jszip.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/pdfmake/pdfmake.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
@@ -157,53 +160,115 @@
             $('.select2').select2({
             })
 
+            $('.select2s').select2({
+                theme: 'bootstrap4',
+                minimumResultsForSearch: Infinity,
+            });
+
             //Initialize Select2 Elements
             $('.select2bs4').select2({
                 theme: 'bootstrap4',
             })
 
-            $('#datatable').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": true,
-                "responsive": true,
-                "language":{
-                    "sProcessing":     "ដំណើរការ...",
-                    "sLengthMenu":     "បង្ហាញ _MENU_ ទិន្នន័យ",
-                    "sZeroRecords":    "មិនមានទិន្នន័យនៅក្នុងតារាងនេះទេ។",
-                    "sEmptyTable":     "មិនមានទិន្នន័យនៅក្នុងតារាងនេះទេ។",
-                    "sInfo":           "បង្ហាញ _START_ ទៅ _END_ នៃ _TOTAL_ ទិន្នន័យ",
-                    "sInfoEmpty":      "បង្ហាញកំណត់ត្រាពី 0 ដល់ 0 ក្នុងចំណោមកំណត់ត្រាសរុប 0",
-                    "sInfoFiltered":   "(ការត្រងចេញពីកំណត់ត្រាសរុប _MAX_)",
-                    "sInfoPostFix":    "",
-                    "sSearch":         "ស្វែងរកទិន្នន័យ:",
-                    "sUrl":            "",
-                    "sInfoThousands":  ",",
-                    "sLoadingRecords": "ដំណើរការ...",
-                    "oPaginate": {
-                        "sFirst":    "ដំបូង",
-                        "sLast":     "ចុងក្រោយ",
-                        "sNext":     "បន្ត",
-                        "sPrevious": "ថយក្រោយ"
+            if (document.documentElement.lang.toLowerCase() === "km") {
+                $('#datatable').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": true,
+                    "responsive": true,
+                    "language": {
+                        "sProcessing": "ដំណើរការ...",
+                        "sLengthMenu": "បង្ហាញ _MENU_ ទិន្នន័យ",
+                        "sZeroRecords": "មិនមានទិន្នន័យនៅក្នុងតារាងនេះទេ។",
+                        "sEmptyTable": "មិនមានទិន្នន័យនៅក្នុងតារាងនេះទេ។",
+                        "sInfo": "បង្ហាញ _START_ ទៅ _END_ នៃ _TOTAL_ ទិន្នន័យ",
+                        "sInfoEmpty": "បង្ហាញកំណត់ត្រាពី 0 ដល់ 0 ក្នុងចំណោមកំណត់ត្រាសរុប 0",
+                        "sInfoFiltered": "(ការត្រងចេញពីកំណត់ត្រាសរុប _MAX_)",
+                        "sInfoPostFix": "",
+                        "sSearch": "ស្វែងរកទិន្នន័យ:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "ដំណើរការ...",
+                        "oPaginate": {
+                            "sFirst": "ដំបូង",
+                            "sLast": "ចុងក្រោយ",
+                            "sNext": "បន្ត",
+                            "sPrevious": "ថយក្រោយ"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": ធ្វើឱ្យសកម្មដើម្បីតម្រៀបជួរឈរតាមលំដាប់ឡើង",
+                            "sSortDescending": ": ធ្វើឱ្យសកម្មដើម្បីតម្រៀបជួរឈរតាមលំដាប់ចុះ"
+                        }
                     },
-                    "oAria": {
-                        "sSortAscending":  ": ធ្វើឱ្យសកម្មដើម្បីតម្រៀបជួរឈរតាមលំដាប់ឡើង",
-                        "sSortDescending": ": ធ្វើឱ្យសកម្មដើម្បីតម្រៀបជួរឈរតាមលំដាប់ចុះ"
-                    }
-                },
-            });
+                });
+            } else {
+                $('#datatable').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": true,
+                    "responsive": true,
+                    "language": {
+                        "sProcessing": "Progress...",
+                        "sLengthMenu": "Show _MENU_ Records",
+                        "sZeroRecords": "There is no data in this table.",
+                        "sEmptyTable": "There is no data in this table.",
+                        "sInfo": "Show _START_ to _END_ of _TOTAL_ Records",
+                        "sInfoEmpty": "Show records from _START_ to _END_ out of _TOTAL_ Records",
+                        "sInfoFiltered": "(Filtering out total records _MAX_)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Search Records:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Progress...",
+                        "oPaginate": {
+                            "sFirst": "First",
+                            "sLast": "Last",
+                            "sNext": "Next",
+                            "sPrevious": "Previous"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activate to sort rows in ascending order",
+                            "sSortDescending": ": Activate to sort standing rows in descending order"
+                        }
+                    },
+                });
+            }
+
+            $('#summernote').summernote({
+                height: 155,
+                placeholder: 'សរសេរពិពណ៌នាកិច្ចសន្យា',
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']], //Specific toolbar display
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['fontname', ['fontname']],
+                    ['insert', ['link', 'picture']],
+                    ['height', ['height']],
+                    ['table', ['table']],
+                    ['view', ['fullscreen']],
+                ]
+            })
+
         });
 
+        
         function showTime() {
 
             var myDate = new Date();
-
-            let daysList = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            let monthsList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Aug', 'Oct', 'Nov', 'Dec'];
-
+            let daysList = [], monthsList = [];
+            if (document.documentElement.lang.toLowerCase() === "km") {
+            daysList = ['ថ្ងៃអាទិត្យ', 'ថ្ងៃច័ន្ទ', 'ថ្ងៃអង្គារ៍', 'ថ្ងៃពុធ', 'ថ្ងៃព្រហស្បត្តិ៍', 'ថ្ងៃសុក្រ','ថ្ងៃសៅរ៍'];
+            monthsList = ['មករា', 'កុម្ភៈ', 'មីនា', 'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា', 'សីហា', 'កញ្ញា', 'តុលា','វិច្ឆិកា', 'ធ្នូ'];
+            }else{
+            daysList = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            monthsList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Aug', 'Oct', 'Nov', 'Dec'];
+            }
             let date = myDate.getDate();
             let month = monthsList[myDate.getMonth()];
             let year = myDate.getFullYear();

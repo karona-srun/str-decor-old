@@ -9,7 +9,7 @@
                 <form action="{{ route('quotes.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">
-                        <h3 class="card-title">{{ __('app.label_create') }}{{ __('app.quote') }}</h3>
+                        <h3 class="card-title">{{ __('app.label_create') }} {{ __('app.quote') }}</h3>
                         <div class="card-tools">
                             <button type="submit" class="btn btn-sm btn-outline-primary"> <i class=" fas fa-save"></i>
                                 {{ __('app.btn_save') }}</button>
@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-3 div-toggle">
                                 <label>{{ __('app.table_date') }}</label>
-                                <input type="date" name="date" class="form-control">
+                                <input type="date" name="date" class="form-control" value="{{ Carbon\Carbon::today()->format('Y-m-d') }}">
                                 @if ($errors->has('date'))
                                     <div class="error text-danger text-sm mt-1">
                                         {{ $errors->first('date') }}</div>
@@ -60,7 +60,7 @@
                                 <button class="btn btn-sm btn-light mb-2" id="addBtn" type="button">
                                     <i class="fas fa-plus"></i> {{ __('app.label_create') }}
                                 </button>
-                                <table id="item-table" class="table table-bordered" width="100%">
+                                <table id="item-table" class="table table-bordered table-responsive-sm" width="100%">
                                     <thead>
                                         <tr>
                                             <th>{{ __('app.code') }}</th>
@@ -68,6 +68,7 @@
                                             <th>{{ __('app.label_qty') }}</th>
                                             <th>{{ __('app.label_price') }}</th>
                                             <th>{{ __('app.label_unit') }}</th>
+                                            <th>{{ __('app.label_discount') }}[$]</th>
                                             <th>{{ __('app.label_total_amount') }}</th>
                                             <th></th>
                                         </tr>
@@ -81,9 +82,9 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>{{ __('app.label_descrip_contract') }}</label>
-                                    <textarea class="summernote" name="contract" required></textarea>
+                                    <textarea class="summernote" name="contract" required>{{ $profile->descrip_contract_quote }}</textarea>
                                 </div>
-                            </div>
+                            </div> 
                         </div>
                     </div>
                 </form>
@@ -95,9 +96,8 @@
 @section('js')
     <script type="text/javascript">
         $(document).ready(function(e) {
-            
-    if(e.type === 'keyup' && e.keyCode !== 10 && e.keyCode !== 13) return;
 
+            if (e.type === 'keyup' && e.keyCode !== 10 && e.keyCode !== 13) return;
 
             $('.div-toggle').hide();
 
@@ -148,9 +148,16 @@
                             <input type="text" name="code[]" id="code${rowIdx}" class="form-control code" readonly>
                         </td>
                         <td>
-                            <select class="form-control select2_el product" name="product[]">
+                            <div class='row'>
+                                <div class='col-sm-12 col-md-3'>
+                            <img src="`+window.location.origin+`/products/product_image.png" id='product-img${rowIdx}' width='50px' height='50px'/>
+                        </div>
+                            <div class='col-sm-12 col-md-9 mt-1'>
+                            <select class="form-control select2_el${rowIdx} product" name="product[]" width='100%'>
                                 <option value="0">{{ __('app.table_choose') }}</option>
                             </select>
+                        </div>
+                            </div>
                         </td>
                         <td>
                             <input type="number" name="qty[]" class="form-control qty" >
@@ -164,7 +171,14 @@
                             </div>
                         </td>
                         <td>
-                            <input type="text" name="unit[]" class="form-control unit" >
+                            <select name="unit[]" class="form-control select2" style="width: 100%">
+                                @foreach (__('app.unit_list') as $lang => $unit)
+                                <option value="{{ $unit }}">{{ $unit }}</option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <input type="number" id="discount" name="discount[]" class="form-control discount">
                         </td>
                         <td>
                             <input type="number" id="total_amount" name="total_amount[]" class="form-control total_amount" readonly>
@@ -194,45 +208,78 @@
                         success: function(data) {
                             $('#code' + rowIdx).val(data.product_code)
                             $('#amount' + rowIdx).val(data.salling_price)
+                            $('#product-img' + rowIdx).attr('src',data.photo)
                         }
                     });
                 });
 
-                $(".select2_el").select2({
+                $(".select2_el"+rowIdx).select2({
                     ajax: {
                         url: "/get-products",
-                        type: "get",
                         dataType: 'json',
-                        delay: 150,
-                        data: function(params) {
-                            return {
-                                searchTerm: params.term // search term
-                            };
+                        delay: 250,
+                        data: function (params) {
+                        return {
+                            q: params.term, // search term
+                            page: params.page
+                        };
                         },
-                        processResults: function(response) {
+                        processResults: function (data, params) {
+                        params.page = params.page || 1;
                             return {
-                                results: $.map(response, function(item) {
-                                    return {
-                                        text: item.product_name,
-                                        id: item.id
-                                    }
-                                })
+                                results: data.items,
+                                pagination: {
+                                more: (params.page * 30) < data.total_count
+                                }
                             };
                         },
                         cache: true
-                    }
+                    },
+                    templateResult: formatRepo,
+                    templateSelection: formatRepoSelection
                 });
+
+                function formatRepo (repo) {
+                    if (repo.loading) {
+                        return repo.product_code;
+                    }
+
+                    var $container = $(
+                        "<div class='select2-result-repository row'>" +
+                        "<div class='select2-result-repository__avatar col-auto'><img src='" + repo.photo + "' class='img-rounder' width='60px' height='60px' /></div>" +
+                         "<div class='select2-result-repository__meta col-auto'>" +
+                            "<span class='select2-result-repository__title'></span><br>" +
+                            "<span class='select2-result-repository__description'></span><br>" +
+                            "<span class='select2-result-repository__statistics'>" +
+                            "<span class='select2-result-repository__forks text-red'></span>" +
+                            "</span>" +
+                        "</div>" +
+                        "</div>"
+                    );
+                        
+                    $container.find(".select2-result-repository__title").text(repo.product_name);
+                    $container.find(".select2-result-repository__description").text(repo.product_code);
+                    $container.find(".select2-result-repository__forks").append(repo.color_code);
+
+                    return $container;
+                }
+
+                function formatRepoSelection (repo) {
+                    return repo.product_name || repo.product_code;
+                }
+
             }
 
             function calculate() {
+                var price = 0, total = 0, quantity = 0;
                 $(".qty, .amount").on("keyup", function() {
                     var selectors = $(this).closest('tr'); //get closest tr
-                    var quantity = selectors.find('.qty').val(); //get qty
-                    if (!quantity || quantity < 0){
+                    quantity = selectors.find('.qty').val(); //get qty
+                    if (!quantity || quantity < 0) {
                         selectors.find('.total_amount').val('');
                     }
-                    var price = parseFloat(selectors.find('.amount').val());
-                    var total = (price * quantity);
+                    price = parseFloat(selectors.find('.amount').val());
+                    total = (price * quantity);
                     selectors.find('.total_amount').val(total); //add total
                     // var mult = 0;
                     // //loop through trs
@@ -244,6 +291,19 @@
                     // })
                     // //add value to div
                     // $(".total_amount").text(mult);
+                });
+
+
+                $(".discount").on("keyup", function() {
+                    var selectors = $(this).closest('tr'); //get closest tr
+                    var discount = selectors.find('.discount').val(); //get qty
+
+                    var dis = (price - discount);
+                    total = (dis * quantity);
+                    selectors.find('.amount').val(dis);
+                    selectors.find('.total_amount').val(total);
+
+                    console.log(['discount: '+ discount+'\n total: ' + total]);
                 });
             }
         });

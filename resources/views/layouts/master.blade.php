@@ -50,6 +50,13 @@
                 page-break-after: always;
             }
         }
+
+        .div-with-scroll {
+            height: max-content;
+            overflow: scroll;
+            overflow-x: hidden;
+            padding: 10px;
+        }
     </style>
     @yield('css')
 </head>
@@ -80,6 +87,51 @@
                         @endif
                     @endforeach
                 </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-bell"></i>
+                        <span
+                            class="badge badge-light bg-danger badge-xs navbar-badge" style="margin-top: -5px;font-size: 12px; padding: 4px 4px 1px 4px;">{{ auth()->user()->unreadNotifications->count() }}</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right div-with-scroll">
+                        @foreach (auth()->user()->unreadNotifications as $notification)
+                            <a href="{{ $notification->data['data'] == 'View sales' ? url("/mark-as-read/sales", $notification->id ) : url("/mark-as-read/quotes", $notification->id ) }}" class="dropdown-item">
+                                <div class="media">
+                                    <img src="{{ asset('images/avatar.png') }}" alt="User Avatar"
+                                        class="img-size-32 mr-3 img-circle">
+                                    <div class="media-body">
+                                        <h3 class="dropdown-item-title text-sm mt-1">
+                                            <i class="{{ $notification->data['data'] == 'View sales' ? "nav-icon fas fa-shopping-cart" : "nav-icon fas fa-hand-holding-usd"}}"></i>
+                                        {{ __('app.label_received_notification') }} <br>
+                                            {{ $notification->data['name'] }} {{ __('app.label_request') }}<strong>{{ $notification->data['data'] == 'View sales' ? __('app.sales') : __('app.quote') }}</strong>{{ __('app.label_to_you')}}
+                                            <span class="float-right text-sm"><i class="far fa-clock"></i>
+                                                {{ $notification->created_at->diffForHumans() }}</span>
+                                        </h3>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                        <div class="row">
+                        @if (auth()->user()->unreadNotifications)
+                        
+                            @if (auth()->user()->unreadNotifications->count() != 0)
+                            <div class="col-sm-12">
+                                <a href="{{ route('mark-as-read') }}" class="text-primary dropdown-item">{{__('app.label_mask_all_as_Read')}}</a>
+                                </div>
+                                <div class="col-sm-12">
+                                    <a href="{{ url('notification') }}" class="text-primary dropdown-item">{{__('app.label_all_notifications')}}</a>
+                                </div>
+                            @else
+                            <div class="col-sm-12 col-md-12">
+                                <a href="{{ route('mark-as-read') }}" class="text-muted dropdown-item">{{__('app.lable_no_notification')}}</a>
+                                </div>
+                            @endif
+                        @endif
+                        </div>
+                    </div>
+                </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <img src="{{ asset('images/avatar.png') }}" alt="User Avatar"
@@ -487,11 +539,17 @@
 
             $('.select2bs4').select2({
                 theme: 'bootstrap4',
-            })
+            });
 
             $('.select2').select2({
                 theme: 'bootstrap4',
-            })
+            });
+
+            $('.select2s').select2({
+                theme: 'bootstrap4',
+                minimumResultsForSearch: Infinity,
+            });
+
             if (document.documentElement.lang.toLowerCase() === "km") {
                 $('#datatable').DataTable({
                     "paging": true,
@@ -567,13 +625,19 @@
 
             var myDate = new Date();
 
-            let daysList = ['ថ្ងៃអាទិត្យ', 'ថ្ងៃច័ន្ទ', 'ថ្ងៃអង្គារ៍', 'ថ្ងៃពុធ', 'ថ្ងៃព្រហស្បត្តិ៍', 'ថ្ងៃសុក្រ',
-                'ថ្ងៃសៅរ៍'
-            ];
-            let monthsList = ['មករា', 'កុម្ភៈ', 'មីនា', 'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា', 'សីហា', 'កញ្ញា', 'តុលា',
-                'វិច្ឆិកា', 'ធ្នូ'
-            ];
-
+            let daysList = [],
+                monthsList = [];
+            if (document.documentElement.lang.toLowerCase() === "km") {
+                daysList = ['ថ្ងៃអាទិត្យ', 'ថ្ងៃច័ន្ទ', 'ថ្ងៃអង្គារ៍', 'ថ្ងៃពុធ', 'ថ្ងៃព្រហស្បត្តិ៍', 'ថ្ងៃសុក្រ',
+                    'ថ្ងៃសៅរ៍'
+                ];
+                monthsList = ['មករា', 'កុម្ភៈ', 'មីនា', 'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា', 'សីហា', 'កញ្ញា', 'តុលា',
+                    'វិច្ឆិកា', 'ធ្នូ'
+                ];
+            } else {
+                daysList = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                monthsList = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Aug', 'Oct', 'Nov', 'Dec'];
+            }
             let date = myDate.getDate();
             let month = monthsList[myDate.getMonth()];
             let year = myDate.getFullYear();

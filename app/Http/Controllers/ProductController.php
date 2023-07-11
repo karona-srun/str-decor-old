@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -81,6 +82,7 @@ class ProductController extends Controller
         $validator = Validator::make($request->all(), [
             'product_category' => 'required',
             'code' => 'required',
+            'color_code' => 'required',
             'name' => 'required',
             'scale' => 'required',
             'buying_price' => 'required',
@@ -91,6 +93,7 @@ class ProductController extends Controller
             'photo' => 'required',
         ], [
             'product_category.required' => __('app.product_category') . __('app.required'),
+            'color_code.required' => __('app.label_color_code') . __('app.required'),
             'code.required' => __('app.code') . __('app.product_category') . __('app.required'),
             'name.required' => __('app.label_name') . __('app.product_category') . __('app.required'),
             'scale.required' => __('app.label_scale') . __('app.required'),
@@ -116,6 +119,7 @@ class ProductController extends Controller
         $product = new Product();
         $product->product_category_id = $request->product_category;
         $product->product_code = $request->code;
+        $product->color_code = $request->color_code;
         $product->product_name = $request->name;
         $product->scale = $request->scale;
         $product->buying_price = $request->buying_price;
@@ -164,6 +168,8 @@ class ProductController extends Controller
     public function getProduct($id)
     {
         $product = Product::find($id);
+        $product['photo'] = URL::to('/').'/products'.'/'.$product->photo;
+
         return response()->json($product);
     }
 
@@ -171,14 +177,24 @@ class ProductController extends Controller
     {
         $query = Product::query();
 
-        if ($request->searchTerm) {
-            $query->where('product_name', 'LIKE', '%' . $request->searchTerm . '%')->orderBy('product_name', 'desc');
+        if ($request->q) {
+            $query->where('product_name', 'LIKE', '%' . $request->q . '%')->orderBy('product_name', 'desc');
         } else {
             $query->orderBy('product_name', 'desc');
         }
 
-        $product = $query->get();
-        return response()->json($product);
+        $products = $query->get();
+        $products->map(function ($product) 
+        { 
+            $product['product_code'] = __('app.code') .': '. $product->product_code;
+            $product['color_code'] = __('app.label_color_code') .': '. $product->color_code;
+            $product['photo'] = URL::to('/').'/products'.'/'.$product->photo; 
+            return $product;
+        });
+        return response()->json([
+            'total_count' => $products->count(),
+            'items' => $products
+        ]);
     }
 
     /**
@@ -206,6 +222,7 @@ class ProductController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'code' => 'required',
+            'color_code' => 'required',
             'name' => 'required',
             'scale' => 'required',
             'buying_price' => 'required',
@@ -215,6 +232,7 @@ class ProductController extends Controller
             'warehouse' => 'required',
         ], [
             'code.required' => __('app.code') . __('app.product_category') . __('app.required'),
+            'color_code.required' => __('app.label_color_code') . __('app.required'),
             'name.required' => __('app.label_name') . __('app.product_category') . __('app.required'),
             'scale.required' => __('app.label_scale') . __('app.required'),
             'buying_price.required' => __('app.label_buying_price') . __('app.required'),
@@ -244,6 +262,7 @@ class ProductController extends Controller
 
         $product->product_category_id = $request->product_category;
         $product->product_code = $request->code;
+        $product->color_code = $request->color_code;
         $product->product_name = $request->name;
         $product->scale = $request->scale;
         $product->buying_price = $request->buying_price;

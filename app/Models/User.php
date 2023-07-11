@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
@@ -60,6 +61,17 @@ class User extends Authenticatable
     public function updator()
     {
         return $this->belongsTo(User::class,'updated_by');
+    }
+
+    public function getIDRoles() 
+    {
+        $status = false;
+        foreach(Auth::user()['roles'] as $role){
+            if($role->id == 1){
+                $status = true;
+            }
+        }
+        return $status;    
     }
 
     public function getUptimeAttribute()    

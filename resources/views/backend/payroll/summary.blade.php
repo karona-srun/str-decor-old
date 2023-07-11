@@ -45,10 +45,10 @@
                     <h4 class="text-center title hide">{{ __('app.table_date') }}: {{ $payroll->start_date }} - {{ $payroll->end_date }}</h4>
                     <h3 class="card-title">{{ __('app.payroll') }} {{ __('app.table_date') }}: {{ $payroll->start_date }} - {{ $payroll->end_date }}</h3>
                     <div class="card-tools">
-                        <a href="{{ url('payroll/summary', $payroll->id )}}" class="btn btn-sm btn-outline-primary"> <i class="fas fa-print"></i>
-                            {{ __('app.label_summary') }} </a>
                         <button type="button" class="btn btn-sm btn-outline-primary btn-print"> <i class="fas fa-print"></i>
                             {{ __('app.btn_print') }} </button>
+                        <a href="{{ url('payroll', $payroll->id) }}" class="btn btn-sm btn-primary"> <i class="fas fa-arrow-left"></i>
+                            {{ __('app.btn_back') }} </a>
                         <a href="{{ url('payroll') }}" class="btn btn-sm btn-primary"> <i class=" fas fa-list"></i>
                             {{ __('app.label_list') }} </a>
                 </div>
@@ -81,24 +81,19 @@
                             <thead>
                                 <tr>
                                     <th>{{ __('app.table_no') }}</th>
-                                    <th>{{ __('app.table_date') }}</th>
                                     <th>{{ __('app.table_status') }}</th>
-                                    <th>{{ __('app.table_checkin') }}</th>
-                                    <th>{{ __('app.table_checkout') }}</th>
                                     <th>{{ __('app.num_hour') }}</th>
-                                    <th>{{ __('app.label_note') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $no = 1
+                                @endphp
                                 @foreach ($data as $i => $item)
                                     <tr>
-                                        <td>{{ ++$i }}</td>
-                                        <td>{{ $item->date }}</td>
-                                        <td>{{ $item->status }}</td>
-                                        <td>{{ $item->check_in }}</td>
-                                        <td>{{ $item->check_out }}</td>
-                                        <td>{{ $item->num_hour }}</td>
-                                        <td>{{ $item->note }}</td>
+                                        <td>{{ $no++ }}</td>
+                                        <td>{{ Str::upper($i) }}</td>
+                                        <td>{{ $item->count() }} {{__('app.label_day')}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

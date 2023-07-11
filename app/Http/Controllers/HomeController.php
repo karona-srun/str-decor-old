@@ -12,12 +12,14 @@ use App\Models\Position;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Sale;
+use App\Models\SaleDetail;
 use App\Models\StaffInfo;
 use App\Models\Time;
 use App\Models\User;
 use App\Models\Workplace;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller
@@ -55,7 +57,7 @@ class HomeController extends Controller
         $optioinExpend = ExpendOptions::count();
         $time = Time::count();
 
-        $data = [
+        $datas = [
             'customer' => $customer,
             'staff' => $staff,
             'position' => $position,
@@ -73,6 +75,39 @@ class HomeController extends Controller
             'time' => $time
         ];
 
-        return view('home', compact('data'));
+        $saleDaily = Sale::whereDate('created_at','=', Carbon::today()->toDateString())->count();
+        $saleMonthly = Sale::whereMonth('created_at', '=', date('m'))->count();
+
+        $products = Product::selectRaw("SUM(store_stock) as count")
+                            ->selectRaw('product_category_id')
+                            ->groupBy('product_category_id')
+                            ->get();
+        $dataProducts = [];
+
+        foreach($products as $row) {
+            $dataProducts['label'][] = $row->getProductCategory($row->product_category_id);
+            $dataProducts['data'][] = (int)$row->count;
+        }
+    
+        $chart_data = json_encode($dataProducts);
+
+        $current = SaleDetail::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
+                    ->whereYear('created_at', '=', date('Y'))
+                    ->groupBy(DB::raw("month_name"))
+                    ->pluck('count', 'month_name');
+ 
+    
+        $labels = ['មករា', 'កុម្ភៈ', 'មីនា', 'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា', 'សីហា', 'កញ្ញា', 'តុលា', 'វិច្ឆិកា', 'ធ្នូ'];//$users->keys();
+        $data = $current->values();
+
+        $old = SaleDetail::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(created_at) as month_name"))
+                    ->whereYear('created_at', '=', date('Y') - 1)
+                    ->groupBy(DB::raw("month_name"))
+                    ->pluck('count', 'month_name');
+ 
+        $oldData = $old->values();
+
+        return view('home', compact('datas','saleDaily','saleMonthly','data','oldData','labels','chart_data'));
+
     }
 }

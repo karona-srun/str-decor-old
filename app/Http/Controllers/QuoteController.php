@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Helpers\Helpers;
+use App\Listeners\SendNotification;
+use App\Models\User;
+use App\Notifications\UserNotification;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
 
 class QuoteController extends Controller
 {
@@ -93,6 +98,10 @@ class QuoteController extends Controller
         $quote->date = $request->date;
         $quote->total_amount = array_sum($request->total_amount); //collect($request->total_amount)->sum();
         $quote->contract = $request->contract;
+        $quote->request_status = 0;
+        $quote->submit_by = Auth::user()->id;
+        $quote->approve_status = 1;
+        $quote->approve_by = null;
         $quote->created_by = Auth::user()->id;
         $quote->updated_by = Auth::user()->id;
         $quote->save();
@@ -104,12 +113,38 @@ class QuoteController extends Controller
             $quoteDetail->product_id = $request['product'][$index];
             $quoteDetail->qty = $request['qty'][$index];
             $quoteDetail->amount = $request['amount'][$index];
+            $quoteDetail->discount = $request['discount'][$index];
             $quoteDetail->unit = $request['unit'][$index];
             $quoteDetail->total_amount = $request['total_amount'][$index];
             $quoteDetail->save();
         } 
-
+        $this->sendNotification($quote->id);
         return redirect('/quotes')->with('success', __('app.quote').__('app.label_created_successfully'));
+    }
+
+    public function sendNotification($id)
+    {
+        $users = User::whereHas('roles', function($q){
+            $q->where('id', 1);
+        })->get();
+  
+        $details = [
+            'greeting' => 'Hi Administrator',
+            'body' => 'This is my first notification from Nicesnippests.com',
+            'thanks' => 'Thank you for using Nicesnippests.com tuto!',
+            'offerText' => 'View Quotes',
+            'offerUrl' => url('quotes/'.$id),
+            'quote_id' => $id,
+        ];
+  
+        foreach ($users as $user) {
+            $details['name'] = $user->name;
+            $details['email'] = $user->email;
+
+            $user->notify(new UserNotification($details));
+        }
+
+        return true;
     }
 
     public function getNextQuoteNo()
@@ -166,6 +201,19 @@ class QuoteController extends Controller
         $quote = Quote::find($id);
         return view('backend.quotes.print', compact('products','customers','quote'));
     }
+
+    public function quoteStatus(Request $request)
+    {
+        $quote = Quote::find($request->quote_id);
+        $quote->approve_status = $request->status;
+        $quote->approve_by = Auth::user()->id;
+        $quote->updated_by = Auth::user()->id;
+        $quote->save();
+        
+        $this->sendNotification($quote->id);
+        return redirect('/quotes')->with('success', __('app.quote').__('app.label_updated_successfully'));
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -192,6 +240,7 @@ class QuoteController extends Controller
             $quoteDetail->product_id = $request['product'][$index];
             $quoteDetail->qty = $request['qty'][$index];
             $quoteDetail->amount = $request['amount'][$index];
+            $quoteDetail->discount = $request['discount'][$index];
             $quoteDetail->unit = $request['unit'][$index];
             $quoteDetail->total_amount = $request['total_amount'][$index];
             $quoteDetail->save();

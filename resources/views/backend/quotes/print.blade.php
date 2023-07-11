@@ -66,15 +66,15 @@
                         <img src="{{ asset($profile->photo) }}" class="img-size-150" alt="logo">
                         {{ $profile->name }}
                     </h3>
-                    <p class="mt-4">អតិថិជនៈ {{ $quote->customer->customer_name ?? '' }} <br>
-                        លេខទូរស័ព្ទៈ {{ $quote->customer->customer_phone ?? '' }} <br>
-                        អាស័យដ្ខានៈ {{ $quote->customer->customer_address ?? '' }}</p>
+                    <p class="mt-4">{{ __('app.customer')}} {{ $quote->customer->customer_name ?? '' }} <br>
+                        {{ __('app.phone')}} {{ $quote->customer->customer_phone ?? '' }} <br>
+                        {{__('app.label_address')}} {{ $quote->customer->customer_address ?? '' }}</p>
                 </div>
                 <div class="col-sm-6">
                     <div class="float-right text-end">
                         <h3>{{ $profile->name }}
-                            <br> <span class="font-1rem">លេខទូរស័ព្ទ៖​ {{ $profile->tel }}</span> <br><span
-                                class="font-1rem">អាស័យដ្ខាន៖ {{ $profile->address }}</span>
+                            <br> <span class="font-1rem">{{ __('app.phone')}} {{ $profile->tel }}</span> <br><span
+                                class="font-1rem">{{__('app.label_address')}} {{ $profile->address }}</span>
                         </h3>
 
                         <h6>{{ __('app.label_quote_no') }} :{{ $quote->quote_no }}</h6>
@@ -130,7 +130,7 @@
             </div>
             <div class="row mt-4">
                 <div class="col-sm-6">
-                    <h5>{{ __('app.label_term_and_conditions') }}</h5>
+                    <h5>{{ __('app.label_term_and_conditions_quote') }}</h5>
                     {!! $quote->contract !!}
                 </div>
                 <div class="col-sm-3">

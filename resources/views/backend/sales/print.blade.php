@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $profile->name }} | {{ __('app.btn_print') }}</title>
+    <link rel="shortcut icon" sizes="114x114" href="{{ url($profile->photo) }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.css') }}">
@@ -66,15 +67,15 @@
                         <img src="{{ asset($profile->photo) }}" class="img-size-150" alt="logo">
                         {{ $profile->name }}
                     </h3>
-                    <p class="mt-4">អតិថិជនៈ {{ $quote->customer->customer_name ?? '' }} <br>
-                        លេខទូរស័ព្ទៈ {{ $quote->customer->customer_phone ?? '' }} <br>
-                        អាស័យដ្ខានៈ {{ $quote->customer->customer_address ?? '' }}</p>
+                    <p class="mt-4">{{ __('app.customer')}} {{ $sale->customer->customer_name ?? '' }} <br>
+                        {{ __('app.phone')}} {{ $sale->customer->customer_phone ?? '' }} <br>
+                        {{__('app.label_address')}} {{ $sale->customer->customer_address ?? '' }}</p>
                 </div>
                 <div class="col-sm-6">
                     <div class="float-right text-end">
                         <h3>{{ $profile->name }}
-                            <br> <span class="font-1rem">លេខទូរស័ព្ទ៖​ {{ $profile->tel }}</span> <br><span
-                                class="font-1rem">អាស័យដ្ខាន៖ {{ $profile->address }}</span>
+                            <br> <span class="font-1rem">{{ __('app.phone')}} {{ $profile->tel }}</span> <br><span
+                                class="font-1rem">{{__('app.label_address')}} {{ $profile->address }}</span>
                         </h3>
 
                         <h6>{{ __('app.label_quote_no') }} :{{ $sale->sale_no }}</h6>
@@ -98,8 +99,9 @@
                                 <th>{{ __('app.label_name') }}</th>
                                 <th>{{ __('app.label_scale') }}</th>
                                 <th>{{ __('app.label_qty') }}</th>
+                                <th>{{ __('app.label_unit') }}</th>
                                 <th>{{ __('app.label_price') }}</th>
-                                <th style="width: 30%">{{ __('app.label_other') }}</th>
+                                <th>{{ __('app.label_discount') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -112,8 +114,20 @@
                                     <td>{{ $item->product_code }}
                                         <input type="hidden" name="product_code[]" value="{{ $item->product_code }}">
                                     </td>
-                                    <td>{{ $item->product_name }}
-                                        <input type="hidden" name="product_name[]" value="{{ $item->product_name }}">
+                                    <td>
+                                        <dl class="row">
+                                            <dt class="col-sm-auto">
+                                                <input type="hidden" name="product_photo[]" value="{{$item->photo}}">
+                                                <img src="{{ asset('products/' . $item->photo) }}" class="float-left img-size-50">
+                                            </dt>
+                                            <dt class="col-sm-auto">
+                                                <span>{{ $item->product_name }}</span>
+                                                <input type="hidden" name="product_name[]" value="{{ $item->product_name }}">
+                                                <br>
+                                                <input type="hidden" name="product_note[]" value="{{ $item->note }}">
+                                                <small class="text-red">{{ $item->note }}</small>
+                                            </dt>
+                                        </dl> 
                                     </td>
                                     <td>{{ $item->scale }}
                                         <input type="hidden" name="scale[]" value="{{ $item->scale }}">
@@ -121,11 +135,14 @@
                                     <td>{{ $item->qty }}
                                         <input type="hidden" name="qty[]" value="{{ $item->qty }}">
                                     </td>
+                                    <td>{{ $item->unit }}
+                                        <input type="hidden" name="unit[]" value="{{ $item->unit }}">
+                                    </td>
                                     <td>{{ $item->price }}
                                         <input type="hidden" name="price[]" value="{{ '$' . $item->price }}">
                                     </td>
-                                    <td>{{ $item->note }}
-                                        <input type="hidden" name="note[]" value="{{ $item->note }}">
+                                    <td>{{ $item->discount }}
+                                        <input type="hidden" name="discount[]" value="{{ '$' .$item->discount }}">
                                     </td>
                                 </tr>
                             @endforeach
@@ -138,26 +155,38 @@
                     <table class=" table table-bordered">
                         <tfoot>
                             <tr>
-                                <td>{{ __('app.label_total_qty') }}:</td>
-                                <td>${{ $sale->total_qty }}</td>
+                                <th>{{ __('app.label_total_qty') }}:</th>
+                                <td>{{ $sale->total_qty }}</td>
                             </tr>
                             <tr>
-                                <td>{{ __('app.label_total_price') }}:</td>
+                                <th>{{ __('app.label_total_price') }}:</th>
                                 <td>${{ $sale->total_price }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ __('app.label_deposit_') }}:</th>
+                                <td>${{ $sale->deposit }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ __('app.label_balance_') }}:</th>
+                                <td>${{ $sale->balance }}</td>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
+            </div><br>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="">{{ __('app.label_term_and_conditions_invoice') }}</label><br>
+                    <p for="" class="text-break">{!! $profile->descrip_contract_invoice !!}</p>
+                </div>
+                <div class="col-sm-3">{{ __('app.label_recipient_signature') }}</div>
+                <div class="col-sm-3">{{ __('app.label_handover_signature') }}</div>
             </div>
         </div>
     </div>
     <script type="text/javascript">
-        window.print();
-        window.onafterprint = back;
-
-        function back() {
-            window.history.back();
-        }
+        setTimeout(function () { window.print(); }, 500);
+        window.onfocus = function () { setTimeout(function () { window.close(); }, 500); }
     </script>
 </body>
 

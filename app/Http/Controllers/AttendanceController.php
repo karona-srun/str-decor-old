@@ -106,9 +106,17 @@ class AttendanceController extends Controller
         return response()->json($data);
     }
 
-    public function filterAttendances($id)
+    public function filterAttendances(Request $request)
     {
-        $data = Attendance::orderBy('date', 'desc')->where('staff_id',$id)->get();
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
+        $id = $request->id;
+
+        $data = Attendance::orderBy('date', 'desc')
+            ->where('staff_id', $id)
+            ->whereBetween('date', [$startDate, $endDate])
+            ->get();
+
         $staff = StaffInfo::find($id);
         $staff->position = $staff->positions;
 
@@ -118,8 +126,8 @@ class AttendanceController extends Controller
             $data[$i]['check_out'] = $value->check_out ?? '';
             $data[$i]['num_hour'] = $value->num_hour ?? '';
             $data[$i]['note'] = $value->note ?? '';
-            $data[$i]['total_num_hour'] = (int) $value->sumAttendance($value->staff->id);
-            $data[$i]['total_salary'] = bcadd($value->sumAttendance($value->staff->id) * $staff->rate_per_hour,'0',2);
+            $data[$i]['total_num_hour'] = (int) $value->sumAttendanceFilter($value->staff->id, $startDate, $endDate);
+            $data[$i]['total_salary'] = bcadd($value->sumAttendanceFilter($value->staff->id, $startDate, $endDate) * $staff->rate_per_hour,'0',2);
         }
 
         return response()->json(['data' => $data ,'staff' => $staff]);

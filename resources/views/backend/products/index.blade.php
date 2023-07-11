@@ -26,6 +26,7 @@
                                 <th>{{ __('app.table_no') }}</th>
                                 <th>{{ __('app.table_photo') }}</th>
                                 <th>{{ __('app.code') }}</th>
+                                <th>{{ __('app.label_color_code') }}</th>
                                 <th>{{ __('app.label_name') }}{{ __('app.product') }}</th>
                                 <th>{{ __('app.label_scale') }}</th>
                                 <th>{{ __('app.label_salling_price') }}</th>
@@ -42,6 +43,7 @@
                                     <td>{{ ++$i }}</td>
                                     <td style="width:70px !important"><img src="{{ url('products/'.$item->photo) }}" class="img-size-50 img-thumbnail" srcset=""/></td>
                                     <td>{{ $item->product_code }}</td>
+                                    <td>{{ $item->color_code }}</td>
                                     <td>{{ $item->product_name }}</td>
                                     <td>{{ $item->scale }}</td>
                                     <td>{{ $item->salling_price }}</td>

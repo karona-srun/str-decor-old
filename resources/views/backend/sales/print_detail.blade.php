@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.sale_master')
 
 @section('title-page', __('app.label_sale_report'))
 @section('css')
@@ -15,7 +15,7 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.label_invoice_no') }} {{$sale->sale_no}}</h3>
                     <div class="card-tools">
-                        <a href="{{ url('sale-report') }}" class="btn btn-outline-primary"> <i class=" fas fa-arrow-left"></i>
+                        <a href="{{ url('sales') }}" class="btn btn-outline-primary"> <i class=" fas fa-arrow-left"></i>
                             {{ __('app.btn_back') }}</a>
                     </div>
                 </div>
@@ -32,8 +32,8 @@
                             <div class="float-right">
                                 <select class="form-control select2s" required name="status">
                                     <option value="">{{ __('app.table_choose') }}</option>
-                                    <option value="4" {{old('status',$sale->approve_status) == "4"? 'selected':''}}>{{ __('app.status_approved') }}</option>
-                                    <option value="3" {{old('status',$sale->approve_status) == "3"? 'selected':''}}>{{ __('app.status_rejected') }}</option>
+                                    <option value="4">{{ __('app.status_approved') }}</option>
+                                    <option value="3">{{ __('app.status_rejected') }}</option>
                                 </select>
                             </div>
                             </form>

@@ -27,13 +27,13 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>{{ __('app.label_start_date') }} <small class="text-red">*</small></label>
-                                        <input type="date" name="start_date" class="form-control start_date" required>
+                                        <input type="date" name="start_date" class="form-control start_date" value="{{ old('start_date') }}" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>{{ __('app.label_end_date') }} <small class="text-red">*</small></label>
-                                        <input type="date" name="end_date" class="form-control end_date" required>
+                                        <input type="date" name="end_date" class="form-control end_date" value="{{ old('end_date') }}" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -43,7 +43,7 @@
                                             style="width: 100%;">
                                             <option value="0">{{ __('app.table_staff_name') }}</option>
                                             @foreach ($staffs as $item)
-                                                <option value="{{ $item->id }}">{{ $item->full_name_kh }}</option>
+                                                <option value="{{ $item->id }}" >{{ $item->full_name_kh }}</option>
                                             @endforeach
                                         </select>
                                     </div>

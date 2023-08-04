@@ -82,31 +82,57 @@
                                 <tr>
                                     <th>{{ __('app.table_no') }}</th>
                                     <th>{{ __('app.table_status') }}</th>
-                                    <th>{{ __('app.num_hour') }}</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
+                                {{-- <tr>
+                                    <td>1</td>
+                                    <td>{{ __('app.label_presence') }}</td>
+                                    <td>{{ $payroll->total_hour ?? 0 }}</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>{{ __('app.label_permission_request') }}</td>
+                                    <td>
+                                        </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>{{ __('app.label_adsent') }}</td>
+                                    <td>
+                                    </td>
+                                </tr> --}}
                                 @php
-                                    $no = 1
+                                    $index = 0
                                 @endphp
-                                @foreach ($data as $i => $item)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ Str::upper($i) }}</td>
-                                        <td>{{ $item->count() }} {{__('app.label_day')}}</td>
-                                    </tr>
+                                @foreach ($data as $key => $item)
+                                
+                                <tr>
+                                    <td>{{ ++$index }}</td>
+                                    <td>
+                                        @if ($key == "persence")
+                                        {{ __('app.label_presence') }}
+                                        @elseif($key == "permission")
+                                        {{ __('app.label_permission_request') }}
+                                        @else
+                                        {{ __('app.label_adsent') }}
+                                        @endif  
+                                    </td>
+                                    <td>{{ $item }}</td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        <p class="mt-3">សរុបម៉ោងធ្វើការ​៖​ <span class="total_num_hour">{{ $payroll->total_hour }}</span>
-                            ម៉ោង</p>
+                        <p class="mt-3">{{__('app.label_total_hour_of_working')}}៖​ <span class="total_num_hour">{{ $payroll->total_hour }}</span>
+                            {{__('app.label_hour')}}</p>
                         <input type="hidden" name="total_hour" class="total_num_hour_">
-                        <p class="mt-3">ប្រាក់ខែ​៖​ $<span class="total_salary">{{ $payroll->total_salary }}</span> </p>
+                        <p class="mt-3">{{__('app.payroll')}}​៖​ $<span class="total_salary">{{ $payroll->total_salary }}</span> </p>
                         <input type="hidden" name="total_salary" class="total_salary_">
                     </div>
 
-                </div>
-            </div>
+                </div> 
+            </div>       
         </div>
     </div>
 @endsection

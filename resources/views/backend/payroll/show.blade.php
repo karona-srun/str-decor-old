@@ -94,7 +94,7 @@
                                     <tr>
                                         <td>{{ ++$i }}</td>
                                         <td>{{ $item->date }}</td>
-                                        <td>{{ $item->status }}</td>
+                                        <td>{{ Str::upper($item->status) }}</td>
                                         <td>{{ $item->check_in }}</td>
                                         <td>{{ $item->check_out }}</td>
                                         <td>{{ $item->num_hour }}</td>
@@ -103,10 +103,10 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <p class="mt-3">សរុបម៉ោងធ្វើការ​៖​ <span class="total_num_hour">{{ $payroll->total_hour }}</span>
-                            ម៉ោង</p>
+                        <p class="mt-3">{{__('app.label_total_hour_of_working')}}៖​ <span class="total_num_hour">{{ $payroll->total_hour }}</span>
+                            {{__('app.label_hour')}}</p>
                         <input type="hidden" name="total_hour" class="total_num_hour_">
-                        <p class="mt-3">ប្រាក់ខែ​៖​ $<span class="total_salary">{{ $payroll->total_salary }}</span> </p>
+                        <p class="mt-3">{{__('app.payroll')}}​៖​ $<span class="total_salary">{{ $payroll->total_salary }}</span> </p>
                         <input type="hidden" name="total_salary" class="total_salary_">
                     </div>
 

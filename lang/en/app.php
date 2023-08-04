@@ -85,7 +85,7 @@ return [
     'label_all' => 'All',
     'label_presence' => 'Presence',
     'label_adsent' => 'Adsent',
-    'label_permission_request' => 'Permission Request',
+    'label_permission_request' => 'Permission',
     'label_permission' => 'Permission',
     'label_list' => 'List ',
     'label_info' => 'Info',
@@ -248,4 +248,7 @@ return [
     'label_all_notifications' => 'All Notification',
     'label_summary' => 'Summary',
     'label_day' => 'Days',
+    'label_payroll' => 'Payroll',
+    'label_hour' => 'Hours',
+    'label_total_hour_of_working' => 'Total hour of working'
 ];

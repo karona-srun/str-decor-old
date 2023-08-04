@@ -248,4 +248,7 @@ return [
     'label_all_notifications' => 'ការជូនដំណឹងទាំងអស់',
     'label_summary' => 'សង្ខេប',
     'label_day' => 'ថ្ងៃ',
+    'label_payroll' => 'ប្រាក់',
+    'label_hour' => 'ម៉ោង',
+    'label_total_hour_of_working' => 'សរុបម៉ោងធ្វើការ​​'
 ];

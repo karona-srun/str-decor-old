@@ -10,9 +10,51 @@
                     <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.payroll') }}</h3>
                     <div class="card-tools">
                         @can('Payroll Create')
-                        <a href="{{ url('payroll/create') }}" class="btn btn-sm btn-outline-primary"> <i class=" fas fa-plus"></i>
-                            {{ __('app.btn_add') }}</a>
-                            @endcan
+                            <a href="{{ url('payroll/create') }}" class="btn btn-sm btn-outline-primary"> <i
+                                    class=" fas fa-plus"></i>
+                                {{ __('app.btn_add') }}</a>
+                        @endcan
+                    </div>
+                </div>
+                <div class="card-body" style="padding-bottom: 0px;">
+                    <div class="card p-3">
+                        <form action="{{ url('/payroll') }}" method="get">
+                            <div class="row" style="margin-bottom: -40px;">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>{{ __('app.label_start_date') }}</label>
+                                        <input type="date" name="start_date" class="form-control start_date"
+                                            value="{{ request()->get('start_date') }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>{{ __('app.label_end_date') }}</label>
+                                        <input type="date" name="end_date" class="form-control end_date"
+                                            value="{{ request()->get('end_date') }}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>{{ __('app.table_staff_name') }}</label>
+                                        <select class="form-control select2 selectStaff" name="staff"
+                                            style="width: 100%;">
+                                            <option value="0">{{ __('app.table_staff_name') }}</option>
+                                            @foreach ($staffs as $item)
+                                                <option value="{{ $item->id }}" {{ $item->id == request()->get('staff') ? 'selected' : '' }}>{{ $item->full_name_kh }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3" style="line-height: 6.6;">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary"> <i class=" fas fa-search"></i>
+                                                {{ __('app.label_search') }}</button>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="card-body">
@@ -42,13 +84,15 @@
                                     <td>${{ $item->total_salary }}</td>
                                     <td>{{ $item->start_date }} - {{ $item->end_date }}</td>
                                     <td>{{ $item->date }}</td>
-                                    <td>{{ $item->payroll_status == 'paid' ? __('app.label_paid') : __('app.label_not_yet') }}</td>
+                                    <td>{{ $item->payroll_status == 'paid' ? __('app.label_paid') : __('app.label_not_yet') }}
+                                    </td>
                                     <td>
-                                        <a href="{{ url('payroll', $item->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-file-invoice text-white"></i></a>
+                                        <a href="{{ url('payroll', $item->id) }}" class="btn btn-sm btn-warning"><i
+                                                class="fas fa-file-invoice text-white"></i></a>
                                         @can('Payroll Delete')
-                                        <button class="btn btn-sm btn-danger deletePayroll" data-toggle="modal"
-                                            data-target="#modal-default" data-id="{{ $item->id }}"><i
-                                                class="far fa-trash-alt"></i></button>
+                                            <button class="btn btn-sm btn-danger deletePayroll" data-toggle="modal"
+                                                data-target="#modal-default" data-id="{{ $item->id }}"><i
+                                                    class="far fa-trash-alt"></i></button>
                                         @endcan
                                     </td>
                                 </tr>

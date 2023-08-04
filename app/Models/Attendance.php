@@ -9,6 +9,13 @@ class Attendance extends Model
 {
     use HasFactory;
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+
+
     public function staff()
     {
         return $this->belongsTo(StaffInfo::class,'staff_id');
@@ -22,6 +29,16 @@ class Attendance extends Model
     public function sumAttendance($id)
     {
         return Attendance::where('staff_id',$id)->sum('num_hour');
+    }
+
+    public function getPermissionAttribute()
+    {
+        return Attendance::where('status','permission')->count();
+    }
+
+    public function getAbsentAttribute()
+    {
+        return Attendance::where('status','adsent')->count();
     }
 
     public function creator()

@@ -38,6 +38,7 @@ class ProductImport implements ToCollection, WithHeadingRow, SkipsOnError, WithV
     public function collection(Collection $rows)
     {
         Validator::make($rows->toArray(), [
+            '*.color_code' => 'required',
             '*.product_code' => 'required',
             '*.product_name' => 'required',
             '*.scale' => 'required',
@@ -50,6 +51,7 @@ class ProductImport implements ToCollection, WithHeadingRow, SkipsOnError, WithV
             '*.description' => 'required',
             '*.note' => 'required'
         ],[
+            '*.color_code.required' => __('app.code') . __('app.required'),
             '*.product_code.required' => __('app.code') . __('app.required'),
             '*.product_name.required' => __('app.product') . __('app.required'),
             '*.scale.required' => __('app.label_scale') . __('app.required'),
@@ -67,6 +69,7 @@ class ProductImport implements ToCollection, WithHeadingRow, SkipsOnError, WithV
         foreach ($rows as $i => $row) {
             Product::insert([
                 'product_code' => $row['product_code'],
+                'color_code' => $row['color_code'],
                 'product_name' => $row['product_name'],
                 'scale' => $row['scale'],
                 'buying_price' => $row['buying_price'],

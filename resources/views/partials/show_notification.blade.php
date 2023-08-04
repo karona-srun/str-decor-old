@@ -28,7 +28,7 @@
                                 <tr>
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $notification->data['name'] }}</td>
-                                    <td><a href="{{ $notification->data['0'] }}">{{ $notification->data['data'] == 'View sales' ? __('app.sales') : __('app.quote') }}</a></td>
+                                    <td><a href="#">{{ $notification->data['data'] == 'View sales' ? __('app.sales') : __('app.quote') }}</a></td>
                                     <td>{{ __('app.label_received_notification') }} <br>
                                         {{ $notification->data['name'] }} {{ __('app.label_request') }}<strong>{{ $notification->data['data'] == 'View sales' ? __('app.sales') : __('app.quote') }}</strong>{{ __('app.label_to_you')}}</td>
                                     <td>{{ $notification->created_at->format('d-m-Y h:i:s A') }}</td>

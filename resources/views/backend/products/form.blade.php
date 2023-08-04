@@ -55,44 +55,48 @@
                     <th>1</th>
                 </tr>
                 <tr>
-                    <th>Product Name</th>
+                    <th>Color Code</th>
                     <th>2</th>
                 </tr>
                 <tr>
-                    <th>Scale</th>
+                    <th>Product Name</th>
                     <th>3</th>
                 </tr>
                 <tr>
-                    <th>Buying Price</th>
+                    <th>Scale</th>
                     <th>4</th>
                 </tr>
                 <tr>
-                    <th>Salling Price</th>
+                    <th>Buying Price</th>
                     <th>5</th>
                 </tr>
                 <tr>
-                    <th>Buying Date <span class="text-red text-sm">[yyyy-mm-dd]</span></th>
+                    <th>Salling Price</th>
                     <th>6</th>
                 </tr>
                 <tr>
-                    <th>Store Stock</th>
+                    <th>Buying Date <span class="text-red text-sm">[yyyy-mm-dd]</span></th>
                     <th>7</th>
                 </tr>
                 <tr>
-                    <th>Warehouse</th>
+                    <th>Store Stock</th>
                     <th>8</th>
                 </tr>
                 <tr>
-                    <th>Sold Out</th>
+                    <th>Warehouse</th>
                     <th>9</th>
                 </tr>
                 <tr>
-                    <th>Description</th>
+                    <th>Sold Out</th>
                     <th>10</th>
                 </tr>
                 <tr>
-                    <th>Note</th>
+                    <th>Description</th>
                     <th>11</th>
+                </tr>
+                <tr>
+                    <th>Note</th>
+                    <th>12</th>
                 </tr>
             </table>
         </div>

@@ -26,8 +26,6 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-12 col-sm-6">
-                                            <h3 class="d-inline-block d-sm-none">LOWA Men’s Renegade GTX Mid Hiking Boots
-                                                Review</h3>
                                             <div class="col-12">
                                                 <img src="{{ '/products/' . $product->photo }}" class="product-image"
                                                     alt="Product Image">
@@ -55,12 +53,6 @@
                                                         autocomplete="off">
                                                     <span class="text-lg">{{ $product->scale }}</span>
                                                 </label>
-                                            </div>
-
-                                            <div class="bg-gray py-2 px-3 mt-4">
-                                                <h4 class="mb-0">
-                                                    ${{ $product->salling_price }}
-                                                </h4>
                                             </div>
 
                                         </div>

@@ -3,6 +3,9 @@
     border-bottom: 0px solid #dee2e6 !important;
 }
 
+.bg-gray{
+  background-color: #4e5462!important
+}
 .img-item-product{
     height: 157px;
     width: 157px;

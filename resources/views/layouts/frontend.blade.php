@@ -15,7 +15,7 @@
 
 <body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
-        <nav class="main-header navbar navbar-expand-md navbar-light bg-primary navbar-white">
+        <nav class="main-header navbar navbar-expand-md navbar-light bg-gray navbar-white">
             <div class="container">
                 <a href="{{ url('/') }}" class="navbar-brand">
                     <img src="{{ asset($profile->photo) }}" alt="AdminLTE Logo"
@@ -64,7 +64,7 @@
         </nav>
 
         <div class="content-wrapper">
-            <div class="content-header bg-primary">
+            <div class="content-header bg-gray">
                 <div class="container">
                     <div class="row mb-4">
                         <div class="col-lg-8 col-sm-10 offset-sm-1 offset-lg-2">
@@ -92,7 +92,7 @@
             
             @yield('content')
         </div>
-        <footer class="main-footer bg-primary">
+        <footer class="main-footer bg-gray">
             @include('frontend.footer')
         </footer>
     </div>

@@ -44,7 +44,8 @@ class AdminUserSeeder extends Seeder
             'tel' => '000000000',
             'photo' => 'logo.jpg',
             'address' => 'Phnom Penh, Cambodia',
-            'descrip_contract' => 'testing condition',
+            'descrip_contract_invoice' => 'descrip contract invoice condition',
+            'descrip_contract_quote' => 'descrip contract quote condition',
         ]);
     }
 }

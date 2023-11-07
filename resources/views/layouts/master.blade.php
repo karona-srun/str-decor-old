@@ -319,9 +319,9 @@
                         @endcan
                         @if (Auth::user()->can('Product Category List') || Auth::user()->can('Product List'))
                             <li
-                                class="nav-item {{ Request::is('product-category*') || Request::is('productes*') || Request::is('import-product*') ? 'menu-is-opening menu-open' : null }} ">
+                                class="nav-item {{ Request::is('product-category*') || Request::is('productes*') || Request::is('import-product*') || Request::is('sales-order*') ? 'menu-is-opening menu-open' : null }} ">
                                 <a href="#"
-                                    class="nav-link {{ Request::is('product-category*') || Request::is('productes*') || Request::is('import-product*') ? 'active' : null }} ">
+                                    class="nav-link {{ Request::is('product-category*') || Request::is('productes*') || Request::is('import-product*') || Request::is('sales-order*') ? 'active' : null }} ">
                                     <i class="nav-icon fas fa-cube"></i>
                                     <p>
                                         {{ __('app.stock') }}
@@ -347,6 +347,14 @@
                                             </a>
                                         </li>
                                     @endcan
+                                    <li class="nav-item">
+                                        <a href="{{ url('sales-order') }}" class="nav-link {{ Request::is('sales-order*') ? 'active' : null }}">                    
+                                            <i class="nav-icon fas fa-shopping-bag"></i>
+                                            <p>
+                                                {{ __('app.sales_order') }}
+                                            </p>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         @endif

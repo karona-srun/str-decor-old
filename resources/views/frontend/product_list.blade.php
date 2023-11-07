@@ -11,19 +11,19 @@
                 <hr class="style4">
                 <div class="row">
                     @foreach ($productes as $product)
-                        <div class="col-lg-2">
+                        <div class="col-lg-2 col-md-3 col-sm-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title text-muted">{{ $product->product_name }}</h5>
-                                    <br>
-                                    <p class="text-muted">{{ $product->product_code }}</p>
                                     <img src="{{ url('products/' . $product->photo) }}" class="img-item-product img-fluid">
-                                    <p class="card-text text-muted">
-                                        {{ Str::limit($product->description,50)  }}
+                                    <p class="card-title text-muted mt-2">{{ $product->product_name }}
+                                        <br> {{ $product->product_code }}
+                                        <br>#{{ $product->color_code }}
+                                        <br>
+                                        {{ Str::limit($product->description,100)  }}
                                     </p>
-
+                                    <p>
                                     <a href="{{ url('/product-details', $product->id) }}"
-                                        class="btn btn-sm btn-outline-primary">{{ __('app.label_more_info') }}</a>
+                                        class="btn btn-sm btn-outline-primary mt-2">{{ __('app.label_more_info') }}</a></p>
                                 </div>
                             </div>
                         </div>

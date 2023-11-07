@@ -168,10 +168,10 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label>{{ __('app.label_qty') }}{{ __('app.label_store_stock') }} <small
+                                                <label>{{ __('app.label_qty_store_stock') }} <small
                                                         class="text-red">*</small></label>
                                                 <input type="number" name="store_stock" class="form-control"
-                                                    placeholder="{{ __('app.label_required') }}{{ __('app.label_qty') }}{{ __('app.label_store_stock') }}"
+                                                    placeholder="{{ __('app.label_required') }}{{ __('app.label_qty_store_stock') }}"
                                                     value="{{ old('store_stock') }}" />
                                                 @if ($errors->has('store_stock'))
                                                     <div class="error text-danger text-sm mt-1">
@@ -181,10 +181,10 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label>{{ __('app.label_qty') }}{{ __('app.label_warehouse') }} <small
+                                                <label>{{ __('app.label_qty_warehouse') }} <small
                                                         class="text-red">*</small></label>
                                                 <input type="number" name="warehouse" class="form-control"
-                                                    placeholder="{{ __('app.label_required') }}{{ __('app.label_qty') }}{{ __('app.label_warehouse') }}"
+                                                    placeholder="{{ __('app.label_required') }}{{ __('app.label_qty_warehouse') }}"
                                                     value="{{ old('warehouse') }}" />
                                                 @if ($errors->has('warehouse'))
                                                     <div class="error text-danger text-sm mt-1">

@@ -16,6 +16,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\SaleOrderController;
 use App\Http\Controllers\StaffInfoController;
 use App\Http\Controllers\SystemProfileController;
 use App\Http\Controllers\TimeController;
@@ -137,6 +138,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('roles', RolesController::class);
     Route::resource('system-profile', SystemProfileController::class);
     Route::resource('abouts', AboutController::class);
+    Route::resource('sales-order', SaleOrderController::class);
+    Route::get('sales-order-download-file/{id}', [App\Http\Controllers\SaleOrderController::class, 'getDownload']);
+    Route::get('/sales-order-exportexcel', [App\Http\Controllers\SaleOrderController::class, 'exportExcel']);
 
     #Display all notifications to Admin
     Route::get('/notification', [App\Http\Controllers\NotificationController::class,'showNotificaton']);

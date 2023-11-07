@@ -246,18 +246,17 @@ class ProductController extends Controller
             return Redirect::back()->withErrors($validator)->withInput();
         }
 
-
-
         $product = Product::find($id);
         $imageName = '';
 
+        if ($request->photo) {
         if ($request->hasFile('photo')) {
             File::delete('products/' . $product->photo);
             $imageName = 'product_' . time() . rand(1, 99999) . '.' . $request->photo->getClientOriginalExtension();
             $imageName = str_replace(' ', '_', $imageName);
             $request->photo->move(public_path('products'), $imageName);
             $product->photo = $imageName;
-        }
+        }}
 
 
         $product->product_category_id = $request->product_category;

@@ -11,7 +11,7 @@
                     <h6>{{ __('app.label_sale_daily') }}</h6>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-bag"></i>
+                    <i class="fas fa-dolly-flatbed"></i>
                 </div>
                 <a href="{{ url('/sale-report') }}" class="small-box-footer">{{ __('app.label_more_info') }} <i
                         class="fas fa-arrow-circle-right"></i></a>
@@ -24,13 +24,69 @@
                     <h6>{{ __('app.label_sale_monthly') }}</h6>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
+                    <i class="fas fa-dolly-flatbed"></i>
+                </div>
+                <a href="{{ url('/sale-report?start_date=' .Carbon::now()->firstOfMonth()->toDateString() .'&end_date=' .Carbon::now()->lastOfMonth()->toDateString()) }}"
+                    class="small-box-footer">{{ __('app.label_more_info') }} <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <h3>{{ $saleOrderDaily }}</h3>
+                    <h6>{{ __('app.label_sale_order_daily') }}</h6>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-dolly-flatbed"></i>
+                </div>
+                <a href="{{ url('/sales-order') }}" class="small-box-footer">{{ __('app.label_more_info') }} <i
+                        class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-light">
+                <div class="inner">
+                    <h3>{{ $saleOrderMonthly }}</h3>
+                    <h6>{{ __('app.label_sale_order_monthly') }}</h6>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-dolly-flatbed"></i>
+                </div>
+                <a href="{{ url('/sales-order') }}"
+                    class="small-box-footer">{{ __('app.label_more_info') }} <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row items-center align-content-center">
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-fuchsia">
+                <div class="inner">
+                    <h3>${{ $saleAmountDaily }}</h3>
+                    <h6>{{ __('app.label_sale_daily') }}</h6>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <a href="{{ url('/sale-report') }}" class="small-box-footer">{{ __('app.label_more_info') }} <i
+                        class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-gradient-orange">
+                <div class="inner">
+                    <h3>${{ $saleAmountMonthly }}</h3>
+                    <h6>{{ __('app.label_sale_monthly') }}</h6>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-dollar-sign"></i>
                 </div>
                 <a href="{{ url('/sale-report?start_date=' .Carbon::now()->firstOfMonth()->toDateString() .'&end_date=' .Carbon::now()->lastOfMonth()->toDateString()) }}"
                     class="small-box-footer">{{ __('app.label_more_info') }} <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-lg-6">
             <div class="card">

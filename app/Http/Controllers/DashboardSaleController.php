@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Sale;
 use App\Models\SaleDetail;
+use App\Models\SaleOrder;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -32,11 +33,17 @@ class DashboardSaleController extends Controller
         $saleDaily = Sale::whereDate('created_at','=', Carbon::today()->toDateString())->count();
         $saleMonthly = Sale::whereMonth('created_at', '=', date('m'))->count();
 
+        $saleAmountDaily = Sale::whereDate('created_at','=', Carbon::today()->toDateString())->sum('total_price');
+        $saleAmountMonthly = Sale::whereMonth('created_at', '=', date('m'))->sum('total_price');
+
         $products = Product::selectRaw("SUM(store_stock) as count")
                             ->selectRaw('product_category_id')
                             ->groupBy('product_category_id')
                             ->get();
         $dataProducts = [];
+
+        $saleOrderDaily = SaleOrder::createdToday()->count();
+        $saleOrderMonthly = SaleOrder::createdThisMonth()->count();
 
         foreach($products as $row) {
             $dataProducts['label'][] = $row->getProductCategory($row->product_category_id);
@@ -61,6 +68,6 @@ class DashboardSaleController extends Controller
  
         $oldData = $old->values();
 
-        return view('darhboard_sale', compact('saleDaily','saleMonthly','data','oldData','labels','chart_data'));
+        return view('darhboard_sale', compact('saleDaily','saleAmountDaily','saleAmountMonthly','saleMonthly','data','oldData','labels','chart_data','saleOrderDaily','saleOrderMonthly'));
     }
 }

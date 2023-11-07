@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>{{ __('app.label_name') }}{{ __('app.product_category') }} <small
                                                         class="text-red">*</small></label>
@@ -55,7 +55,7 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>{{ __('app.code') }}{{ __('app.product') }} <small
                                                         class="text-red">*</small></label>
@@ -65,6 +65,19 @@
                                                 @if ($errors->has('code'))
                                                     <div class="error text-danger text-sm mt-1">
                                                         {{ $errors->first('code') }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>{{ __('app.label_color_code') }} <small
+                                                        class="text-red">*</small></label>
+                                                <input type="text" name="color_code" class="form-control"
+                                                    value="{{ $product->color_code }}"
+                                                    placeholder="{{ __('app.label_required') }}{{ __('app.label_color_code') }}">
+                                                @if ($errors->has('code'))
+                                                    <div class="error text-danger text-sm mt-1">
+                                                        {{ $errors->first('color_code') }}</div>
                                                 @endif
                                             </div>
                                         </div>

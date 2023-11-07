@@ -11,7 +11,7 @@
                 <h6>{{ __('app.customer')}}</h6>
             </div>
             <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="fas fa-users"></i>
             </div>
             <a href="{{ url('customers') }}" class="small-box-footer">{{ __('app.label_more_info')}} <i
                     class="fas fa-arrow-circle-right"></i></a>
@@ -24,7 +24,7 @@
                 <h6>{{ __('app.staff_info')}}</h6>
             </div>
             <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="fas fa-users"></i>
             </div>
             <a href="{{ url('staff-info') }}" class="small-box-footer">{{ __('app.label_more_info')}} <i
                     class="fas fa-arrow-circle-right"></i></a>
@@ -37,7 +37,7 @@
                 <h6>{{ __('app.position')}}</h6>
             </div>
             <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="fas fa-road"></i>
             </div>
             <a href="{{ url('positions') }}" class="small-box-footer">{{ __('app.label_more_info')}} <i
                     class="fas fa-arrow-circle-right"></i></a>
@@ -50,7 +50,7 @@
                 <h6>{{ __('app.work_place')}}</h6>
             </div>
             <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="far fa-building"></i>
             </div>
             <a href="{{ url('workplace') }}" class="small-box-footer">{{ __('app.label_more_info')}} <i
                     class="fas fa-arrow-circle-right"></i></a>
@@ -63,7 +63,7 @@
                 <h6>{{ __('app.attendance')}}</h6>
             </div>
             <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="far fa-calendar-check"></i>
             </div>
             <a href="{{ url('attendances') }}" class="small-box-footer">{{ __('app.label_more_info')}} <i
                     class="fas fa-arrow-circle-right"></i></a>
@@ -76,7 +76,7 @@
                 <h6>{{ __('app.sales')}}</h6>
             </div>
             <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="fas fa-shopping-cart"></i>
             </div>
             <a href="{{ url('sales') }}" class="small-box-footer">{{ __('app.label_more_info')}} <i
                     class="fas fa-arrow-circle-right"></i></a>
@@ -89,7 +89,7 @@
                 <h6>{{ __('app.product_category')}}</h6>
             </div>
             <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="fas fa-tasks"></i>
             </div>
             <a href="{{ url('product-category') }}" class="small-box-footer">{{ __('app.label_more_info')}} <i
                     class="fas fa-arrow-circle-right"></i></a>
@@ -102,7 +102,7 @@
                 <h6>{{ __('app.product')}}</h6>
             </div>
             <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="fas fa-shopping-cart"></i>
             </div>
             <a href="{{ url('productes') }}" class="small-box-footer">{{ __('app.label_more_info')}} <i
                     class="fas fa-arrow-circle-right"></i></a>
@@ -115,7 +115,7 @@
                 <h6>{{ __('app.income_info')}}</h6>
             </div>
             <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="fas fa-history"></i>
             </div>
             <a href="{{ url('incomes') }}" class="small-box-footer">{{ __('app.label_more_info')}} <i
                     class="fas fa-arrow-circle-right"></i></a>
@@ -128,7 +128,7 @@
                 <h6>{{ __('app.expend_info')}}</h6>
             </div>
             <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="fas fa-history"></i>
             </div>
             <a href="{{ url('expends') }}" class="small-box-footer">{{ __('app.label_more_info')}} <i
                     class="fas fa-arrow-circle-right"></i></a>
@@ -142,7 +142,7 @@
                 <h6>{{ __('app.user_info')}}</h6>
             </div>
             <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="fas fa-users-cog"></i>
             </div>
             <a href="{{ url('users') }}" class="small-box-footer">{{ __('app.label_more_info')}} <i
                     class="fas fa-arrow-circle-right"></i></a>
@@ -155,7 +155,7 @@
                 <h6>{{ __('app.role_permission')}}</h6>
             </div>
             <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="fas fa-user-shield"></i>
             </div>
             <a href="{{ url('roles') }}" class="small-box-footer">{{ __('app.label_more_info')}} <i
                     class="fas fa-arrow-circle-right"></i></a>
@@ -169,7 +169,7 @@
                 <h6>{{ __('app.income_options')}}</h6>
             </div>
             <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="fas fa-chart-line"></i>
             </div>
             <a href="{{ url('income-options') }}" class="small-box-footer">{{ __('app.label_more_info')}} <i
                     class="fas fa-arrow-circle-right"></i></a>
@@ -183,7 +183,7 @@
                 <h6>{{ __('app.expend_options')}}</h6>
             </div>
             <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="fas fa-chart-area"></i>
             </div>
             <a href="{{ url('expend-options') }}" class="small-box-footer">{{ __('app.label_more_info')}} <i
                     class="fas fa-arrow-circle-right"></i></a>
@@ -197,7 +197,7 @@
                 <h6>{{ __('app.work_time')}}</h6>
             </div>
             <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="far fa-clock"></i>
             </div>
             <a href="{{ url('times') }}" class="small-box-footer">{{ __('app.label_more_info')}} <i
                     class="fas fa-arrow-circle-right"></i></a>

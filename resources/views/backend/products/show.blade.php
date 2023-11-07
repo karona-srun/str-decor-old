@@ -82,15 +82,15 @@
                                     <td class=" text-break">: {{ $product->buying_date }}</td>
                                 </tr>
                                 <tr>
-                                    <th>{{ __('app.label_product_qty') }}{{ __('app.label_store_stock') }}</th>
+                                    <th>{{ __('app.label_qty_store_stock') }}</th>
                                     <td class=" text-break">: {{ $product->store_stock }}</td>
                                 </tr>
                                 <tr>
-                                    <th>{{ __('app.label_product_qty') }}{{ __('app.label_warehouse') }}</th>
+                                    <th>{{ __('app.label_qty_warehouse') }}</th>
                                     <td class=" text-break">: {{ $product->warehouse }}</td>
                                 </tr>
                                 <tr>
-                                    <th>{{ __('app.label_product_qty') }}{{ __('app.label_sold_out') }}</th>
+                                    <th>{{ __('app.label_qty_sold_out') }}</th>
                                     <td class=" text-break">: {{ $product->sold_out ?? 0 }}</td>
                                 </tr>
                                 <tr>

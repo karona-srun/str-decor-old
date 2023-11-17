@@ -41,9 +41,9 @@ class DashboardSaleController extends Controller
                             ->groupBy('product_category_id')
                             ->get();
         $dataProducts = [];
-
-        $saleOrderDaily = SaleOrder::createdToday()->count();
-        $saleOrderMonthly = SaleOrder::createdThisMonth()->count();
+dd(SaleOrder::createdToday()->count());
+        $saleOrderDaily = 0;//SaleOrder::createdToday()->count() ;
+        $saleOrderMonthly = 0;//SaleOrder::createdThisMonth()->count();
 
         foreach($products as $row) {
             $dataProducts['label'][] = $row->getProductCategory($row->product_category_id);

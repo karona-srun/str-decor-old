@@ -15,7 +15,7 @@ class CreateSaleOrdersTable extends Migration
     {
         Schema::create('sale_orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('customer_id');
+            $table->bigInteger('customer_id');
             $table->string('sale_order');
             $table->string('reference');
             $table->date('sale_order_date');

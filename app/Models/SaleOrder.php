@@ -9,6 +9,8 @@ class SaleOrder extends Model
 {
     use HasFactory;
 
+    protected $table = 'sale_orders'; 
+
     public function customer()
     {
         return $this->belongsTo(Customer::class,'customer_id');

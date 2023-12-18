@@ -22,7 +22,7 @@
                         <thead>
                             <tr>
                                 <th>{{ __('app.table_no') }}</th>
-                                <th>{{ __('app.label_name') }}{{ __('app.customer') }}</th>
+                                <th>{{ __('app.customer_name') }}</th>
                                 <th>{{ __('app.phone') }}</th>
                                 <th>{{ __('app.current_place') }}</th>
                                 <th>{{ __('app.label_note') }}</th>

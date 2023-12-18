@@ -15,6 +15,7 @@ class CreateSaleOrdersTable extends Migration
     {
         Schema::create('sale_orders', function (Blueprint $table) {
             $table->id();
+            $table->string('sale_order_no')->nullable();
             $table->bigInteger('customer_id');
             $table->string('sale_order');
             $table->string('reference');
@@ -23,6 +24,7 @@ class CreateSaleOrdersTable extends Migration
             $table->string('warehouse')->nullable();
             $table->string('sale_person')->nullable();
             $table->string('delivery_method')->nullable();
+            $table->bigInteger('user_id')->nullable();
             $table->timestamps();
         });
     }

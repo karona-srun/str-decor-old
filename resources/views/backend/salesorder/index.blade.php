@@ -9,11 +9,11 @@
                 <div class="card-header">
                     <h3 class="card-title">{{ __('app.label_list') }}{{ __('app.sales_order') }}</h3>
                     <div class="card-tools">
-                        <a href="{{ url('/sales-order-exportexcel') }}" class="btn btn-sm btn-outline-primary"> <i
+                        <a href="{{ url('/sales-order-exportexcel') }}" class="btn btn-outline-primary"> <i
                                 class=" fas fa-download"></i>
                             {{ __('app.btn_download') }}</a>
                         @can('WorkPlace Create')
-                            <a href="{{ url('sales-order/create') }}" class="btn btn-sm btn-primary"> <i
+                            <a href="{{ url('sales-order/create') }}" class="btn btn-primary"> <i
                                     class=" fas fa-plus"></i>
                                 {{ __('app.btn_add') }}</a>
                         @endcan
@@ -26,6 +26,7 @@
                                 <thead>
                                     <tr>
                                         <th>{{ __('app.table_no') }}</th>
+                                        <th>#</th>
                                         <th>{{ __('app.customer_name') }}</th>
                                         <th>{{ __('app.sale_order') }}</th>
                                         <th>{{ __('app.reference') }}</th>
@@ -43,6 +44,7 @@
                                     @foreach ($saleOrders as $key => $item)
                                         <tr>
                                             <td>{{ ++$key }}</td>
+                                            <td><span class="badge badge-primary text-md-center">{{ $item->sale_order_no }}</span></td>
                                             <td>{{ $item->customer->customer_name ?? 'N/A' }}</td>
                                             <td>{{ $item->sale_order }}</td>
                                             <td>
@@ -57,16 +59,17 @@
                                             <td>{{ $item->created_at->format('Y-m-d h:m A') }}</td>
                                             <td>{{ $item->updated_at->format('Y-m-d h:m A') }}</td>
                                             <td>
-                                                <div class="row g-2 align-items-center">
-                                                    <div class="col-6 col-sm-4 col-md-2 col-xl-auto">
+                                                <div class="row align-items-center">
+                                                    <div class="col-sm-12 col-md-12">
+                                                        <a href="{{ url('/sales-order/print/' . $item->id ) }}"
+                                                            class="btn btn-sm btn-icon btn-success"> <i class="fas fa-print"></i> </a>
                                                         <a href="{{ url('sales-order/' . $item->id . '/edit') }}"
-                                                            class="btn btn-sm btn-warning"> <i class="fas fa-edit"></i> </a>
-                                                    </div>
-                                                    <div class="col-6 col-sm-4 col-md-2 col-xl-auto">
-                                                        <form action="{{ url('sales-order/' . $item->id) }}" method="post">
+                                                            class="btn btn-sm btn-icon btn-warning"> <i class="fas fa-edit"></i> </a>
+                                                    
+                                                        <form action="{{ url('sales-order/' . $item->id) }}" method="post" style="display: contents;">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                            <button type="submit" class="btn btn-icon btn-danger btn-sm">
                                                                 <i class="fas fa-trash-alt"></i>
                                                             </button>
                                                         </form>

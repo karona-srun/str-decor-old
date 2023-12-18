@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\SaleOrder;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -35,6 +36,14 @@ class SaleOrderController extends Controller
     {
         $customers = Customer::orderBy('customer_name','desc')->get();
         return view('backend.salesorder.create', compact('customers'));
+    }
+
+    public function SOGenerate()
+    {
+        $invoiceCount = SaleOrder::count();
+        $nextInvoiceNumber = $invoiceCount + 1;
+        $invoiceNo = 'SO-'.date('ymd'). str_pad($nextInvoiceNumber, 6, '0', STR_PAD_LEFT);
+        return $invoiceNo;
     }
 
     /**
@@ -77,6 +86,7 @@ class SaleOrderController extends Controller
         }
         
         $saleOrder = new SaleOrder();
+        $saleOrder->sale_order_no = $this->SOGenerate();
         $saleOrder->customer_id = $request->customer_id;
         $saleOrder->sale_order = $request->sale_order;
         $saleOrder->reference = $imageName;
@@ -85,6 +95,7 @@ class SaleOrderController extends Controller
         $saleOrder->warehouse = $request->warehouse;
         $saleOrder->sale_person = $request->sale_person;
         $saleOrder->delivery_method = $request->delivery_method;
+        $saleOrder->user_id = Auth::user()->id;
         $saleOrder->save();
 
         return redirect('/sales-order')->with('success', __('app.sale_order').__('app.label_created_successfully'));
@@ -212,6 +223,13 @@ class SaleOrderController extends Controller
         ];
 
         return Helpers::exportExcel($saleOrder, $heading, $file_name);
+    }
+
+    public function print($id)
+    {
+        $customers = Customer::orderBy('customer_name','desc')->get();
+        $saleOrder = SaleOrder::find($id);
+        return view('backend.salesorder.print', compact('customers','saleOrder'));
     }
     /**
      * Remove the specified resource from storage.

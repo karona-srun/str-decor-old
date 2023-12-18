@@ -28,6 +28,9 @@
         html body {
             font-family: "Hanuman";
         }
+        *{
+            font-family: "Hanuman";
+        }
 
         .pre-wrap {
             white-space: pre-wrap;

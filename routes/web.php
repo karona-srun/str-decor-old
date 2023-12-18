@@ -141,6 +141,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('sales-order', SaleOrderController::class);
     Route::get('sales-order-download-file/{id}', [App\Http\Controllers\SaleOrderController::class, 'getDownload']);
     Route::get('/sales-order-exportexcel', [App\Http\Controllers\SaleOrderController::class, 'exportExcel']);
+    Route::get('/sales-order/print/{id}', [App\Http\Controllers\SaleOrderController::class, 'print']);
 
     #Display all notifications to Admin
     Route::get('/notification', [App\Http\Controllers\NotificationController::class,'showNotificaton']);

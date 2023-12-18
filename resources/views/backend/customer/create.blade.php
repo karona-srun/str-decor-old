@@ -21,7 +21,7 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>{{ __('app.label_name') }}{{ __('app.customer') }} <small
+                                    <label>{{ __('app.customer_name') }} <small
                                             class="text-red">*</small></label>
                                     <input type="text" name="customer_name" class="form-control" value="{{ old('customer_name') }}"
                                         placeholder="{{ __('app.label_name') }}{{ __('app.customer') }}">
